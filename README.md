@@ -1,4 +1,6 @@
 # SC2002
+Class Diagram: https://drive.google.com/file/d/15pSz6I1CwTE3Syg5YPZCTxLL35eUMB9z/view?usp=sharing
+Sequence Diagram: https://drive.google.com/file/d/1ZPB-S3n-ltpsRg66vPfY-xy4h-XSnRVn/view?usp=sharing
 Academic victims
 
 LOGIC FLOW
