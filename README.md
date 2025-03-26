@@ -129,7 +129,7 @@ Represents a housing project with details about flat types, availability, and as
 - `int officerSlots` — Number of officer slots available for this project.
 - `List<String> assignedOfficers` — List of officer IDs or names assigned to the project.
 - `String managerName` — Name of the manager overseeing the project.
-- `String appOpenDate`, `String appCloseDate` — Opening and cloing dates for application to project.
+- `String appOpenDate`, `String appCloseDate` — Opening and closing dates for application to project.
 
 ### Usage
 - Check unit and officer slot availability.
