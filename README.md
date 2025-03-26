@@ -1,13 +1,14 @@
-# SC2002
+# SC2002 — Object-Oriented Programming Final Project
 
-### Academic victims
+### 🧾 Overview
+This repository contains our implementation of a HDB BTO app
+---
 
-Class Diagram: https://drive.google.com/file/d/15pSz6I1CwTE3Syg5YPZCTxLL35eUMB9z/view?usp=sharing
+### 🧩 UML Diagrams
 
-Sequence Diagram: https://drive.google.com/file/d/1ZPB-S3n-ltpsRg66vPfY-xy4h-XSnRVn/view?usp=sharing
-
-Sequence Diagram(alternative): 
-https://lucid.app/lucidchart/34800e0d-b5b7-46e3-824d-ea31c8394199/edit?viewport_loc=-30%2C41%2C1352%2C851%2C0_0&invitationId=inv_55a8077d-9c02-4029-95d7-76b96ddfd8c1
+- 📘 **Class Diagram:** [Google Drive](https://drive.google.com/file/d/15pSz6I1CwTE3Syg5YPZCTxLL35eUMB9z/view?usp=sharing)
+- 📗 **Sequence Diagram:** [Google Drive](https://drive.google.com/file/d/1ZPB-S3n-ltpsRg66vPfY-xy4h-XSnRVn/view?usp=sharing)
+- 📙 **Alternative Sequence (Lucidchart):** [Lucidchart](https://lucid.app/lucidchart/34800e0d-b5b7-46e3-824d-ea31c8394199/edit?viewport_loc=-30%2C41%2C1352%2C851%2C0_0&invitationId=inv_55a8077d-9c02-4029-95d7-76b96ddfd8c1)
 
 
 **LOGIC FLOW** 
