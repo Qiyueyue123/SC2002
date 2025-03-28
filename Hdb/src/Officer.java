@@ -1,3 +1,3 @@
-public class Officer {
+public class Officer extends User {
     
 }
