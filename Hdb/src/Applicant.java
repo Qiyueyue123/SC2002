@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Applicant {
+public class Applicant extends User{
+    
     String name;
 	Scanner scan = new Scanner(System.in);
 	
