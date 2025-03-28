@@ -1,3 +1,3 @@
-public class Applicant {
+public class Applicant extends User{
     
 }
