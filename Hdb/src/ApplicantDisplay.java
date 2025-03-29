@@ -55,27 +55,36 @@ public class ApplicantDisplay implements UserDisplay {
 			
 		case 3:
 			EnquiryList.showUserEnquiries(applicant);
-	    	
-	    	System.out.println("Which enquiry would you like to edit? Input ID:");
-	    	int enquiryNo = scan.nextInt();
-	    	scan.nextLine(); //needs this after every scanInt
-	    	Enquiry editedEnquiry = EnquiryList.selectEnquiry(enquiryNo); 
-	    	
-	    	System.out.println("Write your enquiry:");
-	        String msg = scan.nextLine(); 
-	        
-			applicant.editEnquiry(editedEnquiry, msg);
-			break;
+			ArrayList<Enquiry> userEnquiries = EnquiryList.getUserEnquiries(applicant);	
+			
+			if (!userEnquiries.isEmpty()) {
+				
+			    	System.out.println("Which enquiry would you like to edit? Input ID:");
+			    	int enquiryNo = scan.nextInt();
+			    	scan.nextLine(); //needs this after every scanInt
+			    	Enquiry editedEnquiry = EnquiryList.selectEnquiry(enquiryNo); 
+			    	
+			    	if (editedEnquiry != null) {
+				    	System.out.println("Write your enquiry:");
+				        String msg = scan.nextLine(); 
+						applicant.editEnquiry(editedEnquiry, msg);
+			    	}
+			}
 			
 		case 4:
 			EnquiryList.showUserEnquiries(applicant);
+			userEnquiries = EnquiryList.getUserEnquiries(applicant);	
 	    	
-	    	System.out.println("Which enquiry would you like to delete? Input ID:");
-	    	enquiryNo = scan.nextInt();
-	    	scan.nextLine(); //needs this after every scanInt
-	    	Enquiry delEnquiry = EnquiryList.selectEnquiry(enquiryNo);
-	    	
-			applicant.deleteEnquiry(delEnquiry);
+			if (!userEnquiries.isEmpty()) {
+			    System.out.println("Which enquiry would you like to delete? Input ID:");
+			    int enquiryNo = scan.nextInt();
+			    scan.nextLine(); //needs this after every scanInt
+			    Enquiry delEnquiry = EnquiryList.selectEnquiry(enquiryNo);
+		    	
+			    if (delEnquiry != null) {
+			    	applicant.deleteEnquiry(delEnquiry);
+			    }
+			}
 			break;
 			
 		case 5:
@@ -85,17 +94,18 @@ public class ApplicantDisplay implements UserDisplay {
 			if (!unansweredEnquiries.isEmpty()) {
 				EnquiryList.showUnansweredEnquiries();
 				System.out.println("Which enquiry would you like to reply to? Input ID: ");
-	        	int enquiryNum = scan.nextInt();
-	        	scan.nextLine(); //needs this after every scanInt
-	        	Enquiry unansweredEnquiry = EnquiryList.selectEnquiry(enquiryNum); //the array starts from 0
 				
+		        	int enquiryNum = scan.nextInt();
+		        	scan.nextLine(); //needs this after every scanInt
+		        	Enquiry unansweredEnquiry = EnquiryList.selectEnquiry(enquiryNum); //the array starts from 0
+					
 				System.out.println("Write your reply:");
-		        String reply = scan.nextLine();
+			        String reply = scan.nextLine();
 		        
-		        applicant.replyEnquiry(unansweredEnquiry, reply);
+		        	applicant.replyEnquiry(unansweredEnquiry, reply);
 			}
 			else {
-	    		System.out.println("There are no enquiries to reply.");
+	    			System.out.println("There are no enquiries to reply.");
 	    	}
 			
 			break;
