@@ -1,20 +1,26 @@
 
 public class Enquiry {
-    private String message;
+    private static int instanceCount = 1;
+	private final int id;
+	private String message;
     private String response;
     private final Applicant user;
-//    private Project project;
+    private boolean answered;
+    private final Project project;
 
-   
-    //initial response is not set
-    //pretend project does not exist yet bc i need to figure out if i want another project manager
-    public Enquiry(Applicant user) {
+
+    Enquiry(Applicant user, Project project) {
+    	this.id = instanceCount++;
         this.message = null;
         this.response = null;
         this.user = user;
-  //      this.project = project;
+        this.project = project;
+        this.answered = false;
     }
     
+    public int getID() {
+    	return id;
+    }
 
     public void setMessage(String message) {
     	this.message = message;
@@ -30,6 +36,7 @@ public class Enquiry {
     
     public void setResponse(String response) {
     	this.response = response;
+    	this.answered = true;
     }
     
     public Applicant getUser() {
@@ -37,8 +44,13 @@ public class Enquiry {
     }
 
 
-	//public Project getProject() {
-	//	return project;
-//	}
+	public Project getProject() {
+		return project;
+	}
+    
+    public boolean isAnswered() {
+    	return answered;
+    }
 
+	
 }
