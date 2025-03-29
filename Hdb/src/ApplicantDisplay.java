@@ -70,7 +70,7 @@ public class ApplicantDisplay implements UserDisplay {
 						applicant.editEnquiry(editedEnquiry, msg);
 			    	}
 			}
-			
+			break;
 		case 4:
 			EnquiryList.showUserEnquiries(applicant);
 			userEnquiries = EnquiryList.getUserEnquiries(applicant);	
