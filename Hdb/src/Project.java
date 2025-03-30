@@ -7,6 +7,7 @@ public class Project {
 	private int num3Rooms;
 	private ArrayList<Applicant> peopleApplied;
 	
+	//might separate the list bc a new project got like 0 peeps applying
 	Project(String name, boolean visibility, int num2Rooms, int num3Rooms, ArrayList<Applicant> peopleApplied) {
 		this.name = name;
 		this.visibility = visibility;

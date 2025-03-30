@@ -4,12 +4,12 @@ public class Enquiry {
 	private final int id;
 	private String message;
     private String response;
-    private final User user;
+    private final Applicant user;
     private boolean answered;
     private final Project project;
 
 
-    Enquiry(User user, Project project) {
+    Enquiry(Applicant user, Project project) {
     	this.id = instanceCount++;
         this.message = null;
         this.response = null;
