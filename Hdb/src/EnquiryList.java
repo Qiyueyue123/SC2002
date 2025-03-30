@@ -32,7 +32,6 @@ public class EnquiryList {
 	}
 	
 	
-	
 	public static void showAllEnquiries() { 
 		sortByProjects();
 		
@@ -43,15 +42,11 @@ public class EnquiryList {
 		else {
 			System.out.println("List of Enquiries:");
 			for (Enquiry e : enquiries) {
-				Applicant user = e.getUser();
-				Project proj = e.getProject();
-				System.out.println("[ID " + e.getID() + "] " + proj.getName() + " | " + user.getName() + ": " + e.getMessage());
-				if (e.isAnswered()) {
-					System.out.println("| Response:" + e.getResponse());
+				e.print();
 				}
 			}
 		}
-	}
+
 	
 	public static ArrayList<Enquiry> getAllEnquiries() {
 		sortByProjects();
@@ -72,12 +67,7 @@ public class EnquiryList {
 			System.out.println("List of Enquiries:");
 			for (Enquiry e : enquiries) {
 				if (!e.isAnswered()) {
-					Applicant user = e.getUser();
-					Project proj = e.getProject();
-					System.out.println("[ID " + e.getID() + "] " + proj.getName() + " | " + user.getName() + ": " + e.getMessage());
-					if (e.isAnswered()) {
-						System.out.println("| Response:" + e.getResponse());
-					}
+					e.print();
 				}
 			}
 		}
@@ -106,16 +96,13 @@ public class EnquiryList {
 			System.out.println("List of Enquiries:");
 			for (Enquiry e : enquiries) {
 				if (e.getUser().equals(user)) {
-					Project proj = e.getProject();
-					System.out.println("[ID " + e.getID() + "] " + proj.getName() + " | " + user.getName() + ": " + e.getMessage());
-					if (e.isAnswered()) {
-						System.out.println("| Response:" + e.getResponse());
+					e.print();
 					}
 				}
 			}
 		}
 		
-	}
+
 	
 	//To get enquiry list specific to user
 	public static ArrayList<Enquiry> getUserEnquiries(Applicant user) {
@@ -142,15 +129,12 @@ public class EnquiryList {
 			System.out.println("List of Enquiries:");
 			for (Enquiry e : enquiries) {
 				if (e.getProject().equals(project)) {
-					Applicant user = e.getUser();
-					System.out.println("[ID " + e.getID() + "] " + project.getName() + " | " + user.getName() + ": " + e.getMessage());
-					if (e.isAnswered()) {
-						System.out.println("| Response:" + e.getResponse());
+					e.print();
 					}
 				}
 			}
 		}
-	}	
+		
 	
 	//To get enquiry list specific to project
 	public static ArrayList<Enquiry> getProjEnquiries(Project project) {
@@ -163,9 +147,9 @@ public class EnquiryList {
 	}
 	
 	
-	 public static Enquiry selectEnquiry(int no) {
+	 public static Enquiry selectEnquiry(int id) {
 		 for (Enquiry e: enquiries) {
-			 if (e.getID() == (no)) {
+			 if (e.getID() == (id)) {
 				 return e;
 			 }
 		 }

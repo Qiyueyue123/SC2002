@@ -8,10 +8,11 @@ public class TestingApp {
     public static void main(String[] args) {
         new EnquiryList(); //singular enquiry list created to handle projects, bc obj need to be created b4 can be used
 		new ProjectList(); //singular project list created to handle projects, bc obj need to be craeted b4 can be used
-		Application a = new Application();
+		new ApplicationList();
+		
 		ArrayList<Applicant> dummyList = new ArrayList<Applicant>();
-		Applicant Joe = new Applicant("Joe", 40, true, a);
-		Applicant Tim = new Applicant("Tim", 23, true, a);
+		Applicant Joe = new Applicant("Joe", 40, true, "S1234567E");
+		Applicant Tim = new Applicant("Tim", 35, false, "T1234566A");
 		
 		Project AllGroves = new Project("All  Groves", true, 3, 4, dummyList);
 		Project ZedWays = new Project("ZedWays", true, 0, 5, dummyList);
@@ -21,8 +22,6 @@ public class TestingApp {
 		ProjectList.addProject(AllGroves);
 		ProjectList.addProject(BummerGroves);
 		ProjectList.showAllProjects();
-		
-
 		
 		UserDisplay chosenDisplay = new ApplicantDisplay(Joe); 
 		chosenDisplay.showDisplay();
