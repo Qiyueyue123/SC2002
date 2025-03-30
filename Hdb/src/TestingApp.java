@@ -7,22 +7,22 @@ public class TestingApp {
         new EnquiryList(); //singular enquiry list created to handle projects, bc obj need to be created b4 can be used
 		new ProjectList(); //singular project list created to handle projects, bc obj need to be craeted b4 can be used
 		
-		Applicant Joe = new Applicant("Joe");
-		Applicant Tim = new Applicant("Tim");
+		// Applicant Joe = new Applicant("Joe");
+		// Applicant Tim = new Applicant("Tim");
 		
-		Project AllGroves = new Project("All  Groves");
-		Project ZedWays = new Project("ZedWays");
-		Project BummerGroves = new Project("BummerGroves");
+		// Project AllGroves = new Project("All  Groves");
+		// Project ZedWays = new Project("ZedWays");
+		// Project BummerGroves = new Project("BummerGroves");
 		
-		ProjectList.addProject(ZedWays);
-		ProjectList.addProject(AllGroves);
-		ProjectList.addProject(BummerGroves);
-		ProjectList.showAllProjects();
+		// ProjectList.addProject(ZedWays);
+		// ProjectList.addProject(AllGroves);
+		// ProjectList.addProject(BummerGroves);
+		// ProjectList.showAllProjects();
 		
 
 		
-		UserDisplay chosenDisplay = new ApplicantDisplay(Joe); 
-		chosenDisplay.showDisplay();
+		// UserDisplay chosenDisplay = new ApplicantDisplay(Joe); 
+		// chosenDisplay.showDisplay();
 		
     }
 }
