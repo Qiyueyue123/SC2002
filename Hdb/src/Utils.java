@@ -85,17 +85,5 @@ public class Utils {
         }
         System.out.println("Invalid NRIC or password. Please try again.");
         return null;
-        /*if (role.equals("Applicant")){
-            //check applicant csv
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-
-            return new Applicant();
-        } else if (role.equals("Officer")) {
-            //check officer csv
-            return new Officer();
-        } else {
-            //check manager csv
-            return new Manager();
-        }*/
     }
 }
