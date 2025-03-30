@@ -52,5 +52,11 @@ public class Enquiry {
     	return answered;
     }
 
+    public void print() {
+		System.out.println("[ID " + id + "] " + project.getName() + " | " + user.getName() + ": " + message);
+		if (this.isAnswered()) {
+			System.out.println("| Response:" + response);
+		}
+	}
 	
 }

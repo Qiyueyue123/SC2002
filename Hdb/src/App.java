@@ -1,4 +1,4 @@
-public class App {
+/* public class App {
     public static void main(String[] args) {
         User user = null;
         String role = "";
@@ -9,4 +9,4 @@ public class App {
         user = Utils.loginAuthenticator(role);
         }
     }
-}
+} */

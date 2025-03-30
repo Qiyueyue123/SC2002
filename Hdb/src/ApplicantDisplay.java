@@ -14,11 +14,14 @@ public class ApplicantDisplay implements UserDisplay {
     
 	System.out.println("========== Applicant User Menu ==========");
 	System.out.println("|Below are the actions you can take:    |");
-	System.out.println("|(1) View Enquiries                     |");
-	System.out.println("|(2) Create an Enquiry                  |");
-	System.out.println("|(3) Edit an Enquiry                    |");
-	System.out.println("|(4) Delete an Enquiry                  |");
-	System.out.println("|(5) Reply to an Enquiry                |");
+	System.out.println("|(1) View Projects List                 |");
+	System.out.println("|(2) Apply For a Project                |");
+	System.out.println("|(3) View Applied Project Status        |");
+	System.out.println("|(4) View Enquiries                     |");
+	System.out.println("|(5) Create an Enquiry                  |");
+	System.out.println("|(6) Edit an Enquiry                    |");
+	System.out.println("|(7) Delete an Enquiry                  |");
+	System.out.println("|(8) Reply to an Enquiry                |");
 	System.out.println("|(0) Exit                               |");
 	
 	System.out.println("Please enter your choice: ");
@@ -26,12 +29,32 @@ public class ApplicantDisplay implements UserDisplay {
 	
 	do {
 	switch (choice) {
-	
 		case 1:
+			applicant.viewProjects();
+			break;
+
+		case 2:
+			applicant.applyProject();
+			break;
+		
+		case 3:
+			applicant.viewAppliedProject();
+			System.out.println("Select 0 to return to homepage");
+			if ((!applicant.application.getAppliedStatus().equals("Unapplied")) && (!applicant.application.getAppliedStatus().equals("Unsuccessful"))) {
+				System.out.println("Application options: ");
+				System.out.println("(1) Request Withdrawal");
+			} else if(applicant.application.getAppliedStatus().equals("Successful")) {
+				System.out.println("(2) Request to Book Flat");
+			}
+			//add logic for checking and switches to req withdraw, book 
+			System.out.println();
+			break;
+	
+		case 4:
 			applicant.viewEnquiry();
 			break;
 			
-		case 2:
+		case 5:
 			ArrayList<Project> userProjs = ProjectList.getAllProjects();
 	    	
 	    	if (!ProjectList.isEmpty()) {
@@ -53,7 +76,7 @@ public class ApplicantDisplay implements UserDisplay {
 			
 			break;
 			
-		case 3:
+		case 6:
 			EnquiryList.showUserEnquiries(applicant);
 			ArrayList<Enquiry> userEnquiries = EnquiryList.getUserEnquiries(applicant);	
 			
@@ -71,7 +94,7 @@ public class ApplicantDisplay implements UserDisplay {
 			    	}
 			}
 			break;
-		case 4:
+		case 7:
 			EnquiryList.showUserEnquiries(applicant);
 			userEnquiries = EnquiryList.getUserEnquiries(applicant);	
 	    	
@@ -87,7 +110,7 @@ public class ApplicantDisplay implements UserDisplay {
 			}
 			break;
 			
-		case 5:
+		case 8:
 			//will be moved to manager or officer display
 			ArrayList<Enquiry> unansweredEnquiries = EnquiryList.getUnansweredEnquiries();
 			
