@@ -7,8 +7,8 @@ public class Applicant extends User{
     String name;
 	Scanner scan = new Scanner(System.in);
 	
-	Applicant(String name) {
-		this.name = name;
+	public Applicant(String nric, String name,String password, int age, boolean married) {
+		super(nric,name,password,age,married);
 	}
 	
 	public String getName() {
