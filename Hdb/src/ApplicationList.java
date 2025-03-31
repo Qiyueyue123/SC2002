@@ -5,9 +5,11 @@ import java.util.Comparator;
 
 //List of BTO Applications:
 //NRIC: SXXXXXXXE | All Groves | Status: Pending
+//| Withdrawal requested: true
+
 
 public class ApplicationList {
-    private static ArrayList<Application> applications;
+	private static ArrayList<Application> applications;
 	
 	ApplicationList() {
 		applications = new ArrayList<Application>();
@@ -41,8 +43,39 @@ public class ApplicationList {
 				Applicant applicant = a.getApplicant();
 				Project appliedProject = a.getProject();
 				System.out.println("NRIC: " + applicant.getNRIC() + " | " + appliedProject.getName() + " | Status: " + a.getAppliedStatus());
+				System.out.println("| Withdrawal requested: " + a.getWithdrawalRequest());
+				System.out.println();
 			}
 		}
+	}
+	
+	public static void showWithdrawalRequested() {
+		sortByProjects();
+		ArrayList<Application> withdrawalRequested = getWithdrawalReqeusted();
+		
+		if (withdrawalRequested.isEmpty()) {
+			System.out.println("There are no applications.");
+		}
+		else {
+			System.out.println("List of BTO Applications:");
+			for (Application a: withdrawalRequested) {
+				if (a.getWithdrawalRequest()) {
+					Applicant applicant = a.getApplicant();
+					Project appliedProject = a.getProject();
+					System.out.println("NRIC: " + applicant.getNRIC() + " | " + appliedProject.getName() + " | Status: " + a.getAppliedStatus());
+					System.out.println("| Withdrawal requested: " + a.getWithdrawalRequest());
+					System.out.println();
+				}
+			}
+		}
+	}
+	
+	public static ArrayList<Application> getWithdrawalReqeusted() {
+		sortByProjects();
+		ArrayList<Application> withdrawalRequested = applications.stream()
+                .filter(a -> a.getWithdrawalRequest())
+                .collect(Collectors.toCollection(ArrayList::new));
+		return withdrawalRequested;
 	}
 	
 	public static Application selectApplication(String nric) {
@@ -65,4 +98,7 @@ public class ApplicationList {
 	public static boolean isEmpty() {
 		return applications.isEmpty();
 	}
+	
+	
 }
+
