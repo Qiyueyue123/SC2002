@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 // List of Enquiries:
 // [ID 23] GrovesProject | dummyUser123: Message
 // | Response: Reply (if answered)
-
 public class EnquiryList {
 	private static ArrayList<Enquiry> enquiries; 
 	
@@ -30,6 +29,7 @@ public class EnquiryList {
 			}
 		});
 	}
+	
 	
 	
 	public static void showAllEnquiries() { 
@@ -58,14 +58,15 @@ public class EnquiryList {
 	//show all unanswered enquiries
 	public static void showUnansweredEnquiries() {
 		sortByProjects();
+		ArrayList<Enquiry> unansweredEnquiries = getUnansweredEnquiries();
 		
-		if (enquiries.isEmpty()) {
+		if (unansweredEnquiries.isEmpty()) {
 			System.out.println("There are no enquiries.");
 		}
 		
 		else {
 			System.out.println("List of Enquiries:");
-			for (Enquiry e : enquiries) {
+			for (Enquiry e : unansweredEnquiries) {
 				if (!e.isAnswered()) {
 					e.print();
 				}
@@ -87,14 +88,15 @@ public class EnquiryList {
 	//To display enquiry list specific to user
 	public static void showUserEnquiries(Applicant user) {
 		sortByProjects();
+		ArrayList<Enquiry> userEnquiries = getUserEnquiries(user);
 		
-		if (enquiries.isEmpty()) {
+		if (userEnquiries.isEmpty()) {
 			System.out.println("There are no enquiries.");
 		}
 		
 		else {
 			System.out.println("List of Enquiries:");
-			for (Enquiry e : enquiries) {
+			for (Enquiry e : userEnquiries) {
 				if (e.getUser().equals(user)) {
 					e.print();
 					}
@@ -120,14 +122,15 @@ public class EnquiryList {
 	//To display enquiry list specific to project
 	public static void showProjEnquiries(Project project) {
 		sortByProjects();
+		ArrayList<Enquiry> projEnquiries = getProjEnquiries(project);
 		
-		if (enquiries.isEmpty()) {
+		if (projEnquiries.isEmpty()) {
 			System.out.println("There are no enquiries.");
 		}
 		
 		else {
 			System.out.println("List of Enquiries:");
-			for (Enquiry e : enquiries) {
+			for (Enquiry e : projEnquiries) {
 				if (e.getProject().equals(project)) {
 					e.print();
 					}
