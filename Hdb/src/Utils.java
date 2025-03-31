@@ -58,7 +58,7 @@ public class Utils {
             br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-
+                
                 String name = values[0].trim();
                 String csvNric = values[1].trim();
                 int age = Integer.parseInt(values[2].trim());

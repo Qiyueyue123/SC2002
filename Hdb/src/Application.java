@@ -93,7 +93,7 @@ public class Application {
 			numUnits = project.getNum3Rooms();
 		}
 		
-		if (applicant.isMarried()) {
+		if (applicant.getMaritalStatus()) {
 			marriedStatus = "Married";
 		}
 		else {

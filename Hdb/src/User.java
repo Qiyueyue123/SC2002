@@ -13,7 +13,7 @@ public abstract class User {
 		this.married = married;
 		this.application = null;
     }
-    public String getNric(){return nric;}
+    public String getNRIC(){return nric;}
     public String getName(){return name;}
     public int getAge(){return age;}
     public boolean getMaritalStatus(){return married;}
