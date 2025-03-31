@@ -12,13 +12,9 @@ public class Applicant extends User{
 
 	Scanner scan = new Scanner(System.in);
 	
-	Applicant(String name, int age, boolean married, String nric) {
-		this.name = name;
-		this.nric = nric;
-		this.age = age;
-		this.married = married;
+	public Applicant(String name, int age, boolean married, String nric) {
+		super(name, age, married, nric);
 		this.application = null;
-
 	}
 	
 	public String getName() {
