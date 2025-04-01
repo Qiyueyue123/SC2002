@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.apple.eawt.Application;
+
+
 public class ManagerDisplay implements UserDisplay{
     Scanner scan = new Scanner(System.in);
 	private Manager manager;
@@ -14,15 +17,22 @@ public class ManagerDisplay implements UserDisplay{
 		
 		do {
 			
-			System.out.println("========== Manager User Menu ==========");
-			System.out.println("|Below are the actions you can take:    |");
-			System.out.println("|(1)                  |");
-			System.out.println("|(2)                                    |");
-			System.out.println("|(3) View all Enquiries                 |");
-			System.out.println("|(4) View Project Enquiries             |");
-			System.out.println("|(5) Reply to an Enquiry                |");
-			System.out.println("|(7) Approve/Reject Withdrawal of App   |");
-			System.out.println("|(0) Exit                               |");
+			System.out.println("=========== Manager User Menu ===========");
+			System.out.println("|Below are the actions you can take:     |");
+			System.out.println("|(1) Create a project                    |");
+			System.out.println("|(2) Edit a project                      |");
+			System.out.println("|(3) Delete a Project                    |");
+			System.out.println("|(4) View all my projects                |");
+			System.out.println("|(5) Approve/Reject Officer Registration |");
+			System.out.println("|(6) Approve/Reject Applicant Application|");
+			System.out.println("|(7) View all Enquiries                  |");
+			System.out.println("|(8) View Project Enquiries              |");
+			System.out.println("|(9) Reply to an Enquiry                 |");
+			System.out.println("|(10) Approve/Reject Withdrawal of App    |");
+			System.out.println("|(11) Generate Report                    |");
+			System.out.println("|(0) Exit                                |");
+		
+			
 
 		System.out.println();
 		System.out.println("Please enter your choice: ");
@@ -30,18 +40,234 @@ public class ManagerDisplay implements UserDisplay{
 		scan.nextLine();
 			
 		switch (choice) {
-			case 1:
+			case 1: //getting user input for creating project
+				System.out.println("Enter Project Name: ");
+				String projName = scan.nextLine();
+
+				System.out.println("Enter Neighborhood: ");
+				String neighborhood = scan.nextLine();
+
+				System.out.println("Enter Visibility (true/false): ");
+				boolean visibility = Boolean.parseBoolean(scan.nextLine());
+
+				System.out.println("Enter number of 2-Room units: ");
+				int num2Rooms = Integer.parseInt(scan.nextLine());
+
+				System.out.println("Enter number of 3-Room units: ");
+				int num3Rooms = Integer.parseInt(scan.nextLine());
+
+				System.out.println("Enter Application Opening Date (YYYY-MM-DD): ");
+				String openingDate = scan.nextLine();
+
+				System.out.println("Enter Application Closing Date (YYYY-MM-DD): ");
+				String closingDate = scan.nextLine();
+
+				System.out.println("Enter available HDB Officer Slots: ");
+				int availableOfficerSlots = Integer.parseInt(scan.nextLine());
+    
+    
+				manager.createProject(projName, neighborhood, visibility, num2Rooms, num3Rooms, openingDate, closingDate, availableOfficerSlots);
+				break;
+				
+			case 2: // user inputs for editing and then updating it through parameters in the method edit
+				ArrayList<Project> myProjects = ProjectList.getUserProjects(manager);
+                    if (myProjects.isEmpty()) {
+                        System.out.println("You have no projects to edit.");
+                    } 
+					else {
+                        System.out.println("Your Projects:");
+                        for (int i = 0; i < myProjects.size(); i++) {
+                            System.out.println((i+1) + ") ");
+                            myProjects.get(i).print();
+                            System.out.println();
+                        }
+                        System.out.print("Enter the number of the project you want to edit: ");
+                        int projIndex = Integer.parseInt(scan.nextLine());
+                        if (projIndex < 1 || projIndex > myProjects.size()) {
+                            System.out.println("Invalid selection.");
+                        } 
+						else {
+                            Project projToEdit = myProjects.get(projIndex - 1);
+                            System.out.println("Editing Project: " + projToEdit.getName());
+                            
+                            System.out.print("Enter new Project Name (or press Enter to keep \"" + projToEdit.getName() + "\"): ");
+                            String newName = scan.nextLine();
+                            if (newName.isEmpty()) {
+                                newName = projToEdit.getName();
+                            }
+                            
+                            System.out.print("Enter new Neighborhood (or press Enter to keep \"" + projToEdit.getNeighborhood() + "\"): ");
+                            String newNeighborhood = scan.nextLine();
+                            if (newNeighborhood.isEmpty()) {
+                                newNeighborhood = projToEdit.getNeighborhood();
+                            }
+                            
+                            System.out.print("Enter new Visibility (true/false) (or press Enter to keep current (" 
+                                               + projToEdit.getVisibility() + ")): ");
+                            String visInput = scan.nextLine();
+                            boolean newVisibility = visInput.isEmpty() ? projToEdit.getVisibility() : Boolean.parseBoolean(visInput);
+                            
+                            System.out.print("Enter new number of 2-Room units (or press Enter to keep current (" 
+                                               + projToEdit.getNum2Rooms() + ")): ");
+                            String num2Input = scan.nextLine();
+                            int newNum2Rooms = num2Input.isEmpty() ? projToEdit.getNum2Rooms() : Integer.parseInt(num2Input);
+                            
+                            System.out.print("Enter new number of 3-Room units (or press Enter to keep current (" 
+                                               + projToEdit.getNum3Rooms() + ")): ");
+                            String num3Input = scan.nextLine();
+                            int newNum3Rooms = num3Input.isEmpty() ? projToEdit.getNum3Rooms() : Integer.parseInt(num3Input);
+                            
+                            System.out.print("Enter new Application Opening Date (YYYY-MM-DD) (or press Enter to keep current (" 
+                                               + projToEdit.getOpeningDate() + ")): ");
+                            String newOpeningDate = scan.nextLine();
+                            if (newOpeningDate.isEmpty()) {
+                                newOpeningDate = projToEdit.getOpeningDate();
+                            }
+                            
+                            System.out.print("Enter new Application Closing Date (YYYY-MM-DD) (or press Enter to keep current (" 
+                                               + projToEdit.getClosingDate() + ")): ");
+                            String newClosingDate = scan.nextLine();
+                            if (newClosingDate.isEmpty()) {
+                                newClosingDate = projToEdit.getClosingDate();
+                            }
+                            
+                            System.out.print("Enter new Available HDB Officer Slots (or press Enter to keep current (" 
+                                               + projToEdit.getAvailableOfficerSlots() + ")): ");
+                            String slotInput = scan.nextLine();
+                            int newAvailableOfficerSlots = slotInput.isEmpty() ? projToEdit.getAvailableOfficerSlots() : Integer.parseInt(slotInput);
+                            
+                            manager.editProject(projToEdit, newName, newNeighborhood, newVisibility, newNum2Rooms, newNum3Rooms, newOpeningDate, newClosingDate, newAvailableOfficerSlots);
+						}
+					}
+
+
 				
 				break;
-			case 2:
-				
+			
+			case 3:
+				ArrayList<Project> myProjectsForDelete = ProjectList.getUserProjects(manager);
+				if (myProjectsForDelete.isEmpty()) {
+					System.out.println("No projects to delete.");
+				} 
+				else {
+					System.out.println("Your Projects:");
+					for (int i = 0; i < myProjectsForDelete.size(); i++) {
+						System.out.println((i+1) + ") " + myProjectsForDelete.get(i).getName());
+					}
+					System.out.print("Select a project to delete (number): ");
+					int delIndex = Integer.parseInt(scan.nextLine());
+					if (delIndex < 1 || delIndex > myProjectsForDelete.size()) {
+					System.out.println("Invalid selection.");
+					} 
+					else {
+						Project projToDelete = myProjectsForDelete.get(delIndex - 1);
+						manager.deleteProject(projToDelete);
+					}
+				}
 				break;
 				
-			case 3: 
+			case 4:
+				manager.viewMyProjects();
+				break;
+			
+			case 5:
+
+			ArrayList<Project> myProjectsForOfficer = ProjectList.getUserProjects(manager);
+			//check for projects
+			if (myProjectsForOfficer.isEmpty()) {
+				System.out.println("No projects available.");
+			} else {
+				System.out.println("Select a project to manage officer registrations:");
+				for (int i = 0; i < myProjectsForOfficer.size(); i++) {
+					System.out.println((i+1) + ") " + myProjectsForOfficer.get(i).getName());
+				}
+				int projIndexOfficer = Integer.parseInt(scan.nextLine());
+
+				//checks if index of officer in the officerlist is valid
+				if (projIndexOfficer < 1 || projIndexOfficer > myProjectsForOfficer.size()) {
+					System.out.println("Invalid project selection.");
+				} else {
+					Project selectedProject = myProjectsForOfficer.get(projIndexOfficer - 1);
+					// Josh pls have this in officerlist.  OfficerList.getPendingRegistrations(project) returns pending officer registrations
+					ArrayList<Officer> pendingOfficers = OfficerList.getPendingRegistrations(selectedProject);
+					if (pendingOfficers.isEmpty()) {
+						System.out.println("No pending officer registrations for this project.");
+					} else {
+						System.out.println("Pending Officer Registrations:");
+						for (int i = 0; i < pendingOfficers.size(); i++) {
+							System.out.println((i+1) + ") " + pendingOfficers.get(i).getName());
+						}
+
+						System.out.print("Select an officer to process: ");
+						int officerIndex = Integer.parseInt(scan.nextLine());
+
+						if (officerIndex < 1 || officerIndex > pendingOfficers.size()) {
+							System.out.println("Invalid selection.");
+						} else {
+							Officer selectedOfficer = pendingOfficers.get(officerIndex - 1);
+							System.out.print("Enter 1 to Approve, 2 to Reject: ");
+							int decision = Integer.parseInt(scan.nextLine());
+
+							if (decision == 1) {
+								manager.approveOfficerRegistration(selectedOfficer, selectedProject);
+							} 
+							else if (decision == 2) {
+								manager.rejectOfficerRegistration(selectedOfficer, selectedProject);
+							} 
+							else {
+								System.out.println("Invalid decision.");
+							}
+						}
+					}
+				}
+			}
+			break;
+				
+				
+			
+			case 6:
+				//create arraylist of pending applications
+				ArrayList<Application> pendingApps = Applicant.getPendingApplicationsForManager(manager);
+
+				if( pendingApps.isEmpty()){
+					System.out.println("No pending applicant applications");
+				}
+				
+				else{
+					//lists out all the pending applications
+					for (int i = 0; i < pendingApps.size(); i++) {
+						Application app = pendingApps.get(i);
+						System.out.println((i+1) + ") Applicant: " + app.getApplicant().getName() +
+										   ", Project: " + app.getProject().getName() +
+										   ", Flat Type: " + app.getFlatType());
+					}
+
+					System.out.println("Select application to process (number): ");
+					int appIndex = Integer.parseInt(scan.nextLine());
+					if( appIndex < 1 || appIndex > pendingApps.size() ){
+						System.out.println("Invalid selection");
+					}
+					else{
+						Application selectedApp = pendingApps.get(appIndex - 1);
+						System.out.print("Enter 1 to Approve, 2 to Reject: ");
+
+						int appDecision = Integer.parseInt(scan.nextLine());
+						if (appDecision == 1) {
+							manager.approveApplicantApplication(selectedApp.getApplicant());
+						} else if (appDecision == 2) {
+							manager.rejectApplicantApplication(selectedApp.getApplicant());
+						} else {
+							System.out.println("Invalid decision.");
+						}
+					}
+				}
+				break;
+			
+			case 7: 
 				manager.viewAllEnquiry();
 				break;
 		
-			case 4:
+			case 8:
 				//will need depend on the projects they manage
 				ArrayList<Project> userProjs = ProjectList.getUserProjects(manager);
 		    	
@@ -63,7 +289,7 @@ public class ManagerDisplay implements UserDisplay{
 				break;
 				
 			
-			case 5:
+			case 9:
 				//can only reply to enquiries to projects they manage
 				userProjs = ProjectList.getUserProjects(manager);
 		    	
@@ -105,7 +331,7 @@ public class ManagerDisplay implements UserDisplay{
 				
 				break;
 				
-			case 7:	//NEED TO ASK WHETHER THE APPLICATIONS SHOW ARE SPECIFIC TO THE PROJECT THE MANAGER MANAGES
+			case 10:	//NEED TO ASK WHETHER THE APPLICATIONS SHOW ARE SPECIFIC TO THE PROJECT THE MANAGER MANAGES
 				
 				//below is the procedure for Managers
 				//will show list of applications first aka like projects order
@@ -163,6 +389,9 @@ public class ManagerDisplay implements UserDisplay{
 				
 				
 				
+				break;
+
+			case 11:
 				break;
 				
 			case 0:
