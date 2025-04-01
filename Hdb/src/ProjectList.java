@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 //needs more work very rudimentary stuff avalaible for now
 //refer to enquiry list for more comprehensive look
@@ -30,15 +31,52 @@ public class ProjectList {
 		}
 		
 		for (Project p : projects) {
-			System.out.println(i + ". " + p.getName());
+			System.out.println("Project" + i + ":");
+			p.print();
+			System.out.println();
 			i++;
 		}
 	}
-	
+
 	public static ArrayList<Project> getAllProjects() {
 		sortProjName(); //sort list before returning
 		return projects;
 	}
+
+	//To display enquiry list specific to Manager IC of Project
+		public static void showUserProjects(Manager user) {
+			int i= 1;
+			sortProjName();
+			ArrayList<Project> userProjects = getUserProjects(user);
+			
+			if (userProjects.isEmpty()) {
+				System.out.println("There are no projects.");
+			}
+			
+			else {
+				System.out.println("List of Projects:");
+				for (Project p : userProjects) {
+					if (p.getManager().equals(user)) {
+						System.out.println("Project" + i + ":");
+						p.print();
+						System.out.println();
+						i++;
+						}
+					}
+				}
+			}
+			
+
+		
+		//To get enquiry list specific to manager
+		public static ArrayList<Project> getUserProjects(Manager user) {
+			 sortProjName();
+			 ArrayList<Project> userProjects = projects.stream()
+		                .filter(p -> p.getManager().equals(user))
+		                .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
+		        
+		        return userProjects;
+		}
 	
 	public static void addProject(Project project) {
 		projects.add(project);

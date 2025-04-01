@@ -10,6 +10,7 @@ public abstract class User {
     public User(String nric, String name, String password, int age, boolean married) {
         this.name = name;
         this.age = age;
+        this.password = password;
         this.married = married;
         this.nric = nric;
         this.application = null;
@@ -21,6 +22,10 @@ public abstract class User {
 
     public String getNRIC(){
         return nric;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public int getAge(){

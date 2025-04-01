@@ -56,9 +56,9 @@ public class EnquiryList {
 	
 	
 	//show all unanswered enquiries
-	public static void showUnansweredEnquiries() {
+	public static void showProjUnansweredEnquiries(Project proj) {
 		sortByProjects();
-		ArrayList<Enquiry> unansweredEnquiries = getUnansweredEnquiries();
+		ArrayList<Enquiry> unansweredEnquiries = getProjUnansweredEnquiries(proj);
 		
 		if (unansweredEnquiries.isEmpty()) {
 			System.out.println("There are no enquiries.");
@@ -74,16 +74,15 @@ public class EnquiryList {
 		}
 	}
 	
-	//get all unanswered enquiries 
-	public static ArrayList<Enquiry> getUnansweredEnquiries() {
-		sortByProjects();
-		ArrayList<Enquiry> unansweredEnquiries = enquiries.stream()
-                .filter(e -> !e.isAnswered())
-                .collect(Collectors.toCollection(ArrayList::new));
-		return unansweredEnquiries;
-	}
-	
-	
+	//get unanswered enquiries specific to project 
+			public static ArrayList<Enquiry> getProjUnansweredEnquiries(Project proj) {
+				sortByProjects();
+				ArrayList<Enquiry> projEnquiries = getProjEnquiries(proj);
+				ArrayList<Enquiry> unansweredEnquiries = projEnquiries.stream()
+		                .filter(e -> !e.isAnswered())
+		                .collect(Collectors.toCollection(ArrayList::new));
+				return unansweredEnquiries;
+			}
 	
 	//To display enquiry list specific to user
 	public static void showUserEnquiries(Applicant user) {

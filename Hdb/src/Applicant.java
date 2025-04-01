@@ -146,19 +146,4 @@ public class Applicant extends User{
 			application = null;
 	}
 
-	// reply enquiry has 2 ways for it to go, one is the all projects enquiry that a manager can do, 
-    // one is the specific proj enq for officers 
-    // for now this coded so that all unanswered enquiries are shown and can be replied
-	public void replyEnquiry(Enquiry unansweredEnquiry, String msg) {
-		unansweredEnquiry.setResponse(msg);	
-	}
-
-	//to be moved to manager class
-    //havent written reject withdrawal
-    public void approveWithdrawal(Application application) {
-		application.approveWithdrawal();
-		System.out.println("Withdrawal has been approved.");
-		System.out.println();
-	}
-
 }

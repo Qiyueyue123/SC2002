@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
+//withdrawal req might have 2 change bc its prob specific to the project the manager and officer manages
 //for BTO Applications
 
 //List of BTO Applications:
@@ -49,9 +51,10 @@ public class ApplicationList {
 		}
 	}
 	
+	//might need to be specific to project but they also never specify clearly in the doc
 	public static void showWithdrawalRequested() {
 		sortByProjects();
-		ArrayList<Application> withdrawalRequested = getWithdrawalReqeusted();
+		ArrayList<Application> withdrawalRequested = getWithdrawalRequested();
 		
 		if (withdrawalRequested.isEmpty()) {
 			System.out.println("There are no applications.");
@@ -70,7 +73,7 @@ public class ApplicationList {
 		}
 	}
 	
-	public static ArrayList<Application> getWithdrawalReqeusted() {
+	public static ArrayList<Application> getWithdrawalRequested() {
 		sortByProjects();
 		ArrayList<Application> withdrawalRequested = applications.stream()
                 .filter(a -> a.getWithdrawalRequest())
@@ -81,7 +84,7 @@ public class ApplicationList {
 	public static Application selectApplication(String nric) {
 		for (Application a: applications) {
 			Applicant applicant = a.getApplicant();
-			if (applicant.getNRIC()== nric) {
+			if (applicant.getNRIC().equals(nric)) {
 				return a;
 			}
 		}
