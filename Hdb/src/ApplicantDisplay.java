@@ -24,8 +24,6 @@ public class ApplicantDisplay implements UserDisplay {
 			System.out.println("|(5) Create an Enquiry                  |");
 			System.out.println("|(6) Edit an Enquiry                    |");
 			System.out.println("|(7) Delete an Enquiry                  |");
-			System.out.println("|(8) Reply to an Enquiry                |");
-			System.out.println("|(9) To test approve Withdrawal         |");
 			System.out.println("|(0) Exit                               |");
 			
 	System.out.println();
@@ -70,10 +68,9 @@ public class ApplicantDisplay implements UserDisplay {
 				
 				
 				System.out.println("Select 0 to return to homepage");
-				if ((!applicant.getApplication().getAppliedStatus().equals("Unsuccessful"))) { //cant they still request withdrawal and submit again if unsuccessful?
-					System.out.println("Application options: ");
-					System.out.println("(1) Request Withdrawal");
-				} else if(applicant.getApplication().getAppliedStatus().equals("Successful")) {
+				System.out.println("Application options: ");
+				System.out.println("(1) Request Withdrawal");
+				if(applicant.getApplication().getAppliedStatus().equals("Successful")) {
 					System.out.println("(2) Request to Book Flat");
 				} 
 				
@@ -162,38 +159,6 @@ public class ApplicantDisplay implements UserDisplay {
 			    	applicant.deleteEnquiry(delEnquiry);
 			    }
 			}
-			break;
-			
-		case 8:
-			//will be moved to manager or officer display
-			ArrayList<Enquiry> unansweredEnquiries = EnquiryList.getUnansweredEnquiries();
-			
-			if (!unansweredEnquiries.isEmpty()) {
-				EnquiryList.showUnansweredEnquiries();
-				System.out.println("Which enquiry would you like to reply to? Input ID: ");
-				
-		        	int enquiryNum = scan.nextInt();
-		        	scan.nextLine(); //needs this after every scanInt
-		        	Enquiry unansweredEnquiry = EnquiryList.selectEnquiry(enquiryNum); //the array starts from 0
-					
-				System.out.println("Write your reply:");
-			        String reply = scan.nextLine();
-		        
-		        	applicant.replyEnquiry(unansweredEnquiry, reply);
-			}
-			else {
-	    			System.out.println("There are no enquiries to reply.");
-	    	}
-			
-			break;
-		case 9:
-			//below is the procedure for Officers and Managers
-			//will show list of applications first aka like projects order
-			//will then ask for the application you wish to view
-			//show the details of application chosen
-			
-			//tests the approve and withdrawal functions
-			applicant.approveWithdrawal(applicant.getApplication());
 			break;
 
 		case 0:
