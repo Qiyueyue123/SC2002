@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+import com.apple.eawt.Application;
+
 //withdrawal req might have 2 change bc its prob specific to the project the manager and officer manages
 //for BTO Applications
 
@@ -95,7 +97,18 @@ public class ApplicationList {
 	public static void addApplication(Application application) {
 		applications.add(application);
 	}
-	
+
+
+	public static ArrayList<Application> getPendingApplicationsForManager(Manager manager) {
+        ArrayList<Application> pendingApps = new ArrayList<>();
+        for (Application app : applications) {
+            // Check if the application's status is "Pending" and if the project manager matches the given manager
+            if (app.getStatus().equalsIgnoreCase("Pending") && app.getProject().getManager().equals(manager)) {
+                pendingApps.add(app);
+            }
+        }
+        return pendingApps;
+    }
 	
 	
 	public static boolean isEmpty() {
