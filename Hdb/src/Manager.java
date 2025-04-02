@@ -38,7 +38,7 @@ public class Manager extends User{
                             String openingDate, String closingDate, int availOfficerSlots)
 							
 		{
-			Project project = new Project(name, neighbourhood, visibility, num2Rooms, num3Rooms, openingDate, closingDate, availOfficerSlots, this);
+			Project project = new Project(name, neighborhood, visibility, num2Rooms, num3Rooms, openingDate, closingDate, availOfficerSlots, this);
 			ProjectList.addProject(project);
 			System.out.println("Project " + name + "created successfully.\n");
 		}

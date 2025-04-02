@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class OfficerDisplay implements UserDisplay{
     private Officer officer;
+    private ApplicantDisplay appDp;
     Scanner sc = new Scanner(System.in);
     
     OfficerDisplay(Officer officer) {
@@ -14,7 +15,7 @@ public class OfficerDisplay implements UserDisplay{
         int choice = sc.nextInt();
         switch(choice){
             case 1:
-                
+                appDp.showDisplay(officer)
         }
     }
 }

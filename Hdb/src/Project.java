@@ -110,8 +110,8 @@ public class Project {
     }
 
 	public static void minusAvailableOfficerSlots() {
-        if (availableOfficerSlots > 0) {
-            availableOfficerSlots--;
+        if (availOfficerSlots > 0) {
+            availOfficerSlots--;
         }
     }
 
@@ -122,12 +122,12 @@ public class Project {
 
 	public void print() {
         System.out.println("Project Name: " + name);
-        System.out.println("Neighborhood: " + neighborhood);
+        System.out.println("Neighborhood: " + neighbourhood);
         System.out.println("Visibility: " + (visibility ? "On" : "Off"));
         System.out.println("2-Room Units: " + num2Rooms);
         System.out.println("3-Room Units: " + num3Rooms);
         System.out.println("Application Period: " + openingDate + " to " + closingDate);
-        System.out.println("Available Officer Slots: " + availableOfficerSlots);
+        System.out.println("Available Officer Slots: " + availOfficerSlots);
     }
 
 	// add applicant to list
