@@ -1,4 +1,4 @@
-/* public class App {
+ public class App {
     public static void main(String[] args) {
         User user = null;
         String role = "";
@@ -10,4 +10,4 @@
         }
         System.out.println("Login Successful for " + user.getName());
     }   
-} */
+} 

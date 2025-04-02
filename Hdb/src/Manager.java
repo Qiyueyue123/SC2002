@@ -38,7 +38,7 @@ public class Manager extends User{
                             String openingDate, String closingDate, int availOfficerSlots)
 							
 		{
-			Project project = new Project(name, neighbourhood, visibility, num2Rooms, num3Rooms, openingDate, closingDate, availOfficerSlots, this);
+			Project project = new Project(name, neighborhood, visibility, num2Rooms, num3Rooms, openingDate, closingDate, availOfficerSlots, this);
 			ProjectList.addProject(project);
 			System.out.println("Project " + name + "created successfully.\n");
 		}
@@ -106,7 +106,7 @@ public class Manager extends User{
 
 		Application app = applicant.getApplication();
 		Project project = app.getProject();
-		int flattype = app.getFlatType();
+		int flatType = app.getFlatType();
 
 		if (flatType == 2 && project.getNum2Rooms() > 0) {
 			app.setAppliedStatus("Successful");

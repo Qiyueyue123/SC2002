@@ -4,10 +4,12 @@ import java.util.Scanner;
 //applicant can do evrything needed with enquiries
 //reply enquiry will be moved when officer and manager class is settled
 public class Applicant extends User{
+	protected Application application;
 	Scanner scan = new Scanner(System.in);
 	
 	public Applicant(String nric, String name, String password, int age, boolean married) {
 		super(nric,name,password,age,married);
+		this.application = null;
 	}
 
 	public void createApplication(Project chosenProj) {

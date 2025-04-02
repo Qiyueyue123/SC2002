@@ -5,7 +5,6 @@ public abstract class User {
     protected boolean married;
     protected String password;
     protected String nric;
-    protected Application application;
 
     public User(String nric, String name, String password, int age, boolean married) {
         this.name = name;
@@ -13,7 +12,7 @@ public abstract class User {
         this.password = password;
         this.married = married;
         this.nric = nric;
-        this.application = null;
+        
     }
 
     public String getName(){
@@ -35,7 +34,4 @@ public abstract class User {
     public boolean isMarried(){
         return married;
     }
-
-    
-
 }
