@@ -5,7 +5,8 @@ import java.util.Scanner;
 //reply enquiry will be moved when officer and manager class is settled
 public class Applicant extends User{
 	Scanner scan = new Scanner(System.in);
-	public Applicant(String nric, String name, String password, int age, boolean married){
+	
+	public Applicant(String nric, String name, String password, int age, boolean married) {
 		super(nric,name,password,age,married);
 	}
 

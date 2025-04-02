@@ -1,21 +1,36 @@
 public abstract class User {
-    private String name;
-    private String nric;
-    private String password;
+    
+    protected String name;
     protected int age;
     protected boolean married;
+    protected String password;
+    protected String nric;
     protected Application application;
 
-    public User(String nric, String name,String password, int age, boolean married){
+    public User(String nric, String name, String password, int age, boolean married) {
         this.name = name;
-		this.nric = nric;
-		this.age = age;
-		this.married = married;
-		this.application = null;
+        this.age = age;
+        this.married = married;
+        this.nric = nric;
+        this.application = null;
     }
-    public String getNRIC(){return nric;}
-    public String getName(){return name;}
-    public int getAge(){return age;}
-    public boolean getMaritalStatus(){return married;}
-    public Application getApplication(){return application;}
+
+    public String getName(){
+        return name;
+    }
+
+    public String getNRIC(){
+        return nric;
+    }
+
+    public int getAge(){
+        return age;
+    }
+
+    public boolean isMarried(){
+        return married;
+    }
+
+    
+
 }
