@@ -115,6 +115,15 @@ public class ApplicationList {
 		return applications.isEmpty();
 	}
 	
-	
+	public static boolean hasUserAppliedToProject(String nric, Project project) {
+        ArrayList<Application> applications = ApplicationList.getAllApplications();
+        for (Application app : applications) {
+            if (app.getApplicant().getNRIC().equalsIgnoreCase(nric)
+                && app.getProject().equals(project)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

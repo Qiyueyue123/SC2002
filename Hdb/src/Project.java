@@ -69,7 +69,7 @@ public class Project {
     }
 
 	public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
+        this.neighbourhood = neighborhood;
     }
 
 	public void setNum2Rooms(int num2Rooms) {

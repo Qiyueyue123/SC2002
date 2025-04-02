@@ -106,7 +106,7 @@ public class Manager extends User{
 
 		Application app = applicant.getApplication();
 		Project project = app.getProject();
-		int flattype = app.getFlatType();
+		int flatType = app.getFlatType();
 
 		if (flatType == 2 && project.getNum2Rooms() > 0) {
 			app.setAppliedStatus("Successful");
