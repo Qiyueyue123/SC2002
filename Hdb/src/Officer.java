@@ -63,7 +63,7 @@ public class Officer extends Applicant {
             System.out.println("You are currently not handling any projects");    
             System.out.println();                  
         } else {
-            registration.project.print();
+            registration.getProject().print();
             System.out.println();
         }
     }
@@ -73,7 +73,7 @@ public class Officer extends Applicant {
             System.out.println("You are currently not handling any projects");    
             System.out.println();                  
         } else {
-            EnquiryList.showProjEnquiries(registration.project);
+            EnquiryList.showProjEnquiries(registration.getProject());
         }
     }
     public void replyEnquiry() {
@@ -81,9 +81,9 @@ public class Officer extends Applicant {
             System.out.println("You are currently not handling any projects");    
             System.out.println();                  
         } else {
-            ArrayList<Enquiry> unansweredEnquiries = EnquiryList.getProjEnquiries(registration.project);
+            ArrayList<Enquiry> unansweredEnquiries = EnquiryList.getProjEnquiries(registration.getProject());
             if (!unansweredEnquiries.isEmpty()) {
-                EnquiryList.showProjEnquiries(registration.project);
+                EnquiryList.showProjEnquiries(registration.getProject());
                 
                 System.out.println("Which enquiry would you like to reply? Input ID:");
                 int enquiryNum = scan.nextInt();
