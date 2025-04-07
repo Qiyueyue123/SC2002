@@ -9,4 +9,9 @@ public class RegistrationList {
     public static void addRegistration(Registration r) {
 		registrations.add(r);
 	}
+    public static void print() {
+        for (Registration r : registrations) {
+            r.print();
+        }
+    }
 }

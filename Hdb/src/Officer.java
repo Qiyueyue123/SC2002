@@ -19,10 +19,13 @@ public class Officer extends Applicant {
 	public void registerAsOIC() {
         ArrayList<Project> projects = ProjectList.getAllProjects();
         Scanner sc = new Scanner(System.in);
-        //need to add check for avail officer slots < 10
+        int i = 0;
         System.out.println("Available Projects:");
-        for (int i = 0; i < projects.size(); i++) {
-            System.out.println((i + 1) + ". " + projects.get(i).getName());
+        for (Project p : projects) {
+            if (p.getAvailOfficerSlots() > 0) {
+                System.out.println((i + 1) + ". " + p.getName());
+                i++;
+            }
         }
 
         System.out.print("Choose project to request OIC role: ");
@@ -84,7 +87,7 @@ public class Officer extends Applicant {
                 
                 System.out.println("Which enquiry would you like to reply? Input ID:");
                 int enquiryNum = scan.nextInt();
-                scan.nextLine(); //needs this after every scanInt
+                scan.nextLine(); 
                 Enquiry unansweredEnquiry = EnquiryList.selectEnquiry(enquiryNum); 
                 
                 System.out.println("Write your reply:");

@@ -6,7 +6,8 @@ public class Registration {
     public Registration(Officer o, Project p) {
         officer = o;
         project = p;
-        status = "Approved"; // can be set by manager to pending, approved or rejected
+        //Hardcode status to Approved if want to test the enquiry/booking stuff
+        status = "Pending"; // can be set by manager to pending, approved or rejected
     }
 
     public void print() {

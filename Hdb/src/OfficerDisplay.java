@@ -48,6 +48,8 @@ public class OfficerDisplay implements UserDisplay{
                     case 5:
                         officer.replyEnquiry();
                         break;
+                    case 6: 
+                        RegistrationList.print();
                     case 0: 
                     running = false;
                 }
