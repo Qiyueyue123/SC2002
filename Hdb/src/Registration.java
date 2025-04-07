@@ -1,6 +1,6 @@
 public class Registration {
-    Officer officer;
-    Project project;
+    private Officer officer;
+    private Project project;
     String status;
 
     public Registration(Officer o, Project p) {
@@ -16,5 +16,11 @@ public class Registration {
         System.out.println("Officer Name: " + officer.getName());
         System.out.println("Registration Status: " + status);
         System.out.println();
+    }
+    public Project getProject() {
+        return this.project;
+    }
+    public Officer getOfficer() {
+        return this.officer;
     }
 }
