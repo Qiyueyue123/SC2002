@@ -8,7 +8,7 @@ public class Project {
 	private int num3Rooms;
 	private String openingDate;
 	private String closingDate;
-	private static int availOfficerSlots = 10;
+	private  int availOfficerSlots = 10;
 	private Manager manager;
 	private ArrayList<Applicant> peopleApplied;
 	
@@ -52,7 +52,7 @@ public class Project {
 		return closingDate;
 	}
 
-	public static int getAvailOfficerSlots(){
+	public  int getAvailOfficerSlots(){
 		return availOfficerSlots;
 	}
 
@@ -109,7 +109,7 @@ public class Project {
         }
     }
 
-	public static void minusAvailableOfficerSlots() {
+	public void minusAvailableOfficerSlots() {
         if (availOfficerSlots > 0) {
             availOfficerSlots--;
         }
