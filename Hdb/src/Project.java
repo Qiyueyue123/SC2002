@@ -34,7 +34,7 @@ public class Project {
 		return neighbourhood;
 	}
 
-	public boolean getvisibility() {
+	public boolean getVisibility() {
 		return visibility;
 	}
 	public int getNum2Rooms() {
