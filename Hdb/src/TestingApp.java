@@ -2,7 +2,7 @@
 // this is NOT meant to replace the actual main app
 // hence it does not have any of the log in functions 
 
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 
 public class TestingApp {
     public static void main(String[] args) {
@@ -39,3 +39,4 @@ public class TestingApp {
 		
     }
 }
+*/

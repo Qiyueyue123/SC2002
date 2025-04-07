@@ -103,7 +103,7 @@ public class ApplicationList {
         ArrayList<Application> pendingApps = new ArrayList<>();
         for (Application app : applications) {
             // Check if the application's status is "Pending" and if the project manager matches the given manager
-            if (app.getStatus().equalsIgnoreCase("Pending") && app.getProject().getManager().equals(manager)) {
+            if (app.getAppliedStatus().equalsIgnoreCase("Pending") && app.getProject().getManager().equals(manager)) {
                 pendingApps.add(app);
             }
         }

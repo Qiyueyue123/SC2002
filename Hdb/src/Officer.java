@@ -19,7 +19,7 @@ public class Officer extends Applicant {
 	public void registerAsOIC() {
         ArrayList<Project> projects = ProjectList.getAllProjects();
         Scanner sc = new Scanner(System.in);
-
+        //need to add check for avail officer slots < 10
         System.out.println("Available Projects:");
         for (int i = 0; i < projects.size(); i++) {
             System.out.println((i + 1) + ". " + projects.get(i).getName());
@@ -39,13 +39,64 @@ public class Officer extends Applicant {
             return;
         }
 
-		//havent created registration class yet
-		registeration = new Registration(this,selected);
-		RegisterList.addRequest(registration);
+		registration = new Registration(this,selected);
+		RegistrationList.addRegistration(registration);
 		System.out.println("Your registration request has been submitted for Manager approval.");
 	}
 
 	public void viewRegistrationStatus(){
+        if (registration == null) {
+            System.out.println();
+            System.out.println("No applied registration");
+            System.out.println();
+            return;
+        } else {
+            registration.print();
+        }
 	}
+
+    public void viewHandledProject() {
+        if (registration == null || registration.status != "Approved" ) {
+            System.out.println("You are currently not handling any projects");    
+            System.out.println();                  
+        } else {
+            registration.project.print();
+            System.out.println();
+        }
+    }
+
+    public void viewProjectEnquiry() {
+        if (registration == null || registration.status != "Approved" ) {
+            System.out.println("You are currently not handling any projects");    
+            System.out.println();                  
+        } else {
+            EnquiryList.showProjEnquiries(registration.project);
+        }
+    }
+    public void replyEnquiry() {
+        if (registration == null || registration.status != "Approved" ) {
+            System.out.println("You are currently not handling any projects");    
+            System.out.println();                  
+        } else {
+            ArrayList<Enquiry> unansweredEnquiries = EnquiryList.getProjEnquiries(registration.project);
+            if (!unansweredEnquiries.isEmpty()) {
+                EnquiryList.showProjEnquiries(registration.project);
+                
+                System.out.println("Which enquiry would you like to reply? Input ID:");
+                int enquiryNum = scan.nextInt();
+                scan.nextLine(); //needs this after every scanInt
+                Enquiry unansweredEnquiry = EnquiryList.selectEnquiry(enquiryNum); 
+                
+                System.out.println("Write your reply:");
+                String reply = scan.nextLine();
+                unansweredEnquiry.setResponse(reply);	
+
+            }
+            else {
+                System.out.println("There are no enquiries to reply.");
+            }        
+        }
+    }
+
 	
 }

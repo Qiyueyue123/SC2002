@@ -68,7 +68,7 @@ public class Manager extends User{
 	public void toggleVisibility(Project p){
 		p.toggleVisibility();
 
-		if(p.visibility == true){
+		if(p.getvisibility() == true){
 			System.out.println("Project " + p.getName() + " is now ON(visible to applicants)");
 		}
 		else{
