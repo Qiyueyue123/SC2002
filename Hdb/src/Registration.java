@@ -23,4 +23,8 @@ public class Registration {
     public Officer getOfficer() {
         return this.officer;
     }
+
+    public String getStatus(){
+        return status;
+    }
 }

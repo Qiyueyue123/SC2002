@@ -43,4 +43,15 @@ public class RegistrationList {
     public static boolean isEmpty() {
         return registrations.isEmpty();
     }
+
+	public static ArrayList<Registration> getPendingRegistrations(Project project) {
+        ArrayList<Registration> pending = new ArrayList<>();
+        for (Registration r : registrations) {
+            if (r.getProject().equals(project) && r.getStatus().equals("Pending")) {
+                pending.add(r);
+            }
+        }
+        return pending;
+    }
+
 }

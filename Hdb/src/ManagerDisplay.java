@@ -101,7 +101,6 @@ public class ManagerDisplay implements UserDisplay{
                             if (newNeighborhood.isEmpty()) {
                                 newNeighborhood = projToEdit.getNeighborhood();
                             }
-                            
                             System.out.print("Enter new Visibility (true/false) (or press Enter to keep current (" 
                                                + projToEdit.getVisibility() + ")): ");
                             String visInput = scan.nextLine();
@@ -132,9 +131,9 @@ public class ManagerDisplay implements UserDisplay{
                             }
                             
                             System.out.print("Enter new Available HDB Officer Slots (or press Enter to keep current (" 
-                                               + projToEdit.getAvailableOfficerSlots() + ")): ");
+                                               + projToEdit.getAvailOfficerSlots() + ")): ");
                             String slotInput = scan.nextLine();
-                            int newAvailableOfficerSlots = slotInput.isEmpty() ? projToEdit.getAvailableOfficerSlots() : Integer.parseInt(slotInput);
+                            int newAvailableOfficerSlots = slotInput.isEmpty() ? projToEdit.getAvailOfficerSlots() : Integer.parseInt(slotInput);
                             
                             manager.editProject(projToEdit, newName, newNeighborhood, newVisibility, newNum2Rooms, newNum3Rooms, newOpeningDate, newClosingDate, newAvailableOfficerSlots);
 						}
@@ -189,7 +188,11 @@ public class ManagerDisplay implements UserDisplay{
 				} else {
 					Project selectedProject = myProjectsForOfficer.get(projIndexOfficer - 1);
 					// Josh pls have this in officerlist.  OfficerList.getPendingRegistrations(project) returns pending officer registrations
-					ArrayList<Officer> pendingOfficers = OfficerList.getPendingRegistrations(selectedProject);
+					ArrayList<Registration> pendingReg = RegistrationList.getPendingRegistrations(selectedProject);
+					ArrayList<Officer> pendingOfficers = new ArrayList<>();
+					for (Registration r : pendingReg) {
+						pendingOfficers.add(r.getOfficer());
+					}
 					if (pendingOfficers.isEmpty()) {
 						System.out.println("No pending officer registrations for this project.");
 					} else {
