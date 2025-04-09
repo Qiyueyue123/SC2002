@@ -128,27 +128,62 @@ public class Manager extends User{
         System.out.println("Applicant " + applicant.getName() + "'s application has been rejected.\n");
     }
 
-	//approve officer registration to a project
-	public void approveOfficerRegistration(Officer officer, Project project) {
-		if (project.getAvailOfficerSlots() > 0) {
-			// wait for josh to set the method in officer class
-			// officer.setRegistrationStatus("Approved");
-			project.minusAvailableOfficerSlots();
-			System.out.println("Officer " + officer.getName() + " approved for project " 
-							   + project.getName() + ". Remaining officer slots: " 
-							   + project.getAvailOfficerSlots() + ".\n");
-		} else {
-			System.out.println("No available HDB officer slots for project " + project.getName() + ".\n");
-		}
-	}
-	
-	//reject officer registration
-	public void rejectOfficerRegistration(Officer officer, Project project) {
-		// wait for josh to set method
-		// officer.setRegistrationStatus("Rejected");
-		System.out.println("Officer " + officer.getName() + "'s registration for project " 
-						   + project.getName() + " has been rejected.\n");
-	}
+	// Approve officer registration to a project
+public void approveOfficerRegistration(Officer officer, Project project) {
+    // Check if the project has any available officer slots
+    if (project.getAvailOfficerSlots() > 0) {
+        // Retrieve the pending registrations for this project
+        ArrayList<Registration> pendingRegistrations = RegistrationList.getPendingRegistrations(project);
+        Registration registrationToApprove = null;
+        
+        // Find the registration for the provided officer
+        for (Registration registration : pendingRegistrations) {
+            if (registration.getOfficer().equals(officer)) {
+                registrationToApprove = registration;
+                break;
+            }
+        }
+        
+        // If a matching registration was found, approve it
+        if (registrationToApprove != null) {
+            registrationToApprove.setStatus("Approved");
+            project.minusAvailableOfficerSlots();
+            System.out.println("Officer " + officer.getName() + " approved for project " 
+                               + project.getName() + ". Remaining officer slots: " 
+                               + project.getAvailOfficerSlots() + ".\n");
+        } else {
+            System.out.println("No pending registration found for Officer " + officer.getName() +
+                               " in project " + project.getName() + ".\n");
+        }
+    } else {
+        System.out.println("No available HDB officer slots for project " + project.getName() + ".\n");
+    }
+}
+
+// Reject officer registration to a project
+public void rejectOfficerRegistration(Officer officer, Project project) {
+    // Retrieve the pending registrations for this project
+    ArrayList<Registration> pendingRegistrations = RegistrationList.getPendingRegistrations(project);
+    Registration registrationToReject = null;
+    
+    // Find the registration for the provided officer
+    for (Registration registration : pendingRegistrations) {
+        if (registration.getOfficer().equals(officer)) {
+            registrationToReject = registration;
+            break;
+        }
+    }
+    
+    // If a matching registration was found, reject it
+    if (registrationToReject != null) {
+        registrationToReject.setStatus("Rejected");
+        System.out.println("Officer " + officer.getName() + "'s registration for project " 
+                           + project.getName() + " has been rejected.\n");
+    } else {
+        System.out.println("No pending registration found for Officer " + officer.getName() +
+                           " in project " + project.getName() + ".\n");
+    }
+}
 
 
 

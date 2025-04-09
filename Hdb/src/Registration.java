@@ -1,7 +1,7 @@
 public class Registration {
     private Officer officer;
     private Project project;
-    String status;
+    private String status;
 
     public Registration(Officer o, Project p) {
         officer = o;
@@ -26,5 +26,9 @@ public class Registration {
 
     public String getStatus(){
         return status;
+    }
+
+    public void setStatus(String stat) {
+        this.status = stat;
     }
 }

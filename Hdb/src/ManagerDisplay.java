@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.apple.eawt.Application;
 
 
 public class ManagerDisplay implements UserDisplay{
@@ -39,6 +38,8 @@ public class ManagerDisplay implements UserDisplay{
 		int choice = scan.nextInt();
 		scan.nextLine();
 			
+
+		// try to use interface for input , and then override them for each switch case , OCP
 		switch (choice) {
 			case 1: //getting user input for creating project
 				System.out.println("Enter Project Name: ");
