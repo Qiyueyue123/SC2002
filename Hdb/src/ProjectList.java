@@ -95,7 +95,7 @@ public class ProjectList {
 		              .collect(Collectors.toCollection(ArrayList::new)); //returns two room if true, three room if false
 			 ArrayList<Project> selectRoomList = is2Room ? twoRoomList : threeRoomList; 
 		      return selectRoomList;
-			
+		}
 
 
 	

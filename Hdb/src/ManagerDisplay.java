@@ -231,7 +231,7 @@ public class ManagerDisplay implements UserDisplay{
 			
 			case 6:
 				//create arraylist of pending applications
-				ArrayList<Application> pendingApps = Applicant.getPendingApplicationsForManager(manager);
+				ArrayList<Application> pendingApps = ApplicationList.getPendingApplicationsForManager(manager);
 
 				if( pendingApps.isEmpty()){
 					System.out.println("No pending applicant applications");

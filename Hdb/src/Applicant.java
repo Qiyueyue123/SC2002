@@ -51,7 +51,7 @@ public class Applicant extends User{
  		ArrayList<Project> applicantProjects = new ArrayList<Project>();
  		int i = 1;
  		for (Project p : allProjects) {
- 			if (p.getvisibility() && ((p.getNum2Rooms() > 0) || p.getNum3Rooms() > 0)) {
+ 			if (p.getVisibility() && ((p.getNum2Rooms() > 0) || p.getNum3Rooms() > 0)) {
  				//if married then anything can print
  				if (married) {
  					applicantProjects.add(p);

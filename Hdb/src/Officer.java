@@ -60,7 +60,7 @@ public class Officer extends Applicant {
 	}
 
     public void viewHandledProject() {
-        if (registration == null || registration.status != "Approved" ) {
+        if (registration == null || registration.getStatus() != "Approved" ) {
             System.out.println("You are currently not handling any projects");    
             System.out.println();                  
         } else {
@@ -70,7 +70,7 @@ public class Officer extends Applicant {
     }
 
     public void viewProjectEnquiry() {
-        if (registration == null || registration.status != "Approved" ) {
+        if (registration == null || registration.getStatus() != "Approved" ) {
             System.out.println("You are currently not handling any projects");    
             System.out.println();                  
         } else {
@@ -78,7 +78,7 @@ public class Officer extends Applicant {
         }
     }
     public void replyEnquiry() {
-        if (registration == null || registration.status != "Approved" ) {
+        if (registration == null || registration.getStatus() != "Approved" ) {
             System.out.println("You are currently not handling any projects");    
             System.out.println();                  
         } else {
@@ -98,8 +98,9 @@ public class Officer extends Applicant {
             }
             else {
                 System.out.println("There are no enquiries to reply.");
-            }        
-        }
+            }
+        }        
+    }
 
         public void bookFlat() {
             if (assignedProject == null) {
