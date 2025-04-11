@@ -49,7 +49,9 @@ public class OfficerDisplay implements UserDisplay{
                         officer.replyEnquiry();
                         break;
                     case 6: 
-                        RegistrationList.print();
+                        officer.bookFlat();
+                    case 7:
+                        //add in generate receipt logic
                     case 0: 
                     running = false;
                 }
