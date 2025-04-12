@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.apple.eawt.Application;
+
 public class Project {
     private String name;
 	private String neighbourhood;
@@ -167,4 +169,15 @@ public class Project {
 	public void addPerson(Applicant a) {
 		peopleApplied.add(a);
 	}
+
+	public void print() {
+    System.out.println("Project Name: " + name);
+    System.out.println("Neighborhood: " + neighbourhood);
+    System.out.println("Visibility: " + (visibility ? "Visible" : "Hidden"));
+    System.out.println("2-Room Units: " + num2Rooms);
+    System.out.println("3-Room Units: " + num3Rooms);
+    System.out.println("Application Period: " + openingDate + " to " + closingDate);
+    System.out.println("Available Officer Slots: " + availOfficerSlots);
+}
+
 }
