@@ -22,8 +22,8 @@ public class ManagerController {
         ApplicationController.showPendingApplicationsForManager(manager);
     }
 
-    public void viewWithdrawalRequests() {
-        ApplicationController.showWithdrawalRequested();
+    public void viewWithdrawalRequests(Manager manager) {
+        ApplicationController.showWithdrawalRequested(manager);
     }
 
     public void viewOfficerRegistrations() {
