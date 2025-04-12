@@ -78,12 +78,12 @@ public class ProjectList {
 		        return userProjects;
 		}
 
-		public static ArrayList<Project> filterLocations(ArrayList<Project> list, String neighbourhood) {
-		 ArrayList<Project> locationList = list.stream()
+		public static ArrayList<Project> filterNeighbourhood(ArrayList<Project> list, String neighbourhood) {
+		 ArrayList<Project> neighbourhoodList = list.stream()
 	               .filter(p -> p.getNeighborhood().equals(neighbourhood))
 	               .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
 	       
-	       return locationList;
+	       return neighbourhoodList;
 		}
 
 		public static ArrayList<Project> filterFlatType(ArrayList<Project> list, boolean is2Room) {
