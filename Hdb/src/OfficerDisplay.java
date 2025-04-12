@@ -1,9 +1,9 @@
 import java.util.List;
 import java.util.Scanner;
 public class OfficerDisplay implements UserDisplay{
-    private final Officer officer;
-    private final OfficerController controller;
-    private final Scanner scanner = new Scanner(System.in);
+    private Officer officer;
+    private OfficerController controller;
+    private Scanner scanner = new Scanner(System.in);
 
     public OfficerDisplay(Officer officer) {
         this.officer = officer;
@@ -20,6 +20,7 @@ public class OfficerDisplay implements UserDisplay{
             System.out.println("(2) View Assigned Project");
             System.out.println("(3) View Registration Status");
             System.out.println("(4) Reply to Enquiry");
+            System.out.println("(5) Change Password");
             System.out.println("(0) Exit");
 
             int choice = scanner.nextInt();
@@ -51,6 +52,8 @@ public class OfficerDisplay implements UserDisplay{
                         System.out.println("Response submitted.");
                     }
                     break;
+                case 5:
+                    changeUserPassword(scanner,officer);
                 case 0:
                     running = false;
                     break;

@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class ApplicantDisplay implements UserDisplay {
 	private final Applicant applicant;
     private final ApplicantController controller;
-    private final Scanner scan = new Scanner(System.in);
+    private Scanner scan = new Scanner(System.in);
 
     public ApplicantDisplay(Applicant applicant) {
         this.applicant = applicant;
@@ -23,6 +23,7 @@ public class ApplicantDisplay implements UserDisplay {
             System.out.println("(5) Create Enquiry");
             System.out.println("(6) Edit Enquiry");
             System.out.println("(7) Delete Enquiry");
+			System.out.println("(8) Change Password");
             System.out.println("(0) Exit");
             int choice = scan.nextInt(); scan.nextLine();
 
@@ -52,6 +53,7 @@ public class ApplicantDisplay implements UserDisplay {
                 }
                 case 6 -> editOrDeleteEnquiry(true);
                 case 7 -> editOrDeleteEnquiry(false);
+				case 8 -> changeUserPassword(scan, applicant);
                 case 0 -> running = false;
             }
         }

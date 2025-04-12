@@ -7,8 +7,8 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         FileService fs = new FileService();
 
-        // Load all data
         loadAllData(fs);
+        //just to confirm project is loaded
         List<Project> proj = ProjectRepository.getAllProjects();
         for(Project p : proj){
             System.out.println("Project: " + p.getName());

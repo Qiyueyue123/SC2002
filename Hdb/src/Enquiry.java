@@ -1,12 +1,12 @@
 
 public class Enquiry {
     private static int instanceCount = 1;
-	private final int id;
+	private int id;
 	private String message;
     private String response;
-    private final Applicant user;
+    private Applicant user;
     private boolean answered;
-    private final Project project;
+    private Project project;
 
 
     Enquiry(Applicant user, Project project) {
