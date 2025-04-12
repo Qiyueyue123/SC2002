@@ -1,0 +1,53 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class RegistrationRepository {
+    private static List<Registration> registrations = new ArrayList<>();
+
+    public static void addRegistration(Registration reg) {
+        registrations.add(reg);
+    }
+
+    public static List<Registration> getAllRegistrations() {
+        return registrations;
+    }
+
+    public static void setRegistrations(ArrayList<Registration> regis) {
+        registrations = regis;
+    }
+
+    public static List<Registration> getPendingRegistrations(Project project) {
+        return registrations.stream()
+                .filter(r -> r.getProject().equals(project))
+                .filter(r -> r.getStatus().equalsIgnoreCase("Pending"))
+                .collect(Collectors.toList());
+    }
+
+    public static boolean hasPendingRegistration(Officer officer, Project project) {
+        return registrations.stream()
+                .anyMatch(r -> r.getOfficer().equals(officer) &&
+                              r.getProject().equals(project) &&
+                              r.getStatus().equalsIgnoreCase("Pending"));
+    }
+
+    public static void removeRegistration(Registration reg) {
+        registrations.remove(reg);
+    }
+
+    public static List<Registration> getRegistrationsByOfficer(Officer officer) {
+        return registrations.stream()
+                .filter(r -> r.getOfficer().equals(officer))
+                .collect(Collectors.toList());
+    }
+
+    public static List<Registration> getRegistrationsByStatus(String status) {
+        return registrations.stream()
+                .filter(r -> r.getStatus().equalsIgnoreCase(status))
+                .collect(Collectors.toList());
+    }
+
+    public static void clearAll() {
+        registrations.clear();
+    }
+}

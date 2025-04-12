@@ -52,6 +52,9 @@ public class Enquiry {
     	return answered;
     }
 
+    public void setAnswered(boolean answered){
+        this.answered = answered;
+    }
     public void print() {
 		System.out.println("[ID " + id + "] " + project.getName() + " | " + user.getName() + ": " + message);
 		if (this.isAnswered()) {

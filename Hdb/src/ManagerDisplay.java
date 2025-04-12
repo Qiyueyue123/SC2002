@@ -4,6 +4,44 @@ import java.util.Scanner;
 
 
 public class ManagerDisplay implements UserDisplay{
+	private final Manager manager;
+    private final ManagerController controller;
+    private final Scanner scanner = new Scanner(System.in);
+
+    public ManagerDisplay(Manager manager) {
+        this.manager = manager;
+        this.controller = new ManagerController(manager);
+    }
+
+    @Override
+    public void showDisplay() {
+        boolean running = true;
+        while (running) {
+            System.out.println("========== Manager Menu ==========");
+            System.out.println("(1) View My Projects");
+            System.out.println("(2) View Pending Applications");
+            System.out.println("(3) View Withdrawal Requests");
+            System.out.println("(4) View Officer Registrations");
+            System.out.println("(5) Approve/Reject Officer Registrations");
+            System.out.println("(6) Approve/Reject Withdrawal Requests");
+            System.out.println("(0) Exit");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1 -> controller.viewOwnProjects();
+                case 2 -> controller.viewPendingApplications();
+                case 3 -> controller.viewWithdrawalRequests();
+                case 4 -> controller.viewOfficerRegistrations();
+                case 5 -> controller.approveOrRejectOfficerRegistration();
+                case 6 -> controller.approveOrRejectWithdrawalRequests();
+                case 0 -> running = false;
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+	/*
     Scanner scan = new Scanner(System.in);
 	private Manager manager;
 	
@@ -405,6 +443,6 @@ public class ManagerDisplay implements UserDisplay{
 		
 		} while (running);
 		
-	}
+	}*/
 
 }

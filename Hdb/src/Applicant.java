@@ -1,10 +1,30 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 //applicant can do evrything needed with enquiries
 //reply enquiry will be moved when officer and manager class is settled
 public class Applicant extends User{
-	protected Application application;
+	private Application application;
+
+    public Applicant(String nric, String name, String password, int age, boolean married) {
+        super(nric, name, password, age, married);
+        this.application = null;
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application app) {
+        this.application = app;
+    }
+
+    public void deleteApplication() {
+        ArrayList<Application> apps = ApplicationList.getAllApplications();
+        apps.remove(application);
+        application = null;
+    }
+	//Old code
+	/*protected Application application;
 	Scanner scan = new Scanner(System.in);
 	
 	public Applicant(String nric, String name, String password, int age, boolean married) {
@@ -146,6 +166,7 @@ public class Applicant extends User{
 			ArrayList<Application> applications = ApplicationList.getAllApplications();
 			applications.remove(application);
 			application = null;
-	}
+	}*/
+
 
 }
