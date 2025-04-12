@@ -381,12 +381,12 @@ public class ManagerDisplay implements UserDisplay{
 				//show the details of application chosen
 				
 				//currently views all applications that ask for withdrawal
-				ArrayList<Application> withdrawalRequested = ApplicationList.getWithdrawalRequested();
+				ArrayList<Application> withdrawalRequested = ApplicationList.getWithdrawalRequested(manager);
 				if (!(withdrawalRequested.isEmpty())) { //only shows if it is requested
 					boolean sevRunning = true;
 					do {
 						
-						ApplicationList.showWithdrawalRequested(); //show summarised list of applications that req for withdrawal
+						ApplicationList.showWithdrawalRequested(manager); //show summarised list of applications that req for withdrawal
 						System.out.println("Type in the NRIC of the application you wish to view: ");
 						System.out.println("(Input 0 to exit to main menu)");
 						String nric = scan.nextLine(); //select application to view in detail

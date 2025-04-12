@@ -53,10 +53,10 @@ public class ApplicationList {
 		}
 	}
 	
-	//might need to be specific to project but they also never specify clearly in the doc
-	public static void showWithdrawalRequested() {
+	
+	public static void showWithdrawalRequested(Manager manager) {
 		sortByProjects();
-		ArrayList<Application> withdrawalRequested = getWithdrawalRequested();
+		ArrayList<Application> withdrawalRequested = getWithdrawalRequested(manager);
 		
 		if (withdrawalRequested.isEmpty()) {
 			System.out.println("There are no applications.");
@@ -75,10 +75,10 @@ public class ApplicationList {
 		}
 	}
 	
-	public static ArrayList<Application> getWithdrawalRequested() {
+	public static ArrayList<Application> getWithdrawalRequested(Manager manager) {
 		sortByProjects();
 		ArrayList<Application> withdrawalRequested = applications.stream()
-                .filter(a -> a.getWithdrawalRequest())
+                .filter(a -> a.getWithdrawalRequest() && a.getProject().getManager().equals(manager))
                 .collect(Collectors.toCollection(ArrayList::new));
 		return withdrawalRequested;
 	}
