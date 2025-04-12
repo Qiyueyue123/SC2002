@@ -20,4 +20,13 @@ public class ManagerRepository {
         }
         return null;
     }
+    
+    public static Manager findManagerByNRIC(String nric) {
+        for (Manager manager : managers) {
+            if (manager.getNRIC().equalsIgnoreCase(nric)) {
+                return manager;
+            }
+        }
+        return null;
+    }
 }
