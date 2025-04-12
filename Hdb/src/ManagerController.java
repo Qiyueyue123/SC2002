@@ -22,8 +22,8 @@ public class ManagerController {
         ApplicationController.showPendingApplicationsForManager(manager);
     }
 
-    public void viewWithdrawalRequests() {
-        ApplicationController.showWithdrawalRequested();
+    public void viewWithdrawalRequests(Manager manager) {
+        ApplicationController.showWithdrawalRequested(manager);
     }
 
     public void viewOfficerRegistrations() {
@@ -52,7 +52,7 @@ public class ManagerController {
     }
 
     public void approveOrRejectWithdrawalRequests() {
-        List<Application> requested = ApplicationRepository.getWithdrawalRequested();
+        List<Application> requested = ApplicationRepository.getWithdrawalRequested(manager);
         for (Application app : requested) {
             if (app.getProject().getManager().equals(manager)) {
                 System.out.println("Withdrawal request from: " + app.getApplicant().getName());

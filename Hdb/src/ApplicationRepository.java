@@ -24,9 +24,9 @@ public class ApplicationRepository {
                 .orElse(null);
     }
 
-    public static List<Application> getWithdrawalRequested() {
+    public static List<Application> getWithdrawalRequested(Manager manager) {
         return applications.stream()
-                .filter(Application::getWithdrawalRequest)
+                .filter(a -> a.getWithdrawalRequest() && a.getProject().getManager().equals(manager))
                 .collect(Collectors.toList());
     }
 

@@ -15,8 +15,8 @@ public class ApplicationController {
         }
     }
 
-    public static void showWithdrawalRequested() {
-        List<Application> requested = ApplicationRepository.getWithdrawalRequested();
+    public static void showWithdrawalRequested(Manager manager) {
+        List<Application> requested = ApplicationRepository.getWithdrawalRequested(manager);
 
         if (requested.isEmpty()) {
             System.out.println("No applications requesting withdrawal.");
