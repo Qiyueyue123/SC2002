@@ -83,7 +83,7 @@ public class ProjectList {
 		        return userProjects;
 		}
 
-		public static ArrayList<Project> filterLocations(ArrayList<Project> list, String neighbourhood) {
+		public static ArrayList<Project> filterNeighbourhood(ArrayList<Project> list, String neighbourhood) {
 		 ArrayList<Project> locationList = list.stream()
 	               .filter(p -> p.getNeighborhood().equals(neighbourhood))
 	               .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
