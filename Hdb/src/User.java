@@ -34,4 +34,8 @@ public abstract class User {
     public boolean isMarried(){
         return married;
     }
+
+    public void setPassword(String password){
+        this.password = password;
+    }
 }

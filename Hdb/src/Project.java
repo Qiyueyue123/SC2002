@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Project {
     private String name;
@@ -11,9 +13,12 @@ public class Project {
 	private  int availOfficerSlots = 10;
 	private Manager manager;
 	private ArrayList<Applicant> peopleApplied;
+	private int price2room;
+	private int price3room;
+	private ArrayList<Officer> officers;
 	
 	//might separate the list bc a new project got like 0 peeps applying
-	Project(String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, String openingDate, String closingDate, int availOfficerSlots, Manager manager) {
+	Project(String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, String openingDate, String closingDate, int availOfficerSlots, Manager manager, int price2room, int price3room) {
 		this.name = name;
 		this.neighbourhood = neighbourhood;
 		this.visibility = visibility;
@@ -24,6 +29,9 @@ public class Project {
 		this.availOfficerSlots = availOfficerSlots;
 		this.manager = manager;
 		this.peopleApplied = new ArrayList<>();
+		this.price2room = price2room;
+		this.price3room = price3room;
+		this.officers = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -119,17 +127,42 @@ public class Project {
 		this.visibility = !this.visibility;
 	}
 
+	public int getPrice2Room(){
+		return price2room;
+	}
 
-	public void print() {
-        System.out.println("Project Name: " + name);
-        System.out.println("Neighborhood: " + neighbourhood);
-        System.out.println("Visibility: " + (visibility ? "On" : "Off"));
-        System.out.println("2-Room Units: " + num2Rooms);
-        System.out.println("3-Room Units: " + num3Rooms);
-        System.out.println("Application Period: " + openingDate + " to " + closingDate);
-        System.out.println("Available Officer Slots: " + availOfficerSlots);
+	public int getPrice3Room(){
+		return price3room;
+	}
+
+	public List<Applicant> getApplicantsForProject() {
+    return ApplicationRepository.getAllApplications().stream()
+            .map(Application::getApplicant)
+            .collect(Collectors.toList());
+	}
+
+	public void setOfficersInCharge() {
+		this.officers = RegistrationRepository.getAllRegistrations().stream()
+			.filter(r -> r.getProject().equals(this))
+			.filter(r -> r.getStatus().equalsIgnoreCase("Approved"))
+			.map(Registration::getOfficer)
+			.collect(Collectors.toCollection(ArrayList::new));
+	}
+
+	public void setAppliedPeople() {
+        this.peopleApplied = ApplicationRepository.getAllApplications().stream()
+            .filter(app -> app.getProject().equals(this))
+            .map(Application::getApplicant)
+            .collect(Collectors.toCollection(ArrayList::new));
     }
-
+	public String getOfficerName(){
+		List<String> names = new ArrayList<>();
+		for(Officer o :officers){
+			names.add(o.getName());
+		}
+		String officerList = String.join(",",names);
+		return officerList;
+	}
 	// add applicant to list
 	public void addPerson(Applicant a) {
 		peopleApplied.add(a);

@@ -1,6 +1,68 @@
+import java.util.List;
 import java.util.Scanner;
 public class OfficerDisplay implements UserDisplay{
     private Officer officer;
+    private OfficerController controller;
+    private Scanner scanner = new Scanner(System.in);
+
+    public OfficerDisplay(Officer officer) {
+        this.officer = officer;
+        this.controller = new OfficerController(officer);
+    }
+
+    @Override
+    public void showDisplay() {
+        boolean running = true;
+
+        while (running) {
+            System.out.println("========== Officer Menu ==========");
+            System.out.println("(1) Register as Officer-in-Charge");
+            System.out.println("(2) View Assigned Project");
+            System.out.println("(3) View Registration Status");
+            System.out.println("(4) Reply to Enquiry");
+            System.out.println("(5) Change Password");
+            System.out.println("(0) Exit");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    controller.registerAsOIC();
+                    break;
+                case 2:
+                    controller.viewAssignedProject();
+                    break;
+                case 3:
+                    controller.viewRegistrationStatus();
+                    break;
+                case 4:
+                    List<Enquiry> enquiries = EnquiryRepository.getAllEnquiries();
+                    for (int i = 0; i < enquiries.size(); i++) {
+                        System.out.println((i + 1) + ". ");
+                        enquiries.get(i).print();
+                    }
+                    System.out.print("Select enquiry to reply to: ");
+                    int idx = scanner.nextInt(); scanner.nextLine();
+                    if (idx >= 1 && idx <= enquiries.size()) {
+                        Enquiry e = enquiries.get(idx - 1);
+                        System.out.print("Enter your response: ");
+                        String response = scanner.nextLine();
+                        controller.replyToEnquiry(e, response);
+                        System.out.println("Response submitted.");
+                    }
+                    break;
+                case 5:
+                    changeUserPassword(scanner,officer);
+                case 0:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
+    }
+    /*private Officer officer;
     private ApplicantDisplay appDp;
     Scanner sc = new Scanner(System.in);
     
@@ -59,5 +121,5 @@ public class OfficerDisplay implements UserDisplay{
             } while (running);
             
         }
-    }
+    }*/
 }

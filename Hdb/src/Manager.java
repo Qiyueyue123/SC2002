@@ -1,8 +1,12 @@
 import java.util.ArrayList;
 
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 
 public class Manager extends User{
+	public Manager(String nric, String name, String password, int age, boolean married) {
+        super(nric, name, password, age, married);
+    }
+	/*
     public Manager(String nric, String name, String password, int age, boolean married) {
 		super(nric,name,password,age,married);
 	}
@@ -191,6 +195,6 @@ public void rejectOfficerRegistration(Officer officer, Project project) {
 	public void generateReport() {
         System.out.println("Generating report of applicants and their flat booking details...\n");
         // Dk what to report yet..
-    }
+    }*/
 	
 }

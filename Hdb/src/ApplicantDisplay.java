@@ -2,7 +2,88 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ApplicantDisplay implements UserDisplay {
-    Scanner scan = new Scanner(System.in);
+	private final Applicant applicant;
+    private final ApplicantController controller;
+    private Scanner scan = new Scanner(System.in);
+
+    public ApplicantDisplay(Applicant applicant) {
+        this.applicant = applicant;
+        this.controller = new ApplicantController(applicant);
+    }
+
+    @Override
+    public void showDisplay() {
+        boolean running = true;
+        while (running) {
+            System.out.println("========== Applicant Menu ==========");
+            System.out.println("(1) View Projects");
+            System.out.println("(2) Apply for Project");
+            System.out.println("(3) View Applied Project");
+            System.out.println("(4) View Enquiries");
+            System.out.println("(5) Create Enquiry");
+            System.out.println("(6) Edit Enquiry");
+            System.out.println("(7) Delete Enquiry");
+			System.out.println("(8) Change Password");
+            System.out.println("(0) Exit");
+            int choice = scan.nextInt(); scan.nextLine();
+
+            switch (choice) {
+                case 1 -> controller.viewProjects();
+                case 2 -> {
+                    ArrayList<Project> projects = controller.viewProjects();
+                    if (projects != null && !projects.isEmpty()) {
+                        System.out.print("Select project index: ");
+                        int idx = scan.nextInt(); scan.nextLine();
+                        Project selected = projects.get(idx - 1);
+
+                        int flatType = applicant.isMarried() ? askFlatType() : 2;
+                        controller.applyProject(selected, flatType);
+                    }
+                }
+                case 3 -> controller.viewAppliedProject();
+                case 4 -> controller.viewEnquiries();
+                case 5 -> {
+                    ArrayList<Project> projects = ProjectRepository.getAllProjects();
+                    ProjectDisplay.showAllProjects();
+                    System.out.print("Project number: ");
+                    int projNo = scan.nextInt(); scan.nextLine();
+                    System.out.print("Message: ");
+                    String msg = scan.nextLine();
+                    controller.createEnquiry(projects.get(projNo - 1), msg);
+                }
+                case 6 -> editOrDeleteEnquiry(true);
+                case 7 -> editOrDeleteEnquiry(false);
+				case 8 -> changeUserPassword(scan, applicant);
+                case 0 -> running = false;
+            }
+        }
+    }
+
+    private int askFlatType() {
+        System.out.print("Enter flat type (2 or 3): ");
+        return scan.nextInt();
+    }
+
+    private void editOrDeleteEnquiry(boolean isEdit) {
+        EnquiryList.showUserEnquiries(applicant);
+        ArrayList<Enquiry> enquiries = EnquiryList.getUserEnquiries(applicant);
+        if (!enquiries.isEmpty()) {
+            System.out.print("Select enquiry ID: ");
+            int id = scan.nextInt(); scan.nextLine();
+            Enquiry e = EnquiryList.selectEnquiry(id);
+            if (e != null) {
+                if (isEdit) {
+                    System.out.print("New message: ");
+                    String msg = scan.nextLine();
+                    controller.editEnquiry(e, msg);
+                } else {
+                    controller.deleteEnquiry(e);
+                }
+            }
+        }
+    }
+	//Old code
+    /*Scanner scan = new Scanner(System.in);
 	private Applicant applicant;
 	
 	ApplicantDisplay(Applicant applicant) {
@@ -168,6 +249,6 @@ public class ApplicantDisplay implements UserDisplay {
 	
 	} while (running);
 
-    }
+    }*/
 
 }

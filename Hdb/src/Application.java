@@ -66,6 +66,10 @@ public class Application {
 	public String getWithdrawalStatus() {
 		return withdrawalStatus;
 	}
+
+	public void setWithdrawalStatus(String withdrawalStatus){
+		this.withdrawalStatus = withdrawalStatus;
+	}
 	
 	//========== BTO Application ==========
 	//Application Status: Pending

@@ -1,7 +1,22 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Officer extends Applicant {
+    private Project assignedProject;
+
+    public Officer(String nric, String name, String password, int age, boolean married) {
+        super(nric, name, password, age, married);
+    }
+
+    public Project getAssignedProject() {
+        return assignedProject;
+    }
+
+    public void setAssignedProject(Project assignedProject) {
+        this.assignedProject = assignedProject;
+    }
+    /*
 	private Project assignedProject;
 	private Registration registration;
     public Officer(String nric, String name, String password, int age, boolean married) {
@@ -17,7 +32,7 @@ public class Officer extends Applicant {
 	}
 
 	public void registerAsOIC() {
-        ArrayList<Project> projects = ProjectList.getAllProjects();
+        List<Project> projects = ProjectRepository.getAllProjects();
         Scanner sc = new Scanner(System.in);
         int i = 0;
         System.out.println("Available Projects:");
@@ -167,5 +182,5 @@ public class Officer extends Applicant {
             }
         }
         return null;
-    }
+    }*/
 }

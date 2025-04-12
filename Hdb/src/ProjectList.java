@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 //needs more work very rudimentary stuff avalaible for now
@@ -11,6 +12,10 @@ public class ProjectList {
 	public ProjectList() {
 		projects = new ArrayList<Project>();
 	}
+
+	public static void setProjects(ArrayList<Project> newProjects) {
+        projects = newProjects;
+    }
 	
 	//To sort by alphabetical order
 	public static void sortProjName() {
@@ -79,7 +84,7 @@ public class ProjectList {
 		}
 
 		public static ArrayList<Project> filterNeighbourhood(ArrayList<Project> list, String neighbourhood) {
-		 ArrayList<Project> neighbourhoodList = list.stream()
+		 ArrayList<Project> locationList = list.stream()
 	               .filter(p -> p.getNeighborhood().equals(neighbourhood))
 	               .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
 	       
@@ -106,4 +111,13 @@ public class ProjectList {
 	public static boolean isEmpty() {
 		return projects.isEmpty();
 	}
+
+	public static Project findProjectByName(String projectName) {
+        for (Project project : projects) {
+            if (project.getName().equalsIgnoreCase(projectName)) {
+                return project;
+            }
+        }
+        return null;
+    }
 }

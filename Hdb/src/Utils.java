@@ -1,9 +1,7 @@
 import java.util.Scanner;
-import java.io.*;
 
 public class Utils {
-    public static String checkRole() {
-        Scanner sc = new Scanner(System.in);
+    public static String checkRole(Scanner sc) {
         int response = -1;
         //Prompt for role and force 1, 2, or 3
         while (true) {
@@ -20,70 +18,50 @@ public class Utils {
                 } else if (response ==3) {
                     return "Manager";
                 } else {
-                    System.out.println("Invalid choice. Please enter 1, 2 or 3.");
-                    System.out.println();
+                    System.out.println("Invalid choice. Please enter 1, 2 or 3.\n");
                 }
             } catch (Exception e) {
-                System.out.println("Invalid choice. Please enter 1, 2 or 3.");
-                System.out.println();
+                System.out.println("Invalid choice. Please enter 1, 2 or 3.\n");
                 sc.nextLine(); 
             }
         }
     }
 
-    public static User loginAuthenticator(String role) {
-        String line;
-        String fileName = "../database/ApplicantList.csv";
-        boolean married;
-        Scanner sc = new Scanner(System.in);
+    public static User loginAuthenticator(Scanner sc,String role) {
         System.out.println("Please input NRIC: ");
-        String nric = sc.nextLine();
+        String nric = sc.nextLine().trim();
         System.out.println("Please input password (default password is 'password'): ");
-        String password  = sc.nextLine();
-        switch (role) {
-            case "Applicant":
-                fileName = "Hdb/database/ApplicantList.csv";
-                break;
-            case "Officer":
-                fileName = "Hdb/database/OfficerList.csv";
-                break;
-            case "Manager":
-                fileName = "Hdb/database/ManagerList.csv";
-                break;
-            default:
-                System.out.println("Invalid role.");
-        }
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            br.readLine();
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                
-                String name = values[0].trim();
-                String csvNric = values[1].trim();
-                int age = Integer.parseInt(values[2].trim());
-                String martialStatus = values[3].trim();
-                if(martialStatus.equals("Married")){
-                    married = true;
-                }
-                else{
-                    married = false;
-                }
-                String csvPassword = values[4].trim();
-                if (csvNric.equalsIgnoreCase(nric)&&csvPassword.equals(password)){
-                    if (role.equals("Applicant")) {
-                        return new Applicant(csvNric, name,csvPassword, age, married);
-                    } else if (role.equals("Officer")) {
-                        return new Officer(csvNric, name,csvPassword, age, married);
-                    } else if (role.equals("Manager")) {
-                        return new Manager(csvNric, name,csvPassword, age, married);
-                    }
-                }
+        String password = sc.nextLine().trim();
+        
+        if ("Applicant".equalsIgnoreCase(role)) {
+            Applicant applicant = ApplicantRepository.findApplicantByNRIC(nric);
+            if (applicant != null && applicant.getPassword().equals(password)) {
+                return applicant;
             }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+        } else if ("Officer".equalsIgnoreCase(role)) {
+            Officer officer = OfficerRepository.findOfficerByNRIC(nric);
+            if (officer != null && officer.getPassword().equals(password)) {
+                return officer;
+            }
+        } else if ("Manager".equalsIgnoreCase(role)) {
+            Manager manager = ManagerRepository.findManagerByNRIC(nric);
+            if (manager != null && manager.getPassword().equals(password)) {
+                return manager;
+            }
         }
         System.out.println("Invalid NRIC or password. Please try again.");
         return null;
     }
+
+    public static boolean changePassword(User user, String oldPassword, String newPassword) {
+        //verify that the oldPassword matches the user's current password.
+        if (!user.getPassword().equals(oldPassword)) {
+            System.out.println("Old password is incorrect.");
+            return false;
+        }
+        user.setPassword(newPassword);
+        System.out.println("Password successfully changed.");
+        return true;
+    }
+    
 }
