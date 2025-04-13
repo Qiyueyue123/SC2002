@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +22,17 @@ public class ManagerController {
    
     public void createProject(String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, 
     String openingDate, String closingDate, int availOfficerSlots, Manager manager, int price2room, int price3room) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         List<Project> projList = ProjectController.getUserProjects(manager);
         try {
-            LocalDate newOpening = LocalDate.parse(openingDate);
+            LocalDate newOpening = LocalDate.parse(openingDate,formatter);
+            LocalDate newClosing = LocalDate.parse(closingDate, formatter);
             for (Project p : projList) {
-                LocalDate projectClosing = LocalDate.parse(p.getClosingDate());
-                if (newOpening.isBefore(projectClosing)) {
-                    System.out.println("The new project's opening date " + newOpening + " is before the closing date of project: " + p.getName());
+                LocalDate existingOpening = LocalDate.parse(p.getOpeningDate(), formatter);
+                LocalDate existingClosing = LocalDate.parse(p.getClosingDate(),formatter);
+                if (!(newClosing.isBefore(existingOpening) || newOpening.isAfter(existingClosing))) {
+                    System.out.println("The new project's date range (" + newOpening + " to " + newClosing +
+                    ") overlaps with the project '" + p.getName() + "' date range (" + existingOpening + " to " + existingClosing + ").");
                     return;
                 }
             }

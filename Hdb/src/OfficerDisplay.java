@@ -65,6 +65,7 @@ public class OfficerDisplay implements UserDisplay{
                     break;
                 case 5:
                     controller.bookFlat();
+                    break;
                 case 6:
                     //generate receipt method;
                 case 7:
