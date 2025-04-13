@@ -65,10 +65,13 @@ public class OfficerDisplay implements UserDisplay{
                     break;
                 case 5:
                     controller.bookFlat();
+                    break;
                 case 6:
-                    //generate receipt method;
+                    controller.generateReceipt();
+                    break;
                 case 7:
                     changeUserPassword(scanner,officer);
+                    break;
                 case 0:
                     running = false;
                     break;

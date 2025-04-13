@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class OfficerController {
     private Officer officer;
@@ -142,4 +143,44 @@ public class OfficerController {
 
         System.out.println("Flat booked successfully for applicant: " + application.getApplicant().getName());
     }
-}
+    public void generateReceipt(){
+        Project assignedProject = officer.getAssignedProject();
+        ArrayList<Application> bookedApplications = new ArrayList();
+        for (Application a : ApplicationRepository.getAllApplications()){
+            if((a.getProject() == assignedProject) && (a.getAppliedStatus().equals("booked"))) {
+                bookedApplications.add(a);
+            }
+        }
+        if (bookedApplications.isEmpty()) {
+            System.out.println("No booked flats for your assigned project. ");
+            System.out.println();
+            return;
+        }
+        int i = 1;
+        int choice = 0;
+        System.out.println("Select Applicant to generate reciept for: ");
+        for (Application a : bookedApplications){
+            System.out.println(i + ". " +  a.getApplicant().getName() + ", " + a.getApplicant().getNRIC() + ", " + a.getFlatType());
+        }  System.out.println("0. Return to homepage");
+        if (choice == 0) {
+            return;
+        }
+        choice = scanner.nextInt();
+        scanner.nextLine();
+        Application a = bookedApplications.get(choice-1);
+        
+        String marriedStatus = a.getApplicant().isMarried() ? "Married" : "Single";
+        System.out.println("============ Receipt ============");
+        System.out.println("Applicant Details:");
+        System.out.println("Applicant: " + a.getApplicant().getName());
+        System.out.println("NRIC: " + a.getApplicant().getNRIC());
+        System.out.println("Age: " + a.getApplicant().getAge());
+        System.out.println("Marital Status: " + marriedStatus);
+        System.out.println("------------------------------");
+        System.out.println("Booked Project Details:");
+        System.out.println("Name: " + a.getProject().getName());
+        System.out.println("Neighborhood: " + a.getProject().getNeighborhood());
+        System.out.println("Flat Type: " + a.getFlatType() + " room");
+        System.out.println();
+    }
+    }
