@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.apple.eawt.Application;
+
 public class Project {
     private String name;
 	private String neighbourhood;
@@ -135,6 +137,14 @@ public class Project {
 		return price3room;
 	}
 
+	public void setPrice2Room(int price2Room){
+		this.price2room = price2Room;
+	}
+
+	public void setPrice3Room(int price3Room){
+		this.price3room = price3Room;
+	}
+
 	public List<Applicant> getApplicantsForProject() {
     return ApplicationRepository.getAllApplications().stream()
             .map(Application::getApplicant)
@@ -161,10 +171,22 @@ public class Project {
 			names.add(o.getName());
 		}
 		String officerList = String.join(",",names);
-		return officerList;
+		String officerValues = "\"" + officerList + "\"";
+		return officerValues;
 	}
 	// add applicant to list
 	public void addPerson(Applicant a) {
 		peopleApplied.add(a);
 	}
+
+	public void print() {
+    System.out.println("Project Name: " + name);
+    System.out.println("Neighborhood: " + neighbourhood);
+    System.out.println("Visibility: " + (visibility ? "Visible" : "Hidden"));
+    System.out.println("2-Room Units: " + num2Rooms);
+    System.out.println("3-Room Units: " + num3Rooms);
+    System.out.println("Application Period: " + openingDate + " to " + closingDate);
+    System.out.println("Available Officer Slots: " + availOfficerSlots);
+}
+
 }

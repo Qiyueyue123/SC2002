@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ApplicantDisplay implements UserDisplay {
@@ -34,10 +35,14 @@ public class ApplicantDisplay implements UserDisplay {
                     if (projects != null && !projects.isEmpty()) {
                         System.out.print("Select project index: ");
                         int idx = scan.nextInt(); scan.nextLine();
-                        Project selected = projects.get(idx - 1);
+						if(idx < 1 || idx > projects.size()){
+							System.out.println("Wrong Index! Try again");
+						}else{
+                        	Project selected = projects.get(idx - 1);
 
-                        int flatType = applicant.isMarried() ? askFlatType() : 2;
-                        controller.applyProject(selected, flatType);
+                       	 	int flatType = applicant.isMarried() ? askFlatType() : 2;
+                        	controller.applyProject(selected, flatType);
+						}
                     }
                 }
                 case 3 -> controller.viewAppliedProject();
@@ -47,9 +52,13 @@ public class ApplicantDisplay implements UserDisplay {
                     ProjectDisplay.showAllProjects();
                     System.out.print("Project number: ");
                     int projNo = scan.nextInt(); scan.nextLine();
-                    System.out.print("Message: ");
-                    String msg = scan.nextLine();
-                    controller.createEnquiry(projects.get(projNo - 1), msg);
+					if(projNo < 1 || projNo > projects.size()){
+						System.out.println("Invalid project number!");
+					}else{
+						System.out.print("Message: ");
+                    	String msg = scan.nextLine();
+                    	controller.createEnquiry(projects.get(projNo - 1), msg);
+					}
                 }
                 case 6 -> editOrDeleteEnquiry(true);
                 case 7 -> editOrDeleteEnquiry(false);
@@ -65,8 +74,8 @@ public class ApplicantDisplay implements UserDisplay {
     }
 
     private void editOrDeleteEnquiry(boolean isEdit) {
-        EnquiryList.showUserEnquiries(applicant);
-        ArrayList<Enquiry> enquiries = EnquiryList.getUserEnquiries(applicant);
+        EnquiryController.showUserEnquiries(applicant);
+        List<Enquiry> enquiries = EnquiryRepository.getUserEnquiries(applicant);
         if (!enquiries.isEmpty()) {
             System.out.print("Select enquiry ID: ");
             int id = scan.nextInt(); scan.nextLine();

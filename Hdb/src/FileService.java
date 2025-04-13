@@ -92,7 +92,12 @@ public class FileService {
                     String closingDate = fields[9].trim();
                     String managerName = fields[10].trim();
                     int availOfficerSlots = Integer.parseInt(fields[11].trim());
-                    boolean visibility = true;
+                    boolean visibility;
+                    if(Integer.parseInt(fields[12].trim())== 1){
+                        visibility = true;
+                    }else{
+                        visibility = false;
+                    }
 
                     Manager manager = ManagerRepository.findManagerByName(managerName);
                     if (manager == null) {
@@ -296,11 +301,19 @@ public class FileService {
 
     public void writeProjects(String csvFilePath, List<Project> projects) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
-            bw.write("Project Name,Neighborhood,Type 1,Num2Rooms,Price,Type 2,Num3Rooms,Price,OpeningDate,ClosingDate,Manager,AvailOfficerSlots,Officer");
+            bw.write("Project Name,Neighborhood,Type 1,Num2Rooms,Price,Type 2,Num3Rooms,Price,OpeningDate,ClosingDate,Manager,AvailOfficerSlots,Visibility,Officer");
             bw.newLine();
+            int visibility;
             for (Project p : projects) {
-                String line = p.getName() + "," + p.getNeighborhood() + ",2-Room," + p.getNum2Rooms() + "," + String.format("%,.2f", p.getPrice2Room()) + ",3-Room," + p.getNum3Rooms() + "," + 
-                              String.format("%,.2f", p.getPrice2Room()) + "," + p.getOpeningDate() + "," + p.getClosingDate() + "," + p.getManager().getName() + "," + p.getAvailOfficerSlots() + "," + p.getOfficerName();
+                if(p.getVisibility()==true){
+                    visibility = 1;
+                }
+                else{
+                    visibility = 0;
+                }
+                String line = p.getName() + "," + p.getNeighborhood() + ",2-Room," + p.getNum2Rooms() + "," + p.getPrice2Room() + ",3-Room," + p.getNum3Rooms() + "," + 
+                              p.getPrice2Room() + "," + p.getOpeningDate() + "," + p.getClosingDate() + "," + p.getManager().getName() + "," + p.getAvailOfficerSlots() 
+                              + "," + visibility + "," + p.getOfficerName();
                 bw.write(line);
                 bw.newLine();
             }

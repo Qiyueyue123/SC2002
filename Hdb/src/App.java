@@ -35,10 +35,10 @@ public class App {
         }
 
         UserDisplay display;
-        if (user instanceof Applicant applicant) {
-            display = new ApplicantDisplay(applicant);
-        } else if (user instanceof Officer officer) {
+        if (user instanceof Officer officer) {
             display = new OfficerDisplay(officer);
+        } else if (user instanceof Applicant applicant) {
+            display = new ApplicantDisplay(applicant);
         } else if (user instanceof Manager manager) {
             display = new ManagerDisplay(manager);
         } else {
@@ -68,9 +68,15 @@ public class App {
         ApplicationRepository.setApplications((ArrayList<Application>) fs.loadApplications("Hdb/database/ApplicationList.csv"));
         EnquiryRepository.setEnquiries((ArrayList<Enquiry>) fs.loadEnquiries("Hdb/database/EnquiryList.csv"));
         RegistrationRepository.setRegistrations((ArrayList<Registration>) fs.loadRegistrations("Hdb/database/RegistrationList.csv"));
-        for(Project p : ProjectList.getAllProjects()){
+        for(Project p : ProjectRepository.getAllProjects()){
             p.setOfficersInCharge();
             p.setAppliedPeople();
+        }
+        for(Officer o : OfficerRepository.getOfficers()){
+            Registration r = RegistrationRepository.hasSuccesfulRegistration(o);
+            if(r != null){
+                o.setAssignedProject(r.getProject());
+            }
         }
     }
 

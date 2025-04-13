@@ -8,13 +8,13 @@ public class ApplicantController {
     }
 
     public void viewEnquiries() {
-        EnquiryList.showUserEnquiries(applicant);
+        EnquiryController.showUserEnquiries(applicant);
     }
 
     public void createEnquiry(Project project, String msg) {
         Enquiry e = new Enquiry(applicant, project);
         e.setMessage(msg);
-        EnquiryList.addEnquiry(e);
+        EnquiryRepository.addEnquiry(e);
     }
 
     public void editEnquiry(Enquiry enquiry, String msg) {
@@ -22,7 +22,7 @@ public class ApplicantController {
     }
 
     public void deleteEnquiry(Enquiry enquiry) {
-        EnquiryList.getAllEnquiries().remove(enquiry);
+        EnquiryRepository.getAllEnquiries().remove(enquiry);
     }
 
     public ArrayList<Project> viewProjects() {
@@ -33,11 +33,15 @@ public class ApplicantController {
 
         ArrayList<Project> all = ProjectRepository.getAllProjects();
         ArrayList<Project> visible = new ArrayList<>();
-
+        String officerList = "";
+        int i = 0;
         for (Project p : all) {
-            if (p.getVisibility() && (p.getNum2Rooms() > 0 || p.getNum3Rooms() > 0)) {
+            officerList = p.getOfficerName();
+            if (p.getVisibility() && (p.getNum2Rooms() > 0 || p.getNum3Rooms() > 0) && !(officerList.contains(applicant.getName()))) {
                 if (applicant.isMarried() || (!applicant.isMarried() && p.getNum2Rooms() > 0)) {
                     visible.add(p);
+                    i++;
+                    System.out.println("Project " + i + ":");
                     ProjectDisplay.printProj(p);
                 }
             }
@@ -54,7 +58,7 @@ public class ApplicantController {
         Application app = new Application(applicant, project);
         app.setFlatType(flatTypeChoice);
         applicant.setApplication(app);
-        ApplicationList.addApplication(app);
+        ApplicationRepository.addApplication(app);
         project.addPerson(applicant);
 
         System.out.println("Successfully applied for " + project.getName());
@@ -62,11 +66,11 @@ public class ApplicantController {
     }
 
     public void viewAppliedProject() {
-        if (applicant.getApplication() == null) {
+        if(ApplicationController.getApplicationByNRIC(applicant.getNRIC())==null){
             System.out.println("No applied projects found");
             return;
-        }
-        applicant.getApplication().print();
+        };
+        ApplicationController.getApplicationByNRIC(applicant.getNRIC()).print();;
     }
 
     public void withdrawApplication() {

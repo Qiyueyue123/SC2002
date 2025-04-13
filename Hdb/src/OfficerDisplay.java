@@ -14,16 +14,27 @@ public class OfficerDisplay implements UserDisplay{
     public void showDisplay() {
         boolean running = true;
 
-        while (running) {
+        System.out.println("Continue as?:");
+        System.out.println("1. Applicant");
+        System.out.println("2. Officer");
+        int choice = scanner.nextInt();
+        if(choice==1){
+            ApplicantDisplay appDp = new ApplicantDisplay((Applicant)officer);
+            appDp.showDisplay();
+        }
+        else if(choice==2){
+            while (running) {
             System.out.println("========== Officer Menu ==========");
             System.out.println("(1) Register as Officer-in-Charge");
             System.out.println("(2) View Assigned Project");
             System.out.println("(3) View Registration Status");
             System.out.println("(4) Reply to Enquiry");
-            System.out.println("(5) Change Password");
+            System.out.println("(5) Book flat for Applicant");
+            System.out.println("(6) Generate Receipt");
+            System.out.println("(7) Change Password");
             System.out.println("(0) Exit");
 
-            int choice = scanner.nextInt();
+            choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
@@ -53,6 +64,10 @@ public class OfficerDisplay implements UserDisplay{
                     }
                     break;
                 case 5:
+                    controller.bookFlat();
+                case 6:
+                    //generate receipt method;
+                case 7:
                     changeUserPassword(scanner,officer);
                 case 0:
                     running = false;
@@ -122,4 +137,5 @@ public class OfficerDisplay implements UserDisplay{
             
         }
     }*/
+}
 }

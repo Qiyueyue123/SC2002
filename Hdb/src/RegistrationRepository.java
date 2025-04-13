@@ -17,11 +17,11 @@ public class RegistrationRepository {
         registrations = regis;
     }
 
-    public static List<Registration> getPendingRegistrations(Project project) {
+    public static ArrayList<Registration> getPendingRegistrations(Project project) {
         return registrations.stream()
                 .filter(r -> r.getProject().equals(project))
                 .filter(r -> r.getStatus().equalsIgnoreCase("Pending"))
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public static boolean hasPendingRegistration(Officer officer, Project project) {
@@ -29,6 +29,21 @@ public class RegistrationRepository {
                 .anyMatch(r -> r.getOfficer().equals(officer) &&
                               r.getProject().equals(project) &&
                               r.getStatus().equalsIgnoreCase("Pending"));
+    }
+
+    public static boolean hasRegistration(Officer officer, Project project) {
+        return registrations.stream()
+                .anyMatch(r -> r.getOfficer().equals(officer) &&
+                              r.getProject().equals(project));
+    }
+
+    public static Registration hasSuccesfulRegistration(Officer officer) {
+        for(Registration a: getAllRegistrations()){
+            if(a.getOfficer().equals(officer) && a.getStatus().equalsIgnoreCase("Pending")){
+                return a;
+            }
+        }
+        return null;
     }
 
     public static void removeRegistration(Registration reg) {

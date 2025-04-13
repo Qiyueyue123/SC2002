@@ -14,7 +14,7 @@ public class ReportRepository {
         reports.add(report);
     }
     
-    public List<Report> getAllReports() {
+    public static ArrayList<Report> getAllReports() {
         sortByProjects();
         return new ArrayList<>(reports);
     }
@@ -36,7 +36,7 @@ public class ReportRepository {
                   .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
           
           return under25List;
-       }
+    }
    
    public static ArrayList<Report> filter25to35(ArrayList<Report> list) {
         ArrayList<Report> inclusive25to35List = list.stream()
@@ -44,7 +44,7 @@ public class ReportRepository {
                   .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
           
           return inclusive25to35List;
-       }
+    }
    
    public static ArrayList<Report> filter35to45(ArrayList<Report> list) {
         ArrayList<Report> inclusive35to45List = list.stream()
@@ -52,7 +52,7 @@ public class ReportRepository {
                   .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
           
           return inclusive35to45List;
-       }
+    }
    
    public static ArrayList<Report> filterOver45(ArrayList<Report> list) {
         ArrayList<Report> over45List = list.stream()
@@ -60,7 +60,7 @@ public class ReportRepository {
                   .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
           
           return over45List;
-       }
+    }
    
    
    
@@ -71,7 +71,7 @@ public class ReportRepository {
                   .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
           
           return projectList;
-       }
+    }
    
    public static ArrayList<Report> filterMarried(ArrayList<Report> list, boolean isMarried) {
        sortByProjects();

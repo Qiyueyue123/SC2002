@@ -44,9 +44,9 @@ public class ProjectDisplay {
         System.out.println("Neighborhood: " + p.getNeighborhood());
         System.out.println("Visibility: " + (p.getVisibility()));
         System.out.println("2-Room Units: " + p.getNum2Rooms());
-        System.out.println("Price of 2-Room units: $"+ String.format("%,.2f",p.getPrice2Room()));
+        System.out.println("Price of 2-Room units: $"+ p.getPrice2Room());
         System.out.println("3-Room Units: " + p.getNum3Rooms());
-        System.out.println("Price of 3-Room units: $"+ String.format("%,.2f",p.getPrice3Room()));
+        System.out.println("Price of 3-Room units: $"+ p.getPrice3Room());
         System.out.println("Application Period: " + p.getOpeningDate() + " to " + p.getClosingDate());
         System.out.println("Available Officer Slots: " + p.getAvailOfficerSlots());
     }
