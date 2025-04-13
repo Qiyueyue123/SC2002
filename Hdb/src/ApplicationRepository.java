@@ -38,7 +38,7 @@ public class ApplicationRepository {
     }
 
     public static boolean hasUserAppliedToProject(String nric, Project project) {
-        ArrayList<Application> applications = ApplicationList.getAllApplications();
+        List<Application> applications = getAllApplications();
         for (Application app : applications) {
             if (app.getApplicant().getNRIC().equalsIgnoreCase(nric)
                 && app.getProject().equals(project)) {
@@ -50,5 +50,16 @@ public class ApplicationRepository {
 
     public static void clearAll() {
         applications.clear();
+    }
+
+    public static Application getApplicationByNRICAndProject(String nric, Project project) {
+        List<Application> applications = getAllApplications();
+        for (Application app : applications) {
+            if (app.getApplicant().getNRIC().equalsIgnoreCase(nric) &&
+                app.getProject().equals(project)) {
+                return app;
+            }
+        }
+        return null;
     }
 }

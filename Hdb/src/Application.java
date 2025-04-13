@@ -88,13 +88,16 @@ public class Application {
 	
 	public void print() {
 		int numUnits = 0;
+		int price = 0;
 		String marriedStatus = "NIL";
 		
 		if (flatType == 2) {
 			numUnits = project.getNum2Rooms();
+			price = project.getPrice2Room();
 		}
 		else if (flatType == 3) {
 			numUnits = project.getNum3Rooms();
+			price = project.getPrice3Room();
 		}
 		
 		if (applicant.isMarried()) {
@@ -114,11 +117,12 @@ public class Application {
 		System.out.println("Marital Status: " + marriedStatus);
 		System.out.println();
 		System.out.println("Project: " + project.getName());
-		System.out.println("Flat-type: " + flatType + " room");
+		System.out.println("Flat-type: " + flatType + "-Room");
+		System.out.println("Price: $" + price);
 		System.out.println("Number of units available: " + numUnits);
 		System.out.println("-------------------------------------");
-		System.out.println("Withdrawal requested: " + withdrawalRequest);
-		System.out.println("Withdrawal status: " + withdrawalStatus);
+		System.out.println("Withdrawal Requested: " + withdrawalRequest);
+		System.out.println("Withdrawal Status: " + withdrawalStatus);
 		
 	}
 	

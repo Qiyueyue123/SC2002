@@ -20,4 +20,5 @@ public class ApplicantRepository {
         }
         return null;
     }
+
 }

@@ -1,9 +1,11 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
 public class OfficerController {
-    private final Officer officer;
-    private final Scanner scanner = new Scanner(System.in);
+    private Officer officer;
+    private Scanner scanner = new Scanner(System.in);
 
     public OfficerController(Officer officer) {
         this.officer = officer;
@@ -35,8 +37,8 @@ public class OfficerController {
 
         Project selected = availableProjects.get(choice - 1);
 
-        if (RegistrationRepository.hasPendingRegistration(officer, selected)) {
-            System.out.println("You already have a pending registration for this project.");
+        if(RegistrationRepository.hasRegistration(officer,selected)){
+            System.out.println("You have already registered for this project");
             return;
         }
 
@@ -68,5 +70,76 @@ public class OfficerController {
 
     public void replyToEnquiry(Enquiry enquiry, String response) {
         enquiry.setResponse(response);
+    }
+
+    public void bookFlat() {
+        Project assignedProject = officer.getAssignedProject();
+        if (assignedProject == null) {
+            System.out.println("You are not assigned to any project.");
+            return;
+        }
+
+        try {
+            LocalDate currentDate = LocalDate.now();
+            LocalDate projectOpeningDate = LocalDate.parse(assignedProject.getOpeningDate());
+            LocalDate projectClosingDate = LocalDate.parse(assignedProject.getClosingDate());
+
+            if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
+                System.out.println("Booking is not allowed at this time. Booking is allowed only between " 
+                + projectOpeningDate + " and " + projectClosingDate + ".");
+                return;
+            }
+        } catch (DateTimeParseException e) {
+                System.out.println("Error parsing project dates: " + e.getMessage());
+                return;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Applicant NRIC: ");
+        String applicantNRIC = sc.nextLine().trim();
+        Application application = ApplicationRepository.getApplicationByNRICAndProject(applicantNRIC, assignedProject);
+
+        if (application == null) {
+            System.out.println("No application found for this applicant in your project.");
+            return;
+        }
+
+        if (!application.getAppliedStatus().equalsIgnoreCase("successful")) {
+            System.out.println("Applicant's status is not successful. Cannot proceed with booking.");
+            return;
+        }
+
+        System.out.println("Choose flat type to book: ");
+        System.out.println("1. 2-Room");
+        System.out.println("2. 3-Room");
+        String flatType;
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        if(choice == 1){
+            flatType = "2-Room";
+            if (assignedProject.getNum2Rooms() > 0){
+                assignedProject.minusNum2Rooms();
+            }
+            else{
+                System.out.println("No more " + flatType + " flats available");
+                return;
+            }
+        }
+        else{
+            flatType = "3-room";
+            if (assignedProject.getNum3Rooms() > 0){
+                assignedProject.minusNum3Rooms();
+            }
+            else{
+                System.out.println("No more " + flatType + " flats available");
+                return;
+            }
+        }
+
+        application.setAppliedStatus("booked");
+        application.setFlatType(choice);
+
+        System.out.println("Flat booked successfully for applicant: " + application.getApplicant().getName());
     }
 }

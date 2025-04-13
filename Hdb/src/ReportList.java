@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 public class ReportList {
     public static ArrayList<Report> reports;
 	
-ReportList() {
-    reports = new ArrayList<Report>();
-}
+	ReportList() {
+    	reports = new ArrayList<Report>();
+	}
 
 	public static void sortByProjects() {
 		reports.sort(new Comparator<Report>() {

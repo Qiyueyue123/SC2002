@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReportRepository {
-    private List<Report> reports;
+    private static List<Report> reports;
     
     public ReportRepository() {
         reports = new ArrayList<>();
@@ -14,12 +14,12 @@ public class ReportRepository {
         reports.add(report);
     }
     
-    public List<Report> getAllReports() {
+    public static ArrayList<Report> getAllReports() {
         sortByProjects();
         return new ArrayList<>(reports);
     }
     
-    public void sortByProjects() {
+    public static void sortByProjects() {
         reports.sort(new Comparator<Report>() {
             @Override
             public int compare(Report r1, Report r2) {
@@ -30,51 +30,69 @@ public class ReportRepository {
         });
     }
     
-    public ArrayList<Report> filterUnder25() {
-        return reports.stream()
-                .filter(r -> r.getApplicant().getAge() < 25)
-                .collect(Collectors.toCollection(ArrayList::new));
+    public static ArrayList<Report> filterUnder25(ArrayList<Report> list) {
+        ArrayList<Report> under25List = list.stream()
+                  .filter(r -> r.getApplicant().getAge() < 25)
+                  .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
+          
+          return under25List;
     }
-    
-    public ArrayList<Report> filter25to35() {
-        return reports.stream()
-                .filter(r -> r.getApplicant().getAge() >= 25 && r.getApplicant().getAge() < 35)
-                .collect(Collectors.toCollection(ArrayList::new));
+   
+   public static ArrayList<Report> filter25to35(ArrayList<Report> list) {
+        ArrayList<Report> inclusive25to35List = list.stream()
+                  .filter(r -> r.getApplicant().getAge() >= 25 && r.getApplicant().getAge() < 35)
+                  .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
+          
+          return inclusive25to35List;
     }
-    
-    public ArrayList<Report> filter35to45() {
-        return reports.stream()
-                .filter(r -> r.getApplicant().getAge() >= 35 && r.getApplicant().getAge() < 45)
-                .collect(Collectors.toCollection(ArrayList::new));
+   
+   public static ArrayList<Report> filter35to45(ArrayList<Report> list) {
+        ArrayList<Report> inclusive35to45List = list.stream()
+                  .filter(r -> r.getApplicant().getAge() >= 35 && r.getApplicant().getAge() < 45)
+                  .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
+          
+          return inclusive35to45List;
     }
-    
-    public ArrayList<Report> filterOver45() {
-        return reports.stream()
-                .filter(r -> r.getApplicant().getAge() >= 45)
-                .collect(Collectors.toCollection(ArrayList::new));
+   
+   public static ArrayList<Report> filterOver45(ArrayList<Report> list) {
+        ArrayList<Report> over45List = list.stream()
+                  .filter(r -> r.getApplicant().getAge() >= 45)
+                  .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
+          
+          return over45List;
     }
-    
-    public ArrayList<Report> filterProjects(String projectName) {
-        return reports.stream()
-                .filter(r -> r.getApplication().getProject().getName().equalsIgnoreCase(projectName))
-                .collect(Collectors.toCollection(ArrayList::new));
+   
+   
+   
+   
+   public static ArrayList<Report> filterProjects(ArrayList<Report> list, String project) {
+        ArrayList<Report> projectList = list.stream()
+                  .filter(r -> r.getApplication().getProject().getName().equals(project))
+                  .collect(Collectors.toCollection(ArrayList::new)); // Create filtered ArrayList but the objects within are still the og ones
+          
+          return projectList;
     }
-
-    public ArrayList<Report> filterMarried(boolean isMarried) {
-        return reports.stream()
-                .filter(r -> r.getApplicant().isMarried() == isMarried)
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    public List<Report> filterByFlatType(boolean is2Room) {
-        if (is2Room) {
-            return reports.stream()
-                .filter(r -> r.getApplication().getProject().getNum2Rooms() > 0)
-                .collect(Collectors.toCollection(ArrayList::new));
-        } else {
-            return reports.stream()
-                .filter(r -> r.getApplication().getProject().getNum3Rooms() > 0)
-                .collect(Collectors.toCollection(ArrayList::new));
-        }
+   
+   public static ArrayList<Report> filterMarried(ArrayList<Report> list, boolean isMarried) {
+       sortByProjects();
+       ArrayList<Report> marriedReports = list.stream()
+           .filter(r -> r.getApplicant().isMarried())
+           .collect(Collectors.toCollection(ArrayList::new)); 
+       ArrayList<Report> singleReports = list.stream()
+               .filter(r -> !(r.getApplicant().isMarried()))
+               .collect(Collectors.toCollection(ArrayList::new)); 
+       ArrayList<Report> selectReports = isMarried ? marriedReports : singleReports;
+       return selectReports;
+   }
+   
+   public static ArrayList<Report> filterFlatType(ArrayList<Report> list, boolean is2Room) {
+        ArrayList<Report> twoRoomList = list.stream()
+                 .filter(r -> r.getApplication().getProject().getNum2Rooms() > 0)
+                 .collect(Collectors.toCollection(ArrayList::new)); 
+        ArrayList<Report> threeRoomList = list.stream()
+                 .filter(r -> r.getApplication().getProject().getNum3Rooms() > 0)
+                 .collect(Collectors.toCollection(ArrayList::new)); //returns two room if true, three room if false
+        ArrayList<Report> selectRoomList = is2Room ? twoRoomList : threeRoomList; 
+         return selectRoomList;
     }
 }
