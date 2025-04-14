@@ -243,7 +243,7 @@ public class ManagerController {
         ArrayList<Report> reports = ReportRepository.getAllReports();
         List<Report> filteredReports = new ArrayList<>(reports);
 
-        boolean filterinng = true;
+        boolean filtering = true;
         while (filtering) {
         System.out.println("========== Applicant Report Filter ==========");
         System.out.println("(1) No Filter / Generate Reports");
