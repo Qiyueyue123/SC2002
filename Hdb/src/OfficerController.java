@@ -41,8 +41,20 @@ public class OfficerController {
         if(RegistrationRepository.hasRegistration(officer,selected)){
             System.out.println("You have already registered for this project");
             return;
+        } 
+        ArrayList<Applicant> applicants = selected.getPeopleApplied();
+        if (applicants.contains(officer)) { 
+            System.err.println("You cannot register as OIC for a project you have applied to.");
+            return;
         }
+        LocalDate currentDate = LocalDate.now();
+        LocalDate projectOpeningDate = LocalDate.parse(selected.getOpeningDate());
+        LocalDate projectClosingDate = LocalDate.parse(selected.getClosingDate());
 
+        if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
+            System.out.println("Registration is not allowed at this time. Registration is allowed only between " 
+            + projectOpeningDate + " and " + projectClosingDate + ".");
+            return;}
         Registration reg = new Registration(officer, selected);
         RegistrationRepository.addRegistration(reg);
         System.out.println("Registration submitted and pending manager approval.");
