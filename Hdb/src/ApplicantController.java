@@ -54,6 +54,14 @@ public class ApplicantController {
             System.out.println("Cannot apply for a second project.");
             return;
         }
+        //if officer, check if registered for the project
+        if (applicant instanceof Officer) {
+            Officer o = (Officer) applicant;
+            if (RegistrationRepository.hasRegistration(o, project)){
+                System.out.println("You cannot apply for a project you are registered for.");
+                return;
+            }
+        }
 
         Application app = new Application(applicant, project);
         app.setFlatType(flatTypeChoice);

@@ -10,6 +10,7 @@ public class ApplicantDisplay implements UserDisplay {
     public ApplicantDisplay(Applicant applicant) {
         this.applicant = applicant;
         this.controller = new ApplicantController(applicant);
+		//should officer controller implement  
     }
 
     @Override
@@ -36,7 +37,7 @@ public class ApplicantDisplay implements UserDisplay {
                         System.out.print("Select project index: ");
                         int idx = scan.nextInt(); scan.nextLine();
 						if(idx < 1 || idx > projects.size()){
-							System.out.println("Wrong Index! Try again");
+							System.out.println("Invalid Index.");
 						}else{
                         	Project selected = projects.get(idx - 1);
 

@@ -3,9 +3,10 @@ import java.util.Scanner;
 public class Utils {
     public static String checkRole(Scanner sc) {
         int response = -1;
-        //Prompt for role and force 1, 2, or 3
+        //Prompt for role and force 1, 2, or 3       
+        System.out.println("Welcome to the BTO System");
         while (true) {
-            System.out.println("Select Role (Enter 1, 2 or 3)");
+            System.out.println("Please enter your role: applicant / officer / manager (Enter 1, 2 or 3)");
             System.out.println("1. Applicant");
             System.out.println("2. HDB Officer");
             System.out.println("3. HDB Manager");
