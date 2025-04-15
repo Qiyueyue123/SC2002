@@ -42,10 +42,8 @@ public class OfficerController {
             System.out.println("You have already registered for this project");
             return;
         } 
-        ArrayList<Applicant> applicants = selected.getPeopleApplied();
-        if (applicants.contains(officer)) { 
-            System.err.println("You cannot register as OIC for a project you have applied to.");
-            return;
+        if (ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), selected) != null) {
+            System.out.println("You cannot register for a project you have applied for");
         }
         LocalDate currentDate = LocalDate.now();
         LocalDate projectOpeningDate = LocalDate.parse(selected.getOpeningDate());
