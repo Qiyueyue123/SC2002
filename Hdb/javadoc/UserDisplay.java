@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Boundary
+ * Boundary.
  * Interface representing a user display for different user roles in the system.
  * Provides methods for showing user-specific menus and changing passwords.
  */

@@ -1,4 +1,5 @@
 /**
+ * Entity.
  * The {@code Report} class represents a report that links an {@code Application}
  * to the corresponding {@code Applicant}.
  * It is typically used to generate or manage reports involving application details.

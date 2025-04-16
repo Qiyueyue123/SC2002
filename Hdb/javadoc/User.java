@@ -1,7 +1,7 @@
 /**
- * Entity Class.
- * An abstract representation of a User in the system.
- * This class provides basic attributes and methods shared by all user types
+ * Entity.
+ * Interface of a User in the system.
+ * This interface provides basic attributes and methods shared by all user types
  * such as Applicants, Officers, and Managers.
  */
 public abstract class User {

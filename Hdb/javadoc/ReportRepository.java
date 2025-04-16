@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * Entity.
  * ReportRepository manages a collection of reports and provides
  * methods to add, retrieve, sort, and filter them based on criteria
  * such as age, project, marital status, and flat type.
