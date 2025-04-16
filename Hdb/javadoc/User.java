@@ -1,5 +1,5 @@
 /**
- * Entity
+ * Entity Class.
  * An abstract representation of a User in the system.
  * This class provides basic attributes and methods shared by all user types
  * such as Applicants, Officers, and Managers.
