@@ -170,7 +170,7 @@ public class Project {
 		for(Officer o :officers){
 			names.add(o.getName());
 		}
-		String officerList = String.join(",",names);
+		String officerList = String.join(",",names);	
 		String officerValues = "\"" + officerList + "\"";
 		return officerValues;
 	}
