@@ -17,6 +17,10 @@ public class ApplicationRepository {
         applications = appl;
     }
 
+    public static void deleteApplication(Application app){
+        applications.remove(app);
+    }
+
     public static Application selectApplication(String nric) {
         return applications.stream()
                 .filter(app -> app.getApplicant().getNRIC().equalsIgnoreCase(nric))

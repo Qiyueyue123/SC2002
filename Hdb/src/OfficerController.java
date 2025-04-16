@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -44,15 +44,23 @@ public class OfficerController {
         } 
         if (ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), selected) != null) {
             System.out.println("You cannot register for a project you have applied for");
+            return;
         }
-        LocalDate currentDate = LocalDate.now();
-        LocalDate projectOpeningDate = LocalDate.parse(selected.getOpeningDate());
-        LocalDate projectClosingDate = LocalDate.parse(selected.getClosingDate());
-
-        if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
-            System.out.println("Registration is not allowed at this time. Registration is allowed only between " 
-            + projectOpeningDate + " and " + projectClosingDate + ".");
-            return;}
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        List<Registration> approvedRegistrations = RegistrationRepository.getApprovedRegistrationsByOfficer(officer);
+        LocalDate selectedOpening = LocalDate.parse(selected.getOpeningDate(),formatter);
+        LocalDate selectedClosing = LocalDate.parse(selected.getClosingDate(),formatter);
+        for (Registration reg : approvedRegistrations) {
+            Project approvedProject = reg.getProject();
+            LocalDate approvedOpening = LocalDate.parse(approvedProject.getOpeningDate(),formatter);
+            LocalDate approvedClosing = LocalDate.parse(approvedProject.getClosingDate(),formatter);
+        
+            if (!selectedOpening.isAfter(approvedClosing) && !approvedOpening.isAfter(selectedClosing)) {
+                System.out.println("Registration conflict: You are already approved as OIC for project '"
+                + approvedProject.getName() + "', whose registration period overlaps with the selected project.");
+                return;
+            }
+        }
         Registration reg = new Registration(officer, selected);
         RegistrationRepository.addRegistration(reg);
         System.out.println("Registration submitted and pending manager approval.");
@@ -88,21 +96,6 @@ public class OfficerController {
         if (assignedProject == null) {
             System.out.println("You are not assigned to any project.");
             return;
-        }
-
-        try {
-            LocalDate currentDate = LocalDate.now();
-            LocalDate projectOpeningDate = LocalDate.parse(assignedProject.getOpeningDate());
-            LocalDate projectClosingDate = LocalDate.parse(assignedProject.getClosingDate());
-
-            if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
-                System.out.println("Booking is not allowed at this time. Booking is allowed only between " 
-                + projectOpeningDate + " and " + projectClosingDate + ".");
-                return;
-            }
-        } catch (DateTimeParseException e) {
-                System.out.println("Error parsing project dates: " + e.getMessage());
-                return;
         }
 
         Scanner sc = new Scanner(System.in);
@@ -155,7 +148,7 @@ public class OfficerController {
     }
     public void generateReceipt(){
         Project assignedProject = officer.getAssignedProject();
-        ArrayList<Application> bookedApplications = new ArrayList();
+        ArrayList<Application> bookedApplications = new ArrayList<>();
         for (Application a : ApplicationRepository.getAllApplications()){
             if((a.getProject() == assignedProject) && (a.getAppliedStatus().equals("booked"))) {
                 bookedApplications.add(a);

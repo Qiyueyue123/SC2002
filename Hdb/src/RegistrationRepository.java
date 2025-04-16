@@ -39,11 +39,18 @@ public class RegistrationRepository {
 
     public static Registration hasSuccesfulRegistration(Officer officer) {
         for(Registration a: getAllRegistrations()){
-            if(a.getOfficer().equals(officer) && a.getStatus().equalsIgnoreCase("Pending")){
+            if(a.getOfficer().equals(officer) && a.getStatus().equalsIgnoreCase("Approved")){
                 return a;
             }
         }
         return null;
+    }
+
+    public static ArrayList<Registration> getApprovedRegistrationsByOfficer(Officer officer) {
+        return registrations.stream()
+                .filter(r -> r.getOfficer().equals(officer))
+                .filter(r -> r.getStatus().equalsIgnoreCase("Approved"))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public static void removeRegistration(Registration reg) {
@@ -54,6 +61,13 @@ public class RegistrationRepository {
         return registrations.stream()
                 .filter(r -> r.getOfficer().equals(officer))
                 .collect(Collectors.toList());
+    }
+    
+    public static ArrayList<Registration> getApprovedRegistrationsByOfficer(Officer officer) {
+        return registrations.stream()
+                .filter(r -> r.getOfficer().equals(officer))
+                .filter(r -> r.getStatus().equalsIgnoreCase("Approved"))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public static List<Registration> getRegistrationsByStatus(String status) {

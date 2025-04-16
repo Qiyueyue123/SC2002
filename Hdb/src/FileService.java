@@ -129,6 +129,9 @@ public class FileService {
                     boolean withdrawalRequested = Boolean.parseBoolean(fields[4].trim());
                     String withdrawalStatus = fields[5].trim();
                     Applicant applicant = ApplicantRepository.findApplicantByNRIC(applicantNRIC);
+                    if(applicant == null){
+                        applicant = OfficerRepository.findOfficerByNRIC(applicantNRIC);
+                    }
                     Project project = ProjectController.findProjectByName(projectName);
                     if (applicant == null) {
                         continue;

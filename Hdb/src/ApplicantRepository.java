@@ -12,6 +12,12 @@ public class ApplicantRepository {
         applicants = newApplicants;
     }
 
+    public static void setAllApplications(List<Applicant> newApplicants){
+        for(Applicant a:newApplicants){
+            a.setApplication(ApplicationController.getApplicationByNRIC(a.getNRIC()));
+        }
+    }
+
     public static Applicant findApplicantByNRIC(String nric) {
         for (Applicant applicant : applicants) {
             if (applicant.getNRIC().equalsIgnoreCase(nric)) {
