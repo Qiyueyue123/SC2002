@@ -1,21 +1,20 @@
 import java.util.Scanner;
 
 /**
- * Utility class for handling user role selection, authentication,
- * and password management in the BTO System.
+ * Utility class providing shared functionalities like role checking,
+ * login authentication, and password changing for the BTO System.
  */
 public class Utils {
 
     /**
-     * Prompts the user to select their role in the BTO system.
-     * Continues prompting until a valid option is entered (1, 2, or 3).
+     * Prompts the user to select a role (Applicant, Officer, or Manager) by entering a number.
+     * Keeps prompting until a valid input is provided.
      *
-     * @param sc A {@link Scanner} object used for reading user input.
-     * @return A {@code String} representing the selected role: "Applicant", "Officer", or "Manager".
+     * @param sc The Scanner object used for user input.
+     * @return A string representing the selected role.
      */
     public static String checkRole(Scanner sc) {
         int response = -1;
-        // Prompt for role and force 1, 2, or 3
         System.out.println("Welcome to the BTO System");
         while (true) {
             System.out.println("Please enter your role: applicant / officer / manager (Enter 1, 2 or 3)");
@@ -24,6 +23,7 @@ public class Utils {
             System.out.println("3. HDB Manager");
             try {
                 response = sc.nextInt();
+                sc.nextLine(); // Consume leftover newline
                 if (response == 1) {
                     return "Applicant";
                 } else if (response == 2) {
@@ -35,18 +35,17 @@ public class Utils {
                 }
             } catch (Exception e) {
                 System.out.println("Invalid choice. Please enter 1, 2 or 3.\n");
-                sc.nextLine();
+                sc.nextLine(); // Consume invalid input
             }
         }
     }
 
     /**
-     * Authenticates the login for a user based on their role.
-     * Prompts for NRIC and password, and returns a matching user object if credentials are correct.
+     * Authenticates the login credentials of a user based on their role.
      *
-     * @param sc   A {@link Scanner} object used for reading user input.
-     * @param role A {@code String} indicating the user's role: "Applicant", "Officer", or "Manager".
-     * @return A {@link User} object if authentication is successful; {@code null} otherwise.
+     * @param sc   The Scanner object used for user input.
+     * @param role The role of the user ("Applicant", "Officer", or "Manager").
+     * @return A User object if authentication is successful, null otherwise.
      */
     public static User loginAuthenticator(Scanner sc, String role) {
         System.out.println("Please input NRIC: ");
@@ -75,15 +74,14 @@ public class Utils {
     }
 
     /**
-     * Changes the password of a user if the old password matches the current password.
+     * Changes the user's password after verifying the old password.
      *
-     * @param user        The {@link User} whose password is to be changed.
+     * @param user        The user whose password is to be changed.
      * @param oldPassword The user's current password.
-     * @param newPassword The new password to set.
-     * @return {@code true} if the password was successfully changed; {@code false} otherwise.
+     * @param newPassword The new password to be set.
+     * @return true if the password is changed successfully, false otherwise.
      */
     public static boolean changePassword(User user, String oldPassword, String newPassword) {
-        // verify that the oldPassword matches the user's current password.
         if (!user.getPassword().equals(oldPassword)) {
             System.out.println("Old password is incorrect.");
             return false;
