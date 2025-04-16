@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /**
  * Entity.<p>
@@ -217,4 +216,4 @@ public void rejectOfficerRegistration(Officer officer, Project project) {
         // Dk what to report yet..
     }*/
 	
-}
+
