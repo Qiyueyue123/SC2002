@@ -1,12 +1,15 @@
 /**
  * Entity. <p>
- * Represents a registration record linking an {@link Officer} to a {@link Project}.
+ * The {@code Registration} class represents a registration record linking an {@link Officer} to a {@link Project}.
  * <p>
  * A registration has a status indicating whether it's "Pending", "Approved", or "Rejected".
  */
 public class Registration {
+     /** The officer that is related to this registration. */
     private Officer officer;
+    /** The project that is related to this registration.  */
     private Project project;
+    /** The registration's status. */
     private String status;
 
     /**

@@ -1,8 +1,8 @@
 import java.util.List;
 
 /**
- * Boundary. <p>
- * Controller class to manage registration approvals and rejections
+ * Controller. <p>
+ * This {@code RegistrationController} class manages registration approvals and rejections
  * for officers applying to projects.
  * <p>
  * This class interacts with the {@link RegistrationRepository} to retrieve and modify

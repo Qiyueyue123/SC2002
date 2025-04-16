@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * Controller. <p>
- * OfficerController manages officer-related actions such as registering as Officer-in-Charge,
+ * This {@code OfficerController} class manages officer-related actions such as registering as Officer-in-Charge,
  * viewing assigned projects, checking registration status, replying to enquiries, booking flats,
  * and generating receipts.
  */

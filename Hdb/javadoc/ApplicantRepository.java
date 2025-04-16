@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * Entity. <p>
- * Repository for managing a static list of {@link Applicant} objects.
+ * This {@code ApplicantRepository} is for managing a static list of {@link Applicant} objects.
  * Provides methods to retrieve, update, and search for applicants by NRIC.
  * Also links applicants with their corresponding applications.
  */
@@ -14,7 +14,7 @@ public class ApplicantRepository {
     private static List<Applicant> applicants = new ArrayList<>();
 
     /**
-     * Retrieves the list of all applicants.
+     * Returns the list of all applicants.
      *
      * @return the list of {@link Applicant} objects.
      */

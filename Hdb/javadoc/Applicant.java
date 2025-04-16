@@ -2,7 +2,7 @@
 
 /**
  * Entity. <p>
- * This class represents an applicant in the system who can apply for projects.
+ * This {@code Applicant} class represents an applicant in the system who can apply for projects.
  * Inherits common user attributes from the {@link User} class and maintains a reference to the applicant's current application.
  */
 public class Applicant extends User {

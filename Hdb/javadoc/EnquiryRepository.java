@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 /**
  * Entity.<p>
- * Repository for managing enquiries within the system.
+ * This {@code EnquiryRepository} class is for managing enquiries within the system.
  * Provides static methods to add, retrieve, and query enquiries.
  */
 public class EnquiryRepository {

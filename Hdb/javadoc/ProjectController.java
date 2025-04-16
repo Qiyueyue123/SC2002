@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 /**
  * Controller. <p>
- * Handles operations related to project manipulation and filtering logic.
+ * This {@code ProjectController} class handles operations related to project manipulation and filtering logic.
  * This includes sorting, searching, and filtering projects based on various criteria.
  */
 public class ProjectController {
@@ -19,7 +19,7 @@ public class ProjectController {
     }
 
     /**
-     * Retrieves all projects created by a specific manager, sorted by project name.
+     * Returns all projects created by a specific manager, sorted by project name.
      *
      * @param user The manager whose projects are to be retrieved.
      * @return A list of projects managed by the given manager.

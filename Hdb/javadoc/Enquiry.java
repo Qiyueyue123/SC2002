@@ -1,6 +1,6 @@
 /**
  * Entity. <p>
- * Represents an enquiry made by an applicant regarding a specific project.
+ * This class represents an enquiry made by an applicant regarding a specific project.
  * Each enquiry has a unique ID, a message, an optional response, and tracks whether it has been answered.
  */
 public class Enquiry {

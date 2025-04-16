@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 /**
  * Entity. <p>
- * ReportRepository manages a collection of reports and provides
+ * This {@code ReportRepository} manages a collection of reports and provides
  * methods to add, retrieve, sort, and filter them based on criteria
  * such as age, project, marital status, and flat type.
  */

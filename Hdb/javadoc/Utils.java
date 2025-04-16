@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Utility class providing shared functionalities like role checking,
+ * {@code Utils} is a utility class providing shared functionalities like role checking,
  * login authentication, and password changing for the BTO System.
  */
 public class Utils {

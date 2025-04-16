@@ -1,9 +1,11 @@
 
 /**
  * Entity.<p>
- * Represents an Officer in the system, who is also an Applicant.
+ * This {@code Officer} class represents an Officer in the system, who is also an Applicant.
  * An Officer may be assigned to a {@link Project} and can perform officer-specific actions
  * via the {@link OfficerController}.
+ * 
+ * Inherits common user attributes from the {@link Applicant} class
  */
 public class Officer extends Applicant {
     /**

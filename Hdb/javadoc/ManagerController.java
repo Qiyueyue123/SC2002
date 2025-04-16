@@ -9,7 +9,7 @@ import javax.swing.plaf.TreeUI;
 
 /**
  * Controller.<p>
- * ManagerController manages all manager-related operations including project management,
+ * This {@code ManagerController} class manages all manager-related operations including project management,
  * registration approvals, application processing, enquiry handling, and report generation.
  */
 public class ManagerController {
@@ -206,7 +206,7 @@ public class ManagerController {
     }
     
     /**
-     * Retrieves and returns all enquiries for a specific project managed by this manager.
+     * Returns all enquiries for a specific project managed by this manager.
      *
      * @return a list of enquiries for the selected project, or null if no valid project is selected
      */

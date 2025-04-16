@@ -2,7 +2,7 @@ import java.util.List;
 
 /**
  * Controller. <p>
- * EnquiryController provides static utility methods for displaying and retrieving
+ * This {@code EnquiryController} provides static utility methods for displaying and retrieving
  * enquiries from the {@link EnquiryRepository}.
  */
 public class EnquiryController {
@@ -70,7 +70,7 @@ public class EnquiryController {
     }
 
     /**
-     * Retrieves an enquiry by its unique identifier.
+     * Returns an enquiry by its unique identifier.
      *
      * @param id the unique ID of the enquiry
      * @return the {@link Enquiry} with the specified ID, or {@code null} if not found

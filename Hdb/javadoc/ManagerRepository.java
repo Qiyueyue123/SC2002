@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * Entity.<p>
- * Repository for managing a static list of {@link Manager} objects.
+ * This {@code ManagerRepository} class is for managing a static list of {@link Manager} objects.
  * Provides methods to retrieve, update, and search for managers by name or NRIC.
  */
 public class ManagerRepository {

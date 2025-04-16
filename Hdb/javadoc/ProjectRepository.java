@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Entity. <p>
- * A repository that manages a collection of {@link Project} instances.
+ * This {@code ProjectRepository} manages a collection of {@link Project} instances.
  * <p>
  * Provides methods to add, retrieve, update, and delete projects.
  */

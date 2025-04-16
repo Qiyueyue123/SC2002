@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 /**
  * Entity. <p>
- * RegistrationRepository handles the storage and retrieval of
+ * This {@code RegistrationRepository} handles the storage and retrieval of
  * registration data for officers and projects. Provides utility
  * methods to query, filter, and modify the registration list.
  */

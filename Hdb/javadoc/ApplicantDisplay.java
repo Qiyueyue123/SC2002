@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 
 /**
  * Boundary. <p>
- * Provides a console-based user interface for applicants to interact with the system.
+ * This {@code ApplicantDisplay} class provides a console-based user interface for applicants to interact with the system.
  * Allows applicants to view and apply for projects, manage their applications,
  * view and manage enquiries, change their password, and withdraw applications.
  */

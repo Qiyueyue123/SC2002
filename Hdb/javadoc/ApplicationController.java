@@ -2,7 +2,7 @@ import java.util.List;
 
 /**
  * Controller.<p>
- * ApplicationController provides static utility methods for displaying and retrieving
+ * This {@code ApplicationController} class provides static utility methods for displaying and retrieving
  * applications from the {@link ApplicationRepository}.
  */
 public class ApplicationController {
@@ -63,7 +63,7 @@ public class ApplicationController {
     }
 
     /**
-     * Retrieves an application by the applicant's NRIC.
+     * Returns an application by the applicant's NRIC.
      *
      * @param nric the NRIC of the applicant
      * @return the {@link Application} with the matching NRIC, or {@code null} if not found

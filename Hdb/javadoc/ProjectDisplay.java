@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Boundary. <p>
- * Provides methods to display project information to the console.
+ * This {@code ProjectDisplay} class provides methods to display project information to the console.
  * This class includes options to display all projects or projects specific to a manager.
  */
 public class ProjectDisplay {

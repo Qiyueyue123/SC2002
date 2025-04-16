@@ -2,9 +2,11 @@ import java.util.ArrayList;
 
 /**
  * Entity.<p>
- * Represents a Manager in the system who can create and manage projects,
+ * This {@code Manager} class represents a Manager in the system who can create and manage projects,
  * approve or reject officer registrations and applicant applications,
  * handle enquiries, generate reports, and control project visibility.
+ * 
+ * Inherits common user attributes from the {@link User} class
  */
 public class Manager extends User {
     

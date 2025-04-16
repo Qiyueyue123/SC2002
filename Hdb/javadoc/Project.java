@@ -6,7 +6,7 @@ import com.apple.eawt.Application;
 
 /**
  * Entity. <p>
- * Represents a housing project with details such as name, neighbourhood,
+ * This {@code Project} class represents a housing project with details such as name, neighbourhood,visibility,
  * unit availability, pricing, application period, managing officer, and applicants.
  */
 public class Project {

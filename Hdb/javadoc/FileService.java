@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Provides utility methods for loading and saving application data (Applicants, Officers, Managers,
+ * This class provides utility methods for loading and saving application data (Applicants, Officers, Managers,
  * Projects, Applications, Enquiries, Registrations) to and from CSV files.
  * <p>
  * Each method reads or writes a specific entity type, using a defined CSV format for each.

@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * Entity. <p>
- * Repository for managing a static list of {@link Officer} objects.
+ * This {@code OfficerRepository} class is for managing a static list of {@link Officer} objects.
  * Provides methods to retrieve, update, and search for officers by NRIC.
  */
 public class OfficerRepository {

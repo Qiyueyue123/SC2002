@@ -1,5 +1,5 @@
 /**
- * Entity.
+ * Entity.<p>
  * Represents an application made by an applicant for a specific project.
  * Tracks the application status, flat type selected, and withdrawal requests.
  */
@@ -38,7 +38,7 @@ public class Application {
     /**
      * Constructs a new application for the specified applicant and project.
      * Initializes the application status to "Pending", flat type to -1,
-     * and withdrawal request status to false and "Pending".
+     * and withdrawal request, withdrawal status to false and "Pending".
      *
      * @param applicant the applicant submitting the application
      * @param project   the project applied to

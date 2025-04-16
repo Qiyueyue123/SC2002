@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 /**
  * Entity. <p>
- * Repository for managing applications within the system.
+ * This {@code ApplicationRepository} class is for managing applications within the system.
  * Provides static methods to add, retrieve, filter, and query applications.
  */
 public class ApplicationRepository {
@@ -23,7 +23,7 @@ public class ApplicationRepository {
     }
 
     /**
-     * Retrieves all applications stored in the repository.
+     * Returns all applications stored in the repository.
      *
      * @return the list of all {@link Application} objects
      */
@@ -63,7 +63,7 @@ public class ApplicationRepository {
     }
 
     /**
-     * Retrieves all applications with withdrawal requests for a specific manager.
+     * Returns all applications with withdrawal requests for a specific manager.
      *
      * @param manager the {@link Manager} whose projects' withdrawal requests to retrieve
      * @return a list of applications with withdrawal requests for the manager's projects
@@ -75,7 +75,7 @@ public class ApplicationRepository {
     }
 
     /**
-     * Retrieves all pending applications for projects managed by a specific manager.
+     * Returns all pending applications for projects managed by a specific manager.
      *
      * @param manager the {@link Manager} whose pending applications to retrieve
      * @return a list of pending applications for the manager's projects

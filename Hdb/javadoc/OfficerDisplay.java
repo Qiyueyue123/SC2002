@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 /**
  * Boundary. <p>
- * OfficerDisplay handles the display and menu interactions for an Officer user.
+ * This {@code OfficerDisplay} class handles the display and menu interactions for an Officer user.
  * It acts as the user interface for officers to perform actions such as registering
  * as Officer-in-Charge (OIC), viewing project assignments, replying to enquiries,
  * booking flats, and generating receipts.
@@ -12,8 +12,17 @@ import java.util.Scanner;
  * Implements the UserDisplay interface.
  */
 public class OfficerDisplay implements UserDisplay {
+    /**
+     * The officer currently using the display.
+     */
     private Officer officer;
+    /**
+     * The controller that handles officer-related actions.
+     */
     private OfficerController controller;
+     /**
+     * Scanner for reading user input from the console.
+     */
     private Scanner scanner = new Scanner(System.in);
 
     /**

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Controller. <p>
- * ApplicantController manages actions performed by an {@link Applicant}.
+ * This {@code ApplicantController} class manages actions performed by an {@link Applicant}.
  * Provides methods for viewing, creating, editing, and deleting enquiries,
  * viewing available projects, applying to projects, viewing applied projects,
  * and requesting application withdrawal.
