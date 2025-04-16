@@ -1,17 +1,39 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
 
+/**
+ * Controller
+ * OfficerController manages officer-related actions such as registering as Officer-in-Charge,
+ * viewing assigned projects, checking registration status, replying to enquiries, booking flats,
+ * and generating receipts.
+ */
 public class OfficerController {
+    /**
+     * The officer associated with this controller.
+     */
     private Officer officer;
+
+    /**
+     * Scanner for reading user input.
+     */
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Constructs an OfficerController for the specified officer.
+     *
+     * @param officer the officer associated with this controller
+     */
     public OfficerController(Officer officer) {
         this.officer = officer;
     }
 
+    /**
+     * Allows the officer to register as Officer-in-Charge (OIC) for an available project.
+     * Checks for available projects, registration status, and project dates before submitting a registration.
+     */
     public void registerAsOIC() {
         List<Project> availableProjects = ProjectRepository.getAllProjects().stream()
                 .filter(p -> p.getAvailOfficerSlots() > 0)
@@ -38,10 +60,10 @@ public class OfficerController {
 
         Project selected = availableProjects.get(choice - 1);
 
-        if(RegistrationRepository.hasRegistration(officer,selected)){
+        if (RegistrationRepository.hasRegistration(officer, selected)) {
             System.out.println("You have already registered for this project");
             return;
-        } 
+        }
         if (ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), selected) != null) {
             System.out.println("You cannot register for a project you have applied for");
         }
@@ -50,14 +72,18 @@ public class OfficerController {
         LocalDate projectClosingDate = LocalDate.parse(selected.getClosingDate());
 
         if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
-            System.out.println("Registration is not allowed at this time. Registration is allowed only between " 
-            + projectOpeningDate + " and " + projectClosingDate + ".");
-            return;}
+            System.out.println("Registration is not allowed at this time. Registration is allowed only between "
+                    + projectOpeningDate + " and " + projectClosingDate + ".");
+            return;
+        }
         Registration reg = new Registration(officer, selected);
         RegistrationRepository.addRegistration(reg);
         System.out.println("Registration submitted and pending manager approval.");
     }
 
+    /**
+     * Displays the project currently assigned to the officer, if any.
+     */
     public void viewAssignedProject() {
         if (officer.getAssignedProject() != null) {
             System.out.println("Assigned Project: ");
@@ -67,6 +93,9 @@ public class OfficerController {
         }
     }
 
+    /**
+     * Displays the registration status for all projects the officer has registered for.
+     */
     public void viewRegistrationStatus() {
         List<Registration> all = RegistrationRepository.getAllRegistrations();
         boolean found = false;
@@ -79,10 +108,20 @@ public class OfficerController {
         if (!found) System.out.println("No registration found.");
     }
 
+    /**
+     * Sets the response for a given enquiry.
+     *
+     * @param enquiry  the enquiry to respond to
+     * @param response the response text
+     */
     public void replyToEnquiry(Enquiry enquiry, String response) {
         enquiry.setResponse(response);
     }
 
+    /**
+     * Books a flat for an applicant in the officer's assigned project.
+     * Checks project assignment, application status, and flat availability before booking.
+     */
     public void bookFlat() {
         Project assignedProject = officer.getAssignedProject();
         if (assignedProject == null) {
@@ -96,13 +135,13 @@ public class OfficerController {
             LocalDate projectClosingDate = LocalDate.parse(assignedProject.getClosingDate());
 
             if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
-                System.out.println("Booking is not allowed at this time. Booking is allowed only between " 
-                + projectOpeningDate + " and " + projectClosingDate + ".");
+                System.out.println("Booking is not allowed at this time. Booking is allowed only between "
+                        + projectOpeningDate + " and " + projectClosingDate + ".");
                 return;
             }
         } catch (DateTimeParseException e) {
-                System.out.println("Error parsing project dates: " + e.getMessage());
-                return;
+            System.out.println("Error parsing project dates: " + e.getMessage());
+            return;
         }
 
         Scanner sc = new Scanner(System.in);
@@ -127,22 +166,19 @@ public class OfficerController {
         int choice = sc.nextInt();
         sc.nextLine();
 
-        if(choice == 1){
+        if (choice == 1) {
             flatType = "2-Room";
-            if (assignedProject.getNum2Rooms() > 0){
+            if (assignedProject.getNum2Rooms() > 0) {
                 assignedProject.minusNum2Rooms();
-            }
-            else{
+            } else {
                 System.out.println("No more " + flatType + " flats available");
                 return;
             }
-        }
-        else{
+        } else {
             flatType = "3-room";
-            if (assignedProject.getNum3Rooms() > 0){
+            if (assignedProject.getNum3Rooms() > 0) {
                 assignedProject.minusNum3Rooms();
-            }
-            else{
+            } else {
                 System.out.println("No more " + flatType + " flats available");
                 return;
             }
@@ -153,11 +189,16 @@ public class OfficerController {
 
         System.out.println("Flat booked successfully for applicant: " + application.getApplicant().getName());
     }
-    public void generateReceipt(){
+
+    /**
+     * Generates and displays a receipt for applicants who have booked a flat in the officer's assigned project.
+     * Allows the officer to select an applicant and prints their booking and personal details.
+     */
+    public void generateReceipt() {
         Project assignedProject = officer.getAssignedProject();
-        ArrayList<Application> bookedApplications = new ArrayList();
-        for (Application a : ApplicationRepository.getAllApplications()){
-            if((a.getProject() == assignedProject) && (a.getAppliedStatus().equals("booked"))) {
+        ArrayList<Application> bookedApplications = new ArrayList<>();
+        for (Application a : ApplicationRepository.getAllApplications()) {
+            if ((a.getProject() == assignedProject) && (a.getAppliedStatus().equals("booked"))) {
                 bookedApplications.add(a);
             }
         }
@@ -169,16 +210,18 @@ public class OfficerController {
         int i = 1;
         int choice = 0;
         System.out.println("Select Applicant to generate reciept for: ");
-        for (Application a : bookedApplications){
-            System.out.println(i + ". " +  a.getApplicant().getName() + ", " + a.getApplicant().getNRIC() + ", " + a.getFlatType());
-        }  System.out.println("0. Return to homepage");
+        for (Application a : bookedApplications) {
+            System.out.println(i + ". " + a.getApplicant().getName() + ", " + a.getApplicant().getNRIC() + ", " + a.getFlatType());
+            i++;
+        }
+        System.out.println("0. Return to homepage");
         if (choice == 0) {
             return;
         }
         choice = scanner.nextInt();
         scanner.nextLine();
-        Application a = bookedApplications.get(choice-1);
-        
+        Application a = bookedApplications.get(choice - 1);
+
         String marriedStatus = a.getApplicant().isMarried() ? "Married" : "Single";
         System.out.println("============ Receipt ============");
         System.out.println("Applicant Details:");
@@ -193,4 +236,4 @@ public class OfficerController {
         System.out.println("Flat Type: " + a.getFlatType() + " room");
         System.out.println();
     }
-    }
+}
