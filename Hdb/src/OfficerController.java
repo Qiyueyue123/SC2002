@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -149,7 +148,7 @@ public class OfficerController {
     }
     public void generateReceipt(){
         Project assignedProject = officer.getAssignedProject();
-        ArrayList<Application> bookedApplications = new ArrayList();
+        ArrayList<Application> bookedApplications = new ArrayList<>();
         for (Application a : ApplicationRepository.getAllApplications()){
             if((a.getProject() == assignedProject) && (a.getAppliedStatus().equals("booked"))) {
                 bookedApplications.add(a);
