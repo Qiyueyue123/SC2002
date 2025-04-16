@@ -13,15 +13,15 @@ public class OfficerController {
     }
 
     public void registerAsOIC() {
-        List<Project> allProjects = ProjectRepository.getAllProjects();/*.stream()
+        List<Project> availableProjects = ProjectRepository.getAllProjects().stream()
                 .filter(p -> p.getAvailOfficerSlots() > 0 && ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), p)==null)
-                .toList();*/
-        List<Project> availableProjects = new ArrayList<>();
+                .toList();
+        /*List<Project> availableProjects = new ArrayList<>();
         for(Project p : allProjects){
             if(p.getAvailOfficerSlots()>0 && ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), p)==null){
                 availableProjects.add(p);
             }
-        }
+        }*/
 
         if (availableProjects.isEmpty()) {
             System.out.println("No available projects for officer registration.");
