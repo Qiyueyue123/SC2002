@@ -324,6 +324,26 @@ public class ManagerController {
 
     public void toggleVisibility(){
         List<Project> projects = ProjectController.getUserProjects(manager);
-        System.out.println();
+        if (projects.isEmpty()) {
+            System.out.println("You are currently in charge of no projects.");
+            return;
+        }
+        System.out.println("Projects you're in charge of:");
+        for (int i = 0; i < projects.size(); i++) {
+            System.out.println((i + 1) + ". " + projects.get(i).getName());
+        }
+        System.out.print("Choose project to toggle visibility of: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice < 1 || choice > projects.size()) {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        Project selectedProject = projects.get(choice - 1);
+
+        selectedProject.setVisibility(!selectedProject.getVisibility());
+        System.out.println("Project '" + selectedProject.getName() + "' visibility is set to " + selectedProject.getVisibility());
     }
 }

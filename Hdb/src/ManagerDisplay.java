@@ -187,6 +187,7 @@ public class ManagerDisplay implements UserDisplay {
                     break;
 				case 12:
 					controller.toggleVisibility();
+					break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
