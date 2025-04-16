@@ -23,6 +23,12 @@ public class RegistrationRepository {
     }
 
     /**
+     * Returns all registrations.
+     *
+     * @return list of all registrations
+     */
+  
+    /**
      * Returns the list of all registrations.
      *
      * @return list of Registration objects
@@ -52,8 +58,8 @@ public class RegistrationRepository {
                 .filter(r -> r.getStatus().equalsIgnoreCase("Pending"))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
-
-    /**
+  
+     /**
      * Checks if an officer has a pending registration for a given project.
      *
      * @param officer the officer to check
@@ -67,11 +73,12 @@ public class RegistrationRepository {
                                r.getStatus().equalsIgnoreCase("Pending"));
     }
 
+
     /**
      * Checks if an officer has any registration for a given project.
      *
      * @param officer the officer to check
-     * @param project the project involved
+     * @param project the project to check
      * @return true if any registration exists, false otherwise
      */
     public static boolean hasRegistration(Officer officer, Project project) {
@@ -81,15 +88,14 @@ public class RegistrationRepository {
     }
 
     /**
-     * Returns a pending registration for the given officer if one exists.
+     * Returns a successful (approved) registration for the given officer.
      *
      * @param officer the officer to check
-     * @return the pending Registration object if found, otherwise null
+     * @return the approved registration if found, null otherwise
      */
     public static Registration hasSuccesfulRegistration(Officer officer) {
         for (Registration a : getAllRegistrations()) {
-            if (a.getOfficer().equals(officer) &&
-                a.getStatus().equalsIgnoreCase("Pending")) {
+            if (a.getOfficer().equals(officer) && a.getStatus().equalsIgnoreCase("Approved")) {
                 return a;
             }
         }
@@ -97,7 +103,20 @@ public class RegistrationRepository {
     }
 
     /**
-     * Removes a given registration from the list.
+     * Gets all approved registrations for a specific officer.
+     *
+     * @param officer the officer to filter by
+     * @return list of approved registrations
+     */
+    public static ArrayList<Registration> getApprovedRegistrationsByOfficer(Officer officer) {
+        return registrations.stream()
+                .filter(r -> r.getOfficer().equals(officer))
+                .filter(r -> r.getStatus().equalsIgnoreCase("Approved"))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Removes a given registration from the repository.
      *
      * @param reg the registration to remove
      */
@@ -106,10 +125,10 @@ public class RegistrationRepository {
     }
 
     /**
-     * Retrieves all registrations made by a specific officer.
+     * Gets all registrations submitted by a specific officer.
      *
-     * @param officer the officer whose registrations to fetch
-     * @return list of Registration objects associated with the officer
+     * @param officer the officer to filter by
+     * @return list of registrations by the officer
      */
     public static List<Registration> getRegistrationsByOfficer(Officer officer) {
         return registrations.stream()
@@ -118,10 +137,10 @@ public class RegistrationRepository {
     }
 
     /**
-     * Retrieves all registrations with a specific status.
+     * Gets all registrations that match a specific status.
      *
-     * @param status the status to filter by (e.g., "Pending", "Approved")
-     * @return list of Registration objects with the given status
+     * @param status the registration status (e.g., "Pending", "Approved")
+     * @return list of registrations with the given status
      */
     public static List<Registration> getRegistrationsByStatus(String status) {
         return registrations.stream()
@@ -130,7 +149,7 @@ public class RegistrationRepository {
     }
 
     /**
-     * Clears all registrations from the list.
+     * Clears all registrations from the repository.
      */
     public static void clearAll() {
         registrations.clear();

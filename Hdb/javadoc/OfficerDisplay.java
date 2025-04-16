@@ -3,31 +3,24 @@ import java.util.Scanner;
 
 /**
  * Boundary.
- * Provides a console-based user interface for officers to interact with the system.
- * Allows officers to perform various actions such as registering as Officer-in-Charge,
- * viewing assigned projects, replying to enquiries, booking flats, and more.
- * Also allows switching to applicant mode if the officer is also an applicant.
+ * OfficerDisplay handles the display and menu interactions for an Officer user.
+ * It acts as the user interface for officers to perform actions such as registering
+ * as Officer-in-Charge (OIC), viewing project assignments, replying to enquiries,
+ * booking flats, and generating receipts.
+ * <p>
+ * It also allows officers to continue as an Applicant if applicable.
+ * Implements the UserDisplay interface.
  */
 public class OfficerDisplay implements UserDisplay {
-    /**
-     * The officer currently using the display.
-     */
     private Officer officer;
-
-    /**
-     * The controller handling officer-related actions.
-     */
     private OfficerController controller;
-
-    /**
-     * Scanner for reading user input from the console.
-     */
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * Constructs an OfficerDisplay for the specified officer.
+     * Constructs an OfficerDisplay with a specific Officer.
+     * Initializes the corresponding OfficerController for handling logic.
      *
-     * @param officer the officer using this display
+     * @param officer the officer using this display interface
      */
     public OfficerDisplay(Officer officer) {
         this.officer = officer;
@@ -35,8 +28,10 @@ public class OfficerDisplay implements UserDisplay {
     }
 
     /**
-     * Displays the main menu and handles user input for officer actions.
-     * Allows the officer to switch to applicant mode or perform officer-specific actions.
+     * Shows the display and handles user input for officer functionalities.
+     * Offers the user a menu to either continue as an Applicant or Officer.
+     * Officer functions include project registration, viewing assigned projects,
+     * replying to enquiries, booking flats, generating receipts, and changing passwords.
      */
     @Override
     public void showDisplay() {
@@ -47,11 +42,9 @@ public class OfficerDisplay implements UserDisplay {
         System.out.println("2. Officer");
         int choice = scanner.nextInt();
         if (choice == 1) {
-            // Switch to applicant display
             ApplicantDisplay appDp = new ApplicantDisplay((Applicant) officer);
             appDp.showDisplay();
         } else if (choice == 2) {
-            // Officer menu loop
             while (running) {
                 System.out.println("========== Officer Menu ==========");
                 System.out.println("(1) Register as Officer-in-Charge");
@@ -64,7 +57,7 @@ public class OfficerDisplay implements UserDisplay {
                 System.out.println("(0) Exit");
 
                 choice = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
+                scanner.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -100,8 +93,7 @@ public class OfficerDisplay implements UserDisplay {
                         controller.generateReceipt();
                         break;
                     case 7:
-                        // Calls the default method in UserDisplay interface
-                        UserDisplay.super.changeUserPassword(scanner, officer);
+                        changeUserPassword(scanner, officer);
                         break;
                     case 0:
                         running = false;

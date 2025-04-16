@@ -1,8 +1,8 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Controller
@@ -11,28 +11,20 @@ import java.util.Scanner;
  * and generating receipts.
  */
 public class OfficerController {
-    /**
-     * The officer associated with this controller.
-     */
     private Officer officer;
-
-    /**
-     * Scanner for reading user input.
-     */
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * Constructs an OfficerController for the specified officer.
-     *
-     * @param officer the officer associated with this controller
+     * Constructs the controller for a specific officer.
+     * @param officer The officer associated with this controller.
      */
     public OfficerController(Officer officer) {
         this.officer = officer;
     }
 
     /**
-     * Allows the officer to register as Officer-in-Charge (OIC) for an available project.
-     * Checks for available projects, registration status, and project dates before submitting a registration.
+     * Allows the officer to register as Officer-In-Charge (OIC) for available projects.
+     * Checks for slot availability, application conflicts, and date overlaps.
      */
     public void registerAsOIC() {
         List<Project> availableProjects = ProjectRepository.getAllProjects().stream()
@@ -66,16 +58,26 @@ public class OfficerController {
         }
         if (ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), selected) != null) {
             System.out.println("You cannot register for a project you have applied for");
-        }
-        LocalDate currentDate = LocalDate.now();
-        LocalDate projectOpeningDate = LocalDate.parse(selected.getOpeningDate());
-        LocalDate projectClosingDate = LocalDate.parse(selected.getClosingDate());
-
-        if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
-            System.out.println("Registration is not allowed at this time. Registration is allowed only between "
-                    + projectOpeningDate + " and " + projectClosingDate + ".");
             return;
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        List<Registration> approvedRegistrations = RegistrationRepository.getApprovedRegistrationsByOfficer(officer);
+        LocalDate selectedOpening = LocalDate.parse(selected.getOpeningDate(), formatter);
+        LocalDate selectedClosing = LocalDate.parse(selected.getClosingDate(), formatter);
+
+        for (Registration reg : approvedRegistrations) {
+            Project approvedProject = reg.getProject();
+            LocalDate approvedOpening = LocalDate.parse(approvedProject.getOpeningDate(), formatter);
+            LocalDate approvedClosing = LocalDate.parse(approvedProject.getClosingDate(), formatter);
+
+            if (!selectedOpening.isAfter(approvedClosing) && !approvedOpening.isAfter(selectedClosing)) {
+                System.out.println("Registration conflict: You are already approved as OIC for project '"
+                        + approvedProject.getName() + "', whose registration period overlaps with the selected project.");
+                return;
+            }
+        }
+
         Registration reg = new Registration(officer, selected);
         RegistrationRepository.addRegistration(reg);
         System.out.println("Registration submitted and pending manager approval.");
@@ -94,7 +96,7 @@ public class OfficerController {
     }
 
     /**
-     * Displays the registration status for all projects the officer has registered for.
+     * Lists all registrations the officer has made and their statuses.
      */
     public void viewRegistrationStatus() {
         List<Registration> all = RegistrationRepository.getAllRegistrations();
@@ -109,38 +111,22 @@ public class OfficerController {
     }
 
     /**
-     * Sets the response for a given enquiry.
-     *
-     * @param enquiry  the enquiry to respond to
-     * @param response the response text
+     * Allows the officer to respond to an enquiry.
+     * @param enquiry The enquiry to respond to.
+     * @param response The response text.
      */
     public void replyToEnquiry(Enquiry enquiry, String response) {
         enquiry.setResponse(response);
     }
 
     /**
-     * Books a flat for an applicant in the officer's assigned project.
-     * Checks project assignment, application status, and flat availability before booking.
+     * Books a flat for a successful applicant in the officer's assigned project.
+     * Verifies availability of the flat type and applicant's status.
      */
     public void bookFlat() {
         Project assignedProject = officer.getAssignedProject();
         if (assignedProject == null) {
             System.out.println("You are not assigned to any project.");
-            return;
-        }
-
-        try {
-            LocalDate currentDate = LocalDate.now();
-            LocalDate projectOpeningDate = LocalDate.parse(assignedProject.getOpeningDate());
-            LocalDate projectClosingDate = LocalDate.parse(assignedProject.getClosingDate());
-
-            if (currentDate.isBefore(projectOpeningDate) || currentDate.isAfter(projectClosingDate)) {
-                System.out.println("Booking is not allowed at this time. Booking is allowed only between "
-                        + projectOpeningDate + " and " + projectClosingDate + ".");
-                return;
-            }
-        } catch (DateTimeParseException e) {
-            System.out.println("Error parsing project dates: " + e.getMessage());
             return;
         }
 
@@ -191,8 +177,8 @@ public class OfficerController {
     }
 
     /**
-     * Generates and displays a receipt for applicants who have booked a flat in the officer's assigned project.
-     * Allows the officer to select an applicant and prints their booking and personal details.
+     * Generates and displays a receipt for a booked flat from the officer’s assigned project.
+     * Allows selection from booked applications.
      */
     public void generateReceipt() {
         Project assignedProject = officer.getAssignedProject();
@@ -202,27 +188,30 @@ public class OfficerController {
                 bookedApplications.add(a);
             }
         }
+
         if (bookedApplications.isEmpty()) {
             System.out.println("No booked flats for your assigned project. ");
             System.out.println();
             return;
         }
+
         int i = 1;
-        int choice = 0;
-        System.out.println("Select Applicant to generate reciept for: ");
+        System.out.println("Select Applicant to generate receipt for: ");
         for (Application a : bookedApplications) {
             System.out.println(i + ". " + a.getApplicant().getName() + ", " + a.getApplicant().getNRIC() + ", " + a.getFlatType());
             i++;
         }
         System.out.println("0. Return to homepage");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
         if (choice == 0) {
             return;
         }
-        choice = scanner.nextInt();
-        scanner.nextLine();
-        Application a = bookedApplications.get(choice - 1);
 
+        Application a = bookedApplications.get(choice - 1);
         String marriedStatus = a.getApplicant().isMarried() ? "Married" : "Single";
+
         System.out.println("============ Receipt ============");
         System.out.println("Applicant Details:");
         System.out.println("Applicant: " + a.getApplicant().getName());
