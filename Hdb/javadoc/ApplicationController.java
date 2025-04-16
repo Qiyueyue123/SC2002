@@ -1,7 +1,16 @@
 import java.util.List;
 
+/**
+ * Controller.<p>
+ * ApplicationController provides static utility methods for displaying and retrieving
+ * applications from the {@link ApplicationRepository}.
+ */
 public class ApplicationController {
 
+    /**
+     * Displays all applications in the system.
+     * If there are no applications, prints a message indicating so.
+     */
     public static void showAllApplications() {
         List<Application> all = ApplicationRepository.getAllApplications();
         if (all.isEmpty()) {
@@ -15,6 +24,12 @@ public class ApplicationController {
         }
     }
 
+    /**
+     * Displays all applications with withdrawal requests for a specific manager.
+     * If there are no such applications, prints a message indicating so.
+     *
+     * @param manager the {@link Manager} whose projects' withdrawal requests to display
+     */
     public static void showWithdrawalRequested(Manager manager) {
         List<Application> requested = ApplicationRepository.getWithdrawalRequested(manager);
 
@@ -28,6 +43,12 @@ public class ApplicationController {
         }
     }
 
+    /**
+     * Displays all pending applications for projects managed by a specific manager.
+     * If there are no such applications, prints a message indicating so.
+     *
+     * @param manager the {@link Manager} whose pending applications to display
+     */
     public static void showPendingApplicationsForManager(Manager manager) {
         List<Application> pending = ApplicationRepository.getPendingApplicationsForManager(manager);
 
@@ -41,6 +62,12 @@ public class ApplicationController {
         }
     }
 
+    /**
+     * Retrieves an application by the applicant's NRIC.
+     *
+     * @param nric the NRIC of the applicant
+     * @return the {@link Application} with the matching NRIC, or {@code null} if not found
+     */
     public static Application getApplicationByNRIC(String nric) {
         return ApplicationRepository.selectApplication(nric);
     }

@@ -2,25 +2,59 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Entity. <p>
+ * Repository for managing applications within the system.
+ * Provides static methods to add, retrieve, filter, and query applications.
+ */
 public class ApplicationRepository {
+    /**
+     * The static list that stores all applications.
+     */
     private static List<Application> applications = new ArrayList<>();
 
+    /**
+     * Adds a new application to the repository.
+     *
+     * @param app the {@link Application} to add
+     */
     public static void addApplication(Application app) {
         applications.add(app);
     }
 
+    /**
+     * Retrieves all applications stored in the repository.
+     *
+     * @return the list of all {@link Application} objects
+     */
     public static List<Application> getAllApplications() {
         return applications;
     }
 
+    /**
+     * Replaces the current list of applications with the provided list.
+     *
+     * @param appl the new list of {@link Application} objects to set
+     */
     public static void setApplications(ArrayList<Application> appl) {
         applications = appl;
     }
 
+    /**
+     * Removes a specific application from the repository.
+     *
+     * @param app the {@link Application} to remove
+     */
     public static void deleteApplication(Application app){
         applications.remove(app);
     }
 
+    /**
+     * Finds an application by the applicant's NRIC.
+     *
+     * @param nric the NRIC of the applicant to find
+     * @return the {@link Application} with the matching NRIC, or {@code null} if not found
+     */
     public static Application selectApplication(String nric) {
         return applications.stream()
                 .filter(app -> app.getApplicant().getNRIC().equalsIgnoreCase(nric))
@@ -28,12 +62,24 @@ public class ApplicationRepository {
                 .orElse(null);
     }
 
+    /**
+     * Retrieves all applications with withdrawal requests for a specific manager.
+     *
+     * @param manager the {@link Manager} whose projects' withdrawal requests to retrieve
+     * @return a list of applications with withdrawal requests for the manager's projects
+     */
     public static List<Application> getWithdrawalRequested(Manager manager) {
         return applications.stream()
                 .filter(a -> a.getWithdrawalRequest() && a.getProject().getManager().equals(manager))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves all pending applications for projects managed by a specific manager.
+     *
+     * @param manager the {@link Manager} whose pending applications to retrieve
+     * @return a list of pending applications for the manager's projects
+     */
     public static List<Application> getPendingApplicationsForManager(Manager manager) {
         return applications.stream()
                 .filter(app -> app.getProject().getManager().equals(manager))
@@ -41,6 +87,13 @@ public class ApplicationRepository {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Checks if a user has already applied to a specific project.
+     *
+     * @param nric the NRIC of the applicant
+     * @param project the {@link Project} to check
+     * @return {@code true} if the user has applied to the project, {@code false} otherwise
+     */
     public static boolean hasUserAppliedToProject(String nric, Project project) {
         List<Application> applications = getAllApplications();
         for (Application app : applications) {
@@ -52,10 +105,20 @@ public class ApplicationRepository {
         return false;
     }
 
+    /**
+     * Removes all applications from the repository.
+     */
     public static void clearAll() {
         applications.clear();
     }
 
+    /**
+     * Finds an application by the applicant's NRIC and project.
+     *
+     * @param nric the NRIC of the applicant
+     * @param project the {@link Project} to find the application for
+     * @return the {@link Application} with the matching NRIC and project, or {@code null} if not found
+     */
     public static Application getApplicationByNRICAndProject(String nric, Project project) {
         List<Application> applications = getAllApplications();
         for (Application app : applications) {

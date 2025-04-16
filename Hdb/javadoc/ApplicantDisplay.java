@@ -3,16 +3,44 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * Boundary. <p>
+ * Provides a console-based user interface for applicants to interact with the system.
+ * Allows applicants to view and apply for projects, manage their applications,
+ * view and manage enquiries, change their password, and withdraw applications.
+ */
 public class ApplicantDisplay implements UserDisplay {
-	private final Applicant applicant;
+
+    /**
+     * The applicant associated with this display.
+     */
+    private final Applicant applicant;
+
+    /**
+     * The controller handling applicant actions.
+     */
     private final ApplicantController controller;
+
+    /**
+     * Scanner for reading user input from the console.
+     */
     private Scanner scan = new Scanner(System.in);
 
+    /**
+     * Constructs an ApplicantDisplay for the specified applicant.
+     *
+     * @param applicant the applicant using this display
+     */
     public ApplicantDisplay(Applicant applicant) {
         this.applicant = applicant;
         this.controller = new ApplicantController(applicant);
-		//should officer controller implement  
     }
+
+    /**
+     * Displays the main menu and handles user input for applicant actions.
+     * Allows the applicant to view and apply for projects, manage their application,
+     * view, create, edit, and delete enquiries, change password, and withdraw applications.
+     */
 
     @Override
     public void showDisplay() {
@@ -120,12 +148,21 @@ public class ApplicantDisplay implements UserDisplay {
             }
         }
     }
-
+ 	/**
+     * Prompts the user to enter a flat type (2 or 3) and returns the selection.
+     *
+     * @return the selected flat type as an integer
+     */
     private int askFlatType() {
         System.out.print("Enter flat type (2 or 3): ");
         return scan.nextInt();
     }
-
+	 /**
+     * Handles editing or deleting an enquiry for the applicant.
+     * If {@code isEdit} is true, edits the selected enquiry; otherwise, deletes it.
+     *
+     * @param isEdit {@code true} to edit an enquiry, {@code false} to delete
+     */
     private void editOrDeleteEnquiry(boolean isEdit) {
         EnquiryController.showUserEnquiries(applicant);
         List<Enquiry> enquiries = EnquiryRepository.getUserEnquiries(applicant);
