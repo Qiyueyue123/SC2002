@@ -62,6 +62,13 @@ public class RegistrationRepository {
                 .filter(r -> r.getOfficer().equals(officer))
                 .collect(Collectors.toList());
     }
+    
+    public static ArrayList<Registration> getApprovedRegistrationsByOfficer(Officer officer) {
+        return registrations.stream()
+                .filter(r -> r.getOfficer().equals(officer))
+                .filter(r -> r.getStatus().equalsIgnoreCase("Approved"))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 
     public static List<Registration> getRegistrationsByStatus(String status) {
         return registrations.stream()

@@ -1,8 +1,9 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class OfficerController {
     private Officer officer;
@@ -14,14 +15,8 @@ public class OfficerController {
 
     public void registerAsOIC() {
         List<Project> availableProjects = ProjectRepository.getAllProjects().stream()
-                .filter(p -> p.getAvailOfficerSlots() > 0 && ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), p)==null)
+                .filter(p -> p.getAvailOfficerSlots() > 0)
                 .toList();
-        /*List<Project> availableProjects = new ArrayList<>();
-        for(Project p : allProjects){
-            if(p.getAvailOfficerSlots()>0 && ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), p)==null){
-                availableProjects.add(p);
-            }
-        }*/
 
         if (availableProjects.isEmpty()) {
             System.out.println("No available projects for officer registration.");
@@ -44,6 +39,14 @@ public class OfficerController {
 
         Project selected = availableProjects.get(choice - 1);
 
+        if(RegistrationRepository.hasRegistration(officer,selected)){
+            System.out.println("You have already registered for this project");
+            return;
+        } 
+        if (ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), selected) != null) {
+            System.out.println("You cannot register for a project you have applied for");
+            return;
+        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         List<Registration> approvedRegistrations = RegistrationRepository.getApprovedRegistrationsByOfficer(officer);
         LocalDate selectedOpening = LocalDate.parse(selected.getOpeningDate(),formatter);
@@ -59,12 +62,6 @@ public class OfficerController {
                 return;
             }
         }
-
-        if(RegistrationRepository.hasRegistration(officer,selected)){
-            System.out.println("You have already registered for this project");
-            return;
-        }
-
         Registration reg = new Registration(officer, selected);
         RegistrationRepository.addRegistration(reg);
         System.out.println("Registration submitted and pending manager approval.");
@@ -150,10 +147,9 @@ public class OfficerController {
 
         System.out.println("Flat booked successfully for applicant: " + application.getApplicant().getName());
     }
-
     public void generateReceipt(){
         Project assignedProject = officer.getAssignedProject();
-        ArrayList<Application> bookedApplications = new ArrayList<>();
+        ArrayList<Application> bookedApplications = new ArrayList();
         for (Application a : ApplicationRepository.getAllApplications()){
             if((a.getProject() == assignedProject) && (a.getAppliedStatus().equals("booked"))) {
                 bookedApplications.add(a);
@@ -191,4 +187,4 @@ public class OfficerController {
         System.out.println("Flat Type: " + a.getFlatType() + " room");
         System.out.println();
     }
-}
+    }

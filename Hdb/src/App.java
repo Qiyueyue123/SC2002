@@ -14,9 +14,6 @@ public class App {
             System.out.println("Project: " + p.getName());
         }
 
-        System.out.println("Welcome to the BTO System");
-        System.out.println("Please enter your role: applicant / officer / manager");
-
         String role = Utils.checkRole(scanner);
         scanner.nextLine();
         User user = null;

@@ -71,6 +71,7 @@ public class OfficerDisplay implements UserDisplay{
                     break;
                 case 7:
                     changeUserPassword(scanner,officer);
+                    break;
                 case 0:
                     running = false;
                     break;

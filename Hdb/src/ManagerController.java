@@ -247,9 +247,11 @@ public class ManagerController {
     public void viewApplicantReports() {
         ArrayList<Report> reports = ReportRepository.getAllReports();
         List<Report> filteredReports = new ArrayList<>(reports);
-        
+
+        boolean filtering = true;
+        while (filtering) {
         System.out.println("========== Applicant Report Filter ==========");
-        System.out.println("(1) No Filter (Show all reports)");
+        System.out.println("(1) No Filter / Generate Reports");
         System.out.println("(2) Filter by Age Group");
         System.out.println("(3) Filter by Marital Status");
         System.out.println("(4) Filter by Project Name");
@@ -261,7 +263,8 @@ public class ManagerController {
                 System.out.println("Cancelling report generation.");
                 return;
             case 1:
-                // No filtering.
+                System.out.println("Finalizing filters and generating report...");
+                filtering = false;
                 break;
             case 2:
                 System.out.println("Select Age Range: ");
@@ -307,7 +310,7 @@ public class ManagerController {
             default:
                 System.out.println("Invalid choice. No filter applied.");
         }
-        
+        }
         System.out.println("========== Applicant Reports ==========");
         if (filteredReports.isEmpty()) {
             System.out.println("No reports match the selected criteria.");
