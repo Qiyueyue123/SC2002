@@ -1,13 +1,10 @@
-import java.util.ArrayList;
-
-//applicant can do evrything needed with enquiries
 //reply enquiry will be moved when officer and manager class is settled
 public class Applicant extends User{
 	private Application application;
 
     public Applicant(String nric, String name, String password, int age, boolean married) {
         super(nric, name, password, age, married);
-        this.application = null;
+		this.application = null;
     }
 
     public Application getApplication() {
@@ -16,12 +13,6 @@ public class Applicant extends User{
 
     public void setApplication(Application app) {
         this.application = app;
-    }
-
-    public void deleteApplication() {
-        ArrayList<Application> apps = ApplicationList.getAllApplications();
-        apps.remove(application);
-        application = null;
     }
 	//Old code
 	/*protected Application application;

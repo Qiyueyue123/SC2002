@@ -1,7 +1,16 @@
 import java.util.List;
 
+/**
+ * Controller. <p>
+ * EnquiryController provides static utility methods for displaying and retrieving
+ * enquiries from the {@link EnquiryRepository}.
+ */
 public class EnquiryController {
 
+    /**
+     * Displays all enquiries in the system.
+     * If there are no enquiries, prints a message indicating so.
+     */
     public static void showAllEnquiries() {
         List<Enquiry> all = EnquiryRepository.getAllEnquiries();
         if (all.isEmpty()) {
@@ -12,6 +21,12 @@ public class EnquiryController {
         all.forEach(Enquiry::print);
     }
 
+    /**
+     * Displays all enquiries submitted by a specific applicant.
+     * If there are no enquiries, prints a message indicating so.
+     *
+     * @param user the {@link Applicant} whose enquiries to display
+     */
     public static void showUserEnquiries(Applicant user) {
         List<Enquiry> userEnquiries = EnquiryRepository.getUserEnquiries(user);
         if (userEnquiries.isEmpty()) {
@@ -22,6 +37,12 @@ public class EnquiryController {
         userEnquiries.forEach(Enquiry::print);
     }
 
+    /**
+     * Displays all enquiries for a specific project.
+     * If there are no enquiries for the project, prints a message indicating so.
+     *
+     * @param project the {@link Project} whose enquiries to display
+     */
     public static void showProjectEnquiries(Project project) {
         List<Enquiry> projEnquiries = EnquiryRepository.getProjectEnquiries(project);
         if (projEnquiries.isEmpty()) {
@@ -32,6 +53,12 @@ public class EnquiryController {
         projEnquiries.forEach(Enquiry::print);
     }
 
+    /**
+     * Displays all unanswered enquiries for a specific project.
+     * If there are no unanswered enquiries, prints a message indicating so.
+     *
+     * @param project the {@link Project} whose unanswered enquiries to display
+     */
     public static void showUnansweredProjectEnquiries(Project project) {
         List<Enquiry> unanswered = EnquiryRepository.getUnansweredProjectEnquiries(project);
         if (unanswered.isEmpty()) {
@@ -42,6 +69,12 @@ public class EnquiryController {
         unanswered.forEach(Enquiry::print);
     }
 
+    /**
+     * Retrieves an enquiry by its unique identifier.
+     *
+     * @param id the unique ID of the enquiry
+     * @return the {@link Enquiry} with the specified ID, or {@code null} if not found
+     */
     public static Enquiry getEnquiryById(int id) {
         return EnquiryRepository.getEnquiryById(id);
     }

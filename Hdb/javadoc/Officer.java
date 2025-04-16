@@ -1,5 +1,6 @@
 
 /**
+ * Entity.<p>
  * Represents an Officer in the system, who is also an Applicant.
  * An Officer may be assigned to a {@link Project} and can perform officer-specific actions
  * via the {@link OfficerController}.

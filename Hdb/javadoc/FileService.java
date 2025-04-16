@@ -6,7 +6,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides utility methods for loading and saving application data (Applicants, Officers, Managers,
+ * Projects, Applications, Enquiries, Registrations) to and from CSV files.
+ * <p>
+ * Each method reads or writes a specific entity type, using a defined CSV format for each.
+ * </p>
+ */
+
 public class FileService {
+    
+    /**
+     * Loads a list of applicants from a CSV file.
+     * The CSV must have columns: Name, NRIC, Age, MaritalStatus, Password.
+     *
+     * @param csvFilePath the path to the applicant CSV file
+     * @return a list of {@link Applicant} objects loaded from the file
+     */
+
     public List<Applicant> loadApplicants(String csvFilePath) {
         List<Applicant> applicants = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -28,7 +45,13 @@ public class FileService {
         }
         return applicants;
     }
-
+    /**
+     * Loads a list of officers from a CSV file.
+     * The CSV must have columns: Name, NRIC, Age, MaritalStatus, Password.
+     *
+     * @param csvFilePath the path to the officer CSV file
+     * @return a list of {@link Officer} objects loaded from the file
+     */
     public List<Officer> loadOfficers(String csvFilePath) {
         List<Officer> officers = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -50,7 +73,13 @@ public class FileService {
         }
         return officers;
     }
-
+    /**
+     * Loads a list of managers from a CSV file.
+     * The CSV must have columns: Name, NRIC, Age, MaritalStatus, Password.
+     *
+     * @param csvFilePath the path to the manager CSV file
+     * @return a list of {@link Manager} objects loaded from the file
+     */
     public List<Manager> loadManagers(String csvFilePath) {
         List<Manager> managers = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -72,7 +101,14 @@ public class FileService {
         }
         return managers;
     }
-
+    /**
+     * Loads a list of projects from a CSV file.
+     * The CSV must have columns: Project Name, Neighborhood, Type 1, Num2Rooms, Price, Type 2, Num3Rooms, Price, OpeningDate, ClosingDate, Manager, AvailOfficerSlots, Visibility.
+     * The method will skip projects whose manager cannot be found in the system.
+     *
+     * @param csvFilePath the path to the project CSV file
+     * @return a list of {@link Project} objects loaded from the file
+     */
     public List<Project> loadProjects(String csvFilePath) {
         List<Project> projects = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -114,7 +150,14 @@ public class FileService {
         }
         return projects;
     }
-
+    /**
+     * Loads a list of applications from a CSV file.
+     * The CSV must have columns: ApplicantNRIC, ProjectName, AppliedStatus, FlatType, WithdrawalRequested, WithdrawalStatus.
+     * Applications referencing unknown applicants or projects are skipped.
+     *
+     * @param csvFilePath the path to the application CSV file
+     * @return a list of {@link Application} objects loaded from the file
+     */
     public List<Application> loadApplications(String csvFilePath) {
         List<Application> applications = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -129,6 +172,9 @@ public class FileService {
                     boolean withdrawalRequested = Boolean.parseBoolean(fields[4].trim());
                     String withdrawalStatus = fields[5].trim();
                     Applicant applicant = ApplicantRepository.findApplicantByNRIC(applicantNRIC);
+                    if(applicant == null){
+                        applicant = OfficerRepository.findOfficerByNRIC(applicantNRIC);
+                    }
                     Project project = ProjectController.findProjectByName(projectName);
                     if (applicant == null) {
                         continue;
@@ -152,7 +198,13 @@ public class FileService {
         }
         return applications;
     }
-
+    /**
+     * Loads a list of enquiries from a CSV file.
+     * The CSV must have columns: id, ApplicantNRIC, ProjectName, Message, Response, Answered.
+     *
+     * @param csvFilePath the path to the enquiry CSV file
+     * @return a list of {@link Enquiry} objects loaded from the file
+     */
     public List<Enquiry> loadEnquiries(String csvFilePath) {
         List<Enquiry> enquiries = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -184,6 +236,14 @@ public class FileService {
         return enquiries;
     }
 
+    /**
+     * Loads a list of officer registrations from a CSV file.
+     * The CSV must have columns: OfficerNRIC, ProjectName, Status.
+     * Registrations referencing unknown officers or projects are skipped.
+     *
+     * @param csvFilePath the path to the registration CSV file
+     * @return a list of {@link Registration} objects loaded from the file
+     */
     public List<Registration> loadRegistrations(String csvFilePath) {
         List<Registration> registrations = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -212,7 +272,13 @@ public class FileService {
         }
         return registrations;
     }
-
+    /**
+     * Writes a list of applicants to a CSV file.
+     * The CSV will have columns: Name, NRIC, Age, MaritalStatus, Password.
+     *
+     * @param csvFilePath the path to the output file
+     * @param applicants  the list of applicants to write
+     */
     public void writeApplicants(String csvFilePath, List<Applicant> applicants) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
             bw.write("Name,NRIC,Age,MaritalStatus,Password");
@@ -226,7 +292,13 @@ public class FileService {
             System.out.println("Error writing applicants: " + e.getMessage());
         }
     }
-
+    /**
+     * Writes a list of officers to a CSV file.
+     * The CSV will have columns: Name, NRIC, Age, MaritalStatus, Password.
+     *
+     * @param csvFilePath the path to the output file
+     * @param officers    the list of officers to write
+     */
     public void writeOfficers(String csvFilePath, List<Officer> officers) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
             bw.write("Name,NRIC,Age,MaritalStatus,Password");
@@ -240,7 +312,13 @@ public class FileService {
             System.out.println("Error writing officers: " + e.getMessage());
         }
     }
-
+    /**
+     * Writes a list of managers to a CSV file.
+     * The CSV will have columns: Name, NRIC, Age, MaritalStatus, Password.
+     *
+     * @param csvFilePath the path to the output file
+     * @param managers    the list of managers to write
+     */
     public void writeManagers(String csvFilePath, List<Manager> managers) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
             bw.write("Name,NRIC,Age,MaritalStatus,Password");
@@ -254,7 +332,13 @@ public class FileService {
             System.out.println("Error writing managers: " + e.getMessage());
         }
     }
-
+    /**
+     * Writes a list of applications to a CSV file.
+     * The CSV will have columns: ApplicantNRIC, ProjectName, AppliedStatus, FlatType, WithdrawalRequested, WithdrawalStatus.
+     *
+     * @param csvFilePath   the path to the output file
+     * @param applications  the list of applications to write
+     */
     public void writeApplications(String csvFilePath, List<Application> applications) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
             bw.write("ApplicantNRIC,ProjectName,AppliedStatus,FlatType,WithdrawalRequested,WithdrawalStatus");
@@ -269,7 +353,13 @@ public class FileService {
             System.out.println("Error writing applications: " + e.getMessage());
         }
     }
-
+    /**
+     * Writes a list of registrations to a CSV file.
+     * The CSV will have columns: OfficerNRIC, ProjectName, Status.
+     *
+     * @param csvFilePath    the path to the output file
+     * @param registrations  the list of registrations to write
+     */
     public void writeRegistrations(String csvFilePath, List<Registration> registrations) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
             bw.write("OfficerNRIC,ProjectName,Status");
@@ -283,7 +373,13 @@ public class FileService {
             System.out.println("Error writing registrations: " + e.getMessage());
         }
     }
-
+    /**
+     * Writes a list of enquiries to a CSV file.
+     * The CSV will have columns: id, ApplicantNRIC, ProjectName, Message, Response, Answered.
+     *
+     * @param csvFilePath  the path to the output file
+     * @param enquiries    the list of enquiries to write
+     */
     public void writeEnquiries(String csvFilePath, List<Enquiry> enquiries) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
             bw.write("id,ApplicantNRIC,ProjectName,Message,Response,Answered");
@@ -298,7 +394,13 @@ public class FileService {
             System.out.println("Error writing enquiries: " + e.getMessage());
         }
     }
-
+    /**
+     * Writes a list of projects to a CSV file.
+     * The CSV will have columns: Project Name, Neighborhood, Type 1, Num2Rooms, Price, Type 2, Num3Rooms, Price, OpeningDate, ClosingDate, Manager, AvailOfficerSlots, Visibility, Officer.
+     *
+     * @param csvFilePath the path to the output file
+     * @param projects    the list of projects to write
+     */
     public void writeProjects(String csvFilePath, List<Project> projects) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvFilePath))) {
             bw.write("Project Name,Neighborhood,Type 1,Num2Rooms,Price,Type 2,Num3Rooms,Price,OpeningDate,ClosingDate,Manager,AvailOfficerSlots,Visibility,Officer");

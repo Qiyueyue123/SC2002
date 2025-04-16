@@ -75,6 +75,7 @@ public class App {
                 o.setAssignedProject(r.getProject());
             }
         }
+        ApplicantRepository.setAllApplications(ApplicantRepository.getApplicants());
     }
 
     private static void saveAllData(FileService fs) {

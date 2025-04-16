@@ -1,5 +1,5 @@
 /**
- * Entity.
+ * Entity. <p>
  * Interface of a User in the system.
  * This interface provides basic attributes and methods shared by all user types
  * such as Applicants, Officers, and Managers.

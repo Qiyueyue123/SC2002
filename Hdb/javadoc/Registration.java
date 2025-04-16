@@ -1,5 +1,5 @@
 /**
- * Entity.
+ * Entity. <p>
  * Represents a registration record linking an {@link Officer} to a {@link Project}.
  * <p>
  * A registration has a status indicating whether it's "Pending", "Approved", or "Rejected".

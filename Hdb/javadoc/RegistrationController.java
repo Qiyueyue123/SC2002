@@ -1,7 +1,7 @@
 import java.util.List;
 
 /**
- * Boundary.
+ * Boundary. <p>
  * Controller class to manage registration approvals and rejections
  * for officers applying to projects.
  * <p>

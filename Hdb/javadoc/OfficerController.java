@@ -1,11 +1,11 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
- * Controller
+ * Controller. <p>
  * OfficerController manages officer-related actions such as registering as Officer-in-Charge,
  * viewing assigned projects, checking registration status, replying to enquiries, booking flats,
  * and generating receipts.

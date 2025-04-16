@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Boundary.
+ * Boundary. <p>
  * OfficerDisplay handles the display and menu interactions for an Officer user.
  * It acts as the user interface for officers to perform actions such as registering
  * as Officer-in-Charge (OIC), viewing project assignments, replying to enquiries,

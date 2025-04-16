@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import com.apple.eawt.Application;
 
 /**
- * Entity.
+ * Entity. <p>
  * Represents a housing project with details such as name, neighbourhood,
  * unit availability, pricing, application period, managing officer, and applicants.
  */

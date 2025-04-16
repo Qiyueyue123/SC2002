@@ -3,7 +3,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 /**
- * Controller.
+ * Controller. <p>
  * Handles operations related to project manipulation and filtering logic.
  * This includes sorting, searching, and filtering projects based on various criteria.
  */

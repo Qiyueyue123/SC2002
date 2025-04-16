@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Boundary.
+ * Boundary. <p>
  * Utility class for displaying reports and receipts related to BTO applications.
  * Provides static methods to print formatted output for a single report or a list of reports.
  */

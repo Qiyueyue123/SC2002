@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Entity.
+ * Entity. <p>
  * Repository for managing a static list of {@link Officer} objects.
  * Provides methods to retrieve, update, and search for officers by NRIC.
  */
