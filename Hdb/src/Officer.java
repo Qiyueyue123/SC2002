@@ -16,6 +16,11 @@ public class Officer extends Applicant {
     public void setAssignedProject(Project assignedProject) {
         this.assignedProject = assignedProject;
     }
+    @Override
+    public void display(){
+        OfficerDisplay display = new OfficerDisplay(this);
+        display.showDisplay();
+    }
     /*
 	private Project assignedProject;
 	private Registration registration;

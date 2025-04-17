@@ -17,9 +17,14 @@ public class Applicant extends User{
     public void setApplication(Application app) {
         this.application = app;
     }
+
+	public void display() {
+		ApplicantDisplay display = new ApplicantDisplay(this);
+		display.showDisplay();
+	}
 	//Old code
 	/*protected Application application;
-	Scanner scan = new Scanner(System.in);
+	Scanner scan = new Scanner(System.in);o
 	
 	public Applicant(String nric, String name, String password, int age, boolean married) {
 		super(nric,name,password,age,married);
