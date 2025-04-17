@@ -21,7 +21,7 @@ public class ApplicantDisplay implements UserDisplay {
             System.out.println("========== Applicant Menu ==========");
             System.out.println("(1) View Projects");
             System.out.println("(2) Apply for Project");
-            System.out.println("(3) View Applied Project");
+            System.out.println("(3) View Applied Project/View Withdrawal Outcome");
             System.out.println("(4) View Enquiries");
             System.out.println("(5) Create Enquiry");
             System.out.println("(6) Edit Enquiry");
