@@ -9,40 +9,8 @@ public class App {
 
         loadAllData(fs);
         //just to confirm project is loaded
-        List<Project> proj = ProjectRepository.getAllProjects();
-        for(Project p : proj){
-            System.out.println("Project: " + p.getName());
-        }
 
-        String role = Utils.checkRole(scanner);
-        scanner.nextLine();
-        User user = null;
-        int attempts = 3;
-        while (attempts > 0 && user == null) {
-            user = Utils.loginAuthenticator(scanner,role);
-            if (user == null) {
-                attempts--;
-                if (attempts > 0) {
-                    System.out.println("Invalid login. Attempts remaining: " + attempts);
-                } else {
-                    System.out.println("Too many failed attempts. Exiting application.");
-                    return;
-                }
-            }
-        }
-
-        UserDisplay display;
-        if (user instanceof Officer officer) {
-            display = new OfficerDisplay(officer);
-        } else if (user instanceof Applicant applicant) {
-            display = new ApplicantDisplay(applicant);
-        } else if (user instanceof Manager manager) {
-            display = new ManagerDisplay(manager);
-        } else {
-            System.out.println("Unrecognized user type. Exiting.");
-            return;
-        }
-        display.showDisplay();
+        LoginDisplay.showDisplay(scanner);
 
         saveAllData(fs);
         System.out.println("Data saved. Exiting program.");

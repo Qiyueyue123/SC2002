@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Utils {
+public class LoginController {
     public static String checkRole(Scanner sc) {
         int response = -1;
         //Prompt for role and force 1, 2, or 3       
@@ -53,16 +53,4 @@ public class Utils {
         System.out.println("Invalid NRIC or password. Please try again.");
         return null;
     }
-
-    public static boolean changePassword(User user, String oldPassword, String newPassword) {
-        //verify that the oldPassword matches the user's current password.
-        if (!user.getPassword().equals(oldPassword)) {
-            System.out.println("Old password is incorrect.");
-            return false;
-        }
-        user.setPassword(newPassword);
-        System.out.println("Password successfully changed.");
-        return true;
-    }
-    
 }

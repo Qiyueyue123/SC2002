@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ApplicantController {
+public class ApplicantController extends UserController {
     private final Applicant applicant;
 
     public ApplicantController(Applicant applicant) {
