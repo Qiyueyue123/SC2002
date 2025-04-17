@@ -21,7 +21,7 @@ public class ApplicantDisplay implements UserDisplay {
             System.out.println("========== Applicant Menu ==========");
             System.out.println("(1) View Projects");
             System.out.println("(2) Apply for Project");
-            System.out.println("(3) View Applied Project");
+            System.out.println("(3) View Applied Project/View Withdrawal Outcome");
             System.out.println("(4) View Enquiries");
             System.out.println("(5) Create Enquiry");
             System.out.println("(6) Edit Enquiry");
@@ -132,7 +132,7 @@ public class ApplicantDisplay implements UserDisplay {
         if (!enquiries.isEmpty()) {
             System.out.print("Select enquiry ID: ");
             int id = scan.nextInt(); scan.nextLine();
-            Enquiry e = EnquiryList.selectEnquiry(id);
+            Enquiry e = EnquiryController.getEnquiryById(id);
             if (e != null) {
                 if (isEdit) {
                     System.out.print("New message: ");

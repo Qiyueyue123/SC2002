@@ -13,7 +13,7 @@ public class ProjectDisplay {
 
         int i = 1;
         for (Project p : sortedProjects) {
-            System.out.println("Project" + i + ":");
+            System.out.println("Project " + i + ":");
             printProj(p);
             System.out.println();
             i++;

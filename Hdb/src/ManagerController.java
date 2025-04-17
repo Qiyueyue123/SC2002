@@ -118,7 +118,7 @@ public class ManagerController {
             Application app = pendingApps.get(i);
             System.out.println((i + 1) + ") Applicant: " + app.getApplicant().getName() +
                                ", Project: " + app.getProject().getName() +
-                               ", Flat Type: " + app.getFlatType());
+                               ", Flat Type: " + app.getFlatType() + "-Room");
         }
         System.out.print("Select application to process (number): ");
         int appIndex = Integer.parseInt(scanner.nextLine());
@@ -130,9 +130,11 @@ public class ManagerController {
         System.out.print("Enter 1 to Approve, 2 to Reject: ");
         int appDecision = Integer.parseInt(scanner.nextLine());
         if (appDecision == 1) {
-            selectedApp.setAppliedStatus("Successful");
+            selectedApp.setAppliedStatus("successful");
+            System.out.println(selectedApp.getApplicant().getName() + "'s application for " + selectedApp.getProject().getName() + " is approved.");
         } else if (appDecision == 2) {
-            selectedApp.setAppliedStatus("Unsucessful");
+            selectedApp.setAppliedStatus("unsucessful");
+            System.out.println(selectedApp.getApplicant().getName() + "'s application for " + selectedApp.getProject().getName() + " is rejected.");
         } else {
             System.out.println("Invalid decision.");
         }
@@ -225,8 +227,25 @@ public class ManagerController {
             int appChoice = Integer.parseInt(scanner.nextLine());
             if (appChoice == 1) {
                 selectedApp.approveWithdrawal();
+                System.out.println(selectedApp.getApplicant().getName() + "'s withdrawal of application for " + selectedApp.getProject().getName() + " is approved.");
+                if(selectedApp.getAppliedStatus().equals("booked")){
+                    int flatType = selectedApp.getFlatType();
+                    System.out.println("THIS IS :" + flatType);
+                    if(flatType == 2){
+                        int num2Room = selectedApp.getProject().getNum2Rooms();
+                        num2Room++;
+                        selectedApp.getProject().setNum2Rooms(num2Room);
+                        System.out.println("this is also: " + num2Room);
+                    }
+                    else if(flatType == 3){
+                        int num3Room = selectedApp.getProject().getNum3Rooms();
+                        num3Room++;
+                        selectedApp.getProject().setNum3Rooms(num3Room);
+                    }
+                }
             } else if (appChoice == 2) {
                 selectedApp.rejectWithdrawal();
+                System.out.println(selectedApp.getApplicant().getName() + "'s withdrawal of application for " + selectedApp.getProject().getName() + " is rejected.");
             } else if (appChoice == 0) {
                 continue;
             }
@@ -237,8 +256,10 @@ public class ManagerController {
     public void generateReport() {
         List<Application> appList = ApplicationRepository.getAllApplications();
         for(Application a : appList){
-            Report rep = new Report(a,a.getApplicant());
-            reportRepository.addReport(rep);
+            if(a.getAppliedStatus().equals("booked")){
+                Report rep = new Report(a,a.getApplicant());
+                reportRepository.addReport(rep);
+            }
         }
         viewApplicantReports();
     }

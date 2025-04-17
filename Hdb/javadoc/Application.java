@@ -91,13 +91,11 @@ public class Application {
 
     /**
      * Sets the flat type selected for this application.
-     * Prints the selected flat type to the console.
      *
      * @param r the flat type (e.g., 2 for 2-room, 3 for 3-room)
      */
     public void setFlatType(int r) {
         flatType = r;
-        System.out.println(flatType + " room selected.");
     }
 
     /**

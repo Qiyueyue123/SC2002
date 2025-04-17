@@ -34,7 +34,6 @@ public class Application {
 	
 	public void setFlatType(int r) {
         flatType = r;
-        System.out.println(flatType + " room selected.");
     }
 	
 	public int getFlatType() {
