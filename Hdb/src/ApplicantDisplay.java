@@ -132,7 +132,7 @@ public class ApplicantDisplay implements UserDisplay {
         if (!enquiries.isEmpty()) {
             System.out.print("Select enquiry ID: ");
             int id = scan.nextInt(); scan.nextLine();
-            Enquiry e = EnquiryList.selectEnquiry(id);
+            Enquiry e = EnquiryController.getEnquiryById(id);
             if (e != null) {
                 if (isEdit) {
                     System.out.print("New message: ");

@@ -6,7 +6,7 @@ public class ProjectController {
     public static void sortProjName() {
         ArrayList<Project> all = ProjectRepository.getAllProjects();
         all.sort(Comparator.comparing(Project::getName));
-        ProjectList.setProjects(all); // persist sorted
+        ProjectRepository.setProjects(all); // persist sorted
     }
 
     public static ArrayList<Project> getUserProjects(Manager user) {

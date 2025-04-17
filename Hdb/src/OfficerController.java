@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -146,6 +147,12 @@ public class OfficerController {
 
         System.out.println("Flat booked successfully for applicant: " + application.getApplicant().getName());
     }
+
+    public ArrayList<Application> getApprovedApplications(){
+        return new ArrayList<>(ApplicationRepository.getAllApplications().stream()
+                .filter(a -> a.getProject() == officer.getAssignedProject() && "Successful".equalsIgnoreCase(a.getAppliedStatus())).toList());
+    }
+
     public void generateReceipt(){
         Project assignedProject = officer.getAssignedProject();
         ArrayList<Application> bookedApplications = new ArrayList<>();

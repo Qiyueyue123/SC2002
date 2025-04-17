@@ -1,2 +1,2 @@
 ApplicantNRIC,ProjectName,AppliedStatus,FlatType,WithdrawalRequested,WithdrawalStatus
-S1234567A,Acacia Breeze,Pending,2,false,Pending
+S1234567A,Acacia Breeze,booked,2,true,Success

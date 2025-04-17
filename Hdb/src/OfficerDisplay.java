@@ -64,7 +64,23 @@ public class OfficerDisplay implements UserDisplay{
                     }
                     break;
                 case 5:
+                    List<Application> approvedApps = controller.getApprovedApplications();
+                    int i = 1;
+                    if(approvedApps.isEmpty()){
+                        System.out.println("Currently no applications awaiting booking.");
+                    }
+                    else{
+                        System.out.println("Approved applications awaiting for booking:");
+                    for(Application a: approvedApps){
+                        System.out.println("Application " + i + ":");
+                        System.out.println("Applicant Name: " + a.getApplicant().getName());
+                        System.out.println("Applicant NRIC: " + a.getApplicant().getNRIC());
+                        System.out.println("Project Name: " + a.getProject().getName());
+                        System.out.println("Applied flat type: " + a.getFlatType() + "-Room");
+                        System.out.println("");
+                    }
                     controller.bookFlat();
+                    }
                     break;
                 case 6:
                     controller.generateReceipt();
