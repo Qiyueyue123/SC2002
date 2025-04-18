@@ -43,6 +43,7 @@ public class ApplicantController extends UserController {
                     i++;
                     System.out.println("Project " + i + ":");
                     ProjectDisplay.printProj(p);
+                    System.out.println("");
                 }
             }
         }

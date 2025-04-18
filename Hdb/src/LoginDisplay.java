@@ -19,6 +19,7 @@ public class LoginDisplay {
                 }
             }
         }
+        System.out.println("Login Successful for " + user.getName());
         user.display(); //allows for new users to be created without ammending this class
     }
 

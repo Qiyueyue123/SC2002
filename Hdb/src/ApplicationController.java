@@ -27,20 +27,6 @@ public class ApplicationController {
             }
         }
     }
-
-    public static void showPendingApplicationsForManager(Manager manager) {
-        List<Application> pending = ApplicationRepository.getPendingApplicationsForManager(manager);
-
-        if (pending.isEmpty()) {
-            System.out.println("No pending applications for your projects.");
-        } else {
-            System.out.println("Pending Applications:");
-            for (Application app : pending) {
-                System.out.println("Applicant: " + app.getApplicant().getName() + ", Project: " + app.getProject().getName());
-            }
-        }
-    }
-
     public static Application getApplicationByNRIC(String nric) {
         return ApplicationRepository.selectApplication(nric);
     }

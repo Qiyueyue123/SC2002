@@ -41,17 +41,6 @@ public class ApplicationRepository {
                 .collect(Collectors.toList());
     }
 
-    public static boolean hasUserAppliedToProject(String nric, Project project) {
-        List<Application> applications = getAllApplications();
-        for (Application app : applications) {
-            if (app.getApplicant().getNRIC().equalsIgnoreCase(nric)
-                && app.getProject().equals(project)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static void clearAll() {
         applications.clear();
     }

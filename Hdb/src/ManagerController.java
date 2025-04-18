@@ -146,22 +146,21 @@ public class ManagerController {
     }
     
     
-    public List<Enquiry> viewProjectEnquiries() {
+    public void viewProjectEnquiries() {
         ArrayList<Project> myProjects = ProjectController.getUserProjects(manager);
         if (myProjects.isEmpty()) {
             System.out.println("There are no projects available.");
-            return null;
+            return;
         }
         ProjectDisplay.showUserProjects(manager);
         System.out.println("Which project's enquiries would you like to view?");
         int projNo = Integer.parseInt(scanner.nextLine());
         if (projNo < 1 || projNo > myProjects.size()) {
-            System.out.println("Invalid project number.");
-            return null;
+            System.out.println("Invalid project selection.");
+            return;
         }
         Project chosenProj = myProjects.get(projNo - 1);
-        List<Enquiry> enq = EnquiryRepository.getProjectEnquiries(chosenProj);
-        return enq;
+        EnquiryController.showUnansweredProjectEnquiries(chosenProj);
     }
     
     
@@ -171,7 +170,7 @@ public class ManagerController {
             System.out.println("There are no projects available.");
             return;
         }
-        ProjectList.showUserProjects(manager);
+        ProjectDisplay.showUserProjects(manager);
         System.out.println("Which project's enquiries would you like to view?");
         int projNo = Integer.parseInt(scanner.nextLine());
         if (projNo < 1 || projNo > userProjs.size()) {
@@ -179,20 +178,11 @@ public class ManagerController {
             return;
         }
         Project chosenProj = userProjs.get(projNo - 1);
-        List<Enquiry> enquiries = EnquiryRepository.getProjectEnquiries(chosenProj);
-        if (enquiries.isEmpty()) {
-            System.out.println("There are no enquiries for this project.");
-            return;
-        }
-        System.out.println("List of Enquiries:");
-        for (int i = 0; i < enquiries.size(); i++) {
-            System.out.println((i + 1) + ". ");
-            enquiries.get(i).print();
-        }
+        EnquiryController.showUnansweredProjectEnquiries(chosenProj);
         System.out.print("Enter the Enquiry ID to reply: ");
         int enquiryId = Integer.parseInt(scanner.nextLine());
         Enquiry selectedEnquiry = EnquiryRepository.getEnquiryById(enquiryId);
-        if (selectedEnquiry == null) {
+        if (selectedEnquiry == null || selectedEnquiry.getProject() != chosenProj) {
             System.out.println("Invalid enquiry ID.");
             return;
         }

@@ -8,21 +8,11 @@ public class App {
         FileService fs = new FileService();
 
         loadAllData(fs);
-        //just to confirm project is loaded
 
         LoginDisplay.showDisplay(scanner);
 
         saveAllData(fs);
         System.out.println("Data saved. Exiting program.");
-        /*User user = null;
-        String role = "";
-        while (user == null) {
-            //Prompt for role
-            role = Utils.checkRole();
-            //Prompt for login details
-            user = Utils.loginAuthenticator(role);
-        }
-        System.out.println("Login Successful for " + user.getName());*/
     }
 
     private static void loadAllData(FileService fs) {

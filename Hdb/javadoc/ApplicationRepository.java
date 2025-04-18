@@ -88,24 +88,6 @@ public class ApplicationRepository {
     }
 
     /**
-     * Checks if a user has already applied to a specific project.
-     *
-     * @param nric the NRIC of the applicant
-     * @param project the {@link Project} to check
-     * @return {@code true} if the user has applied to the project, {@code false} otherwise
-     */
-    public static boolean hasUserAppliedToProject(String nric, Project project) {
-        List<Application> applications = getAllApplications();
-        for (Application app : applications) {
-            if (app.getApplicant().getNRIC().equalsIgnoreCase(nric)
-                && app.getProject().equals(project)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Removes all applications from the repository.
      */
     public static void clearAll() {
