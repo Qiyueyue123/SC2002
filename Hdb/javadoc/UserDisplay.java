@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 /**
  * Boundary. <p>
- * This {@code UserDisplay}is a interface representing a user display for different user roles in the system.
+ * This {@code UserDisplay}is a <b>interface</b> representing a user display for different user roles in the system.
  * Provides methods for showing user-specific menus and changing passwords.
  */
 public interface UserDisplay {
