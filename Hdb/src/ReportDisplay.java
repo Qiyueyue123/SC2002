@@ -31,14 +31,4 @@ public class ReportDisplay {
         System.out.println("Flat Type: " + report.getApplication().getFlatType() + " room");
         System.out.println();
     }
-
-    public static void printReportList(ArrayList<Report> list) {
-		int i = 1;
-		for (Report r: list) {
-			System.out.println("Report " + i + ".");
-			r.printReport();
-			System.out.println();
-			i++;
-		}
-	}
 }
