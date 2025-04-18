@@ -37,6 +37,10 @@ public abstract class User {
         this.married = married;
         this.nric = nric;
     }
+    /**
+     * Abstract method for display user's interface
+     */
+    public abstract void display();
 
     /**
      * Returns the name of the user.

@@ -114,6 +114,7 @@ public class ApplicantDisplay implements UserDisplay {
 						System.out.print("Message: ");
                     	String msg = scan.nextLine();
                     	controller.createEnquiry(projects.get(projNo - 1), msg);
+                        System.out.println("Enquiry successfully created");
 					}
                 }
                 case 6 -> editOrDeleteEnquiry(true);
@@ -174,8 +175,10 @@ public class ApplicantDisplay implements UserDisplay {
                     System.out.print("New message: ");
                     String msg = scan.nextLine();
                     controller.editEnquiry(e, msg);
+                    System.out.println("Enquiry succesfully edited");
                 } else {
                     controller.deleteEnquiry(e);
+                    System.out.println("Enquiry successfully deleted");
                 }
             }
         }

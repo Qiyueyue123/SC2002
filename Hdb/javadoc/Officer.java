@@ -43,4 +43,13 @@ public class Officer extends Applicant {
     public void setAssignedProject(Project assignedProject) {
         this.assignedProject = assignedProject;
     }
+    /**
+	 * Launches the officer's interface display
+	 * Delegates to {@link OfficerDisplay#showDisplay()}
+	 */
+    @Override
+     public void display(){
+         OfficerDisplay display = new OfficerDisplay(this);
+         display.showDisplay();
+     }
 }

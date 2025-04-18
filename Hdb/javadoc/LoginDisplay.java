@@ -24,7 +24,7 @@ public class LoginDisplay {
             if (user == null) {
                 attempts--;
                 if (attempts > 0) {
-                    System.out.println("Invalid login. Attempts remaining: " + attempts);
+                    System.out.println("Attempts remaining: " + attempts);
                 } else {
                     System.out.println("Too many failed attempts. Exiting application.");
                     return;

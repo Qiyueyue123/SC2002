@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -44,20 +43,20 @@ public class ManagerDisplay implements UserDisplay {
     public void showDisplay() {
         boolean running = true;
         do {
-            System.out.println("=========== Manager User Menu ===========");
-            System.out.println("| (1) Create a project                    |");
-            System.out.println("| (2) Edit a project                      |");
-            System.out.println("| (3) Delete a project                    |");
-            System.out.println("| (4) View all my projects                |");
-            System.out.println("| (5) Approve/Reject Officer Registration |");
-            System.out.println("| (6) Approve/Reject Applicant Application|");
-            System.out.println("| (7) View all Enquiries                  |");
-            System.out.println("| (8) View Project Enquiries              |");
-            System.out.println("| (9) Reply to an Enquiry                 |");
-            System.out.println("| (10) Approve/Reject Withdrawal of App   |");
-            System.out.println("| (11) Generate Report                    |");
-            System.out.println("| (12) Toggle Visibility                  |");
-            System.out.println("| (0) Exit                                |");
+            System.out.println("(1) Create a project                    ");
+            System.out.println("(2) Edit a project                      ");
+            System.out.println("(3) Delete a project                    ");
+            System.out.println("(4) View all my projects                ");
+            System.out.println("(5) Approve/Reject Officer Registration ");
+            System.out.println("(6) Approve/Reject Applicant Application");
+            System.out.println("(7) View all Enquiries                  ");
+            System.out.println("(8) View Project Enquiries              ");
+            System.out.println("(9) Reply to an Enquiry                 ");
+            System.out.println("(10) Approve/Reject Withdrawal of App   ");
+            System.out.println("(11) Generate Report                    ");
+ 			System.out.println("(12) Toggle Visibility                  ");
+ 			System.out.println("(13) Change Password");
+            System.out.println("(0) Exit                                ");
             System.out.println("==========================================");
             System.out.print("Please enter your choice: ");
 
@@ -83,9 +82,9 @@ public class ManagerDisplay implements UserDisplay {
                     int num3Rooms = Integer.parseInt(scanner.nextLine());
                     System.out.println("Enter price of 3-Room units: ");
                     int price3room = Integer.parseInt(scanner.nextLine());
-                    System.out.print("Enter Application Opening Date (YYYY-MM-DD): ");
+                    System.out.print("Enter Application Opening Date (MM/DD/YYY): ");
                     String openingDate = scanner.nextLine();
-                    System.out.print("Enter Application Closing Date (YYYY-MM-DD): ");
+                    System.out.print("Enter Application Closing Date (MM/DD/YYY): ");
                     String closingDate = scanner.nextLine();
                     System.out.print("Enter available HDB Officer Slots: ");
                     int availableOfficerSlots = Integer.parseInt(scanner.nextLine());
@@ -143,12 +142,12 @@ public class ManagerDisplay implements UserDisplay {
                     String price3Input = scanner.nextLine();
                     int newPrice3Rooms = price3Input.isEmpty() ? projToEdit.getPrice3Room() : Integer.parseInt(price3Input);
 
-                    System.out.print("Enter new Application Opening Date (YYYY-MM-DD) (or press Enter to keep current (" + projToEdit.getOpeningDate() + ")): ");
+                    System.out.print("Enter new Application Opening Date (MM/DD/YYY) (or press Enter to keep current (" + projToEdit.getOpeningDate() + ")): ");
                     String newOpeningDate = scanner.nextLine();
                     if (newOpeningDate.isEmpty()) {
                         newOpeningDate = projToEdit.getOpeningDate();
                     }
-                    System.out.print("Enter new Application Closing Date (YYYY-MM-DD) (or press Enter to keep current (" + projToEdit.getClosingDate() + ")): ");
+                    System.out.print("Enter new Application Closing Date (MM/DD/YYY) (or press Enter to keep current (" + projToEdit.getClosingDate() + ")): ");
                     String newClosingDate = scanner.nextLine();
                     if (newClosingDate.isEmpty()) {
                         newClosingDate = projToEdit.getClosingDate();
@@ -158,26 +157,30 @@ public class ManagerDisplay implements UserDisplay {
                     int newAvailableOfficerSlots = slotInput.isEmpty() ? projToEdit.getAvailOfficerSlots() : Integer.parseInt(slotInput);
                     controller.editProject(projToEdit, newName, newNeighborhood, newVisibility, newNum2Room, newNum3Rooms, newOpeningDate, newClosingDate, newAvailableOfficerSlots,
                             manager, newPrice2Rooms, newPrice3Rooms);
+                            System.out.println("Project successfully edited!");
                     break;
                 case 3:
                     // Allows the manager to delete a project.
                     ArrayList<Project> myProjectsForDelete = ProjectController.getUserProjects(manager);
                     if (myProjectsForDelete.isEmpty()) {
                         System.out.println("No projects to delete.");
-                        return;
+                    }else{
+                        System.out.println("Your Projects:");
+                        for (int i = 0; i < myProjectsForDelete.size(); i++) {
+                            System.out.println((i + 1) + ") " + myProjectsForDelete.get(i).getName());
+                        }
+                        System.out.print("Select a project to delete (number): ");
+                        int delIndex = Integer.parseInt(scanner.nextLine());
+                        if (delIndex < 1 || delIndex > myProjectsForDelete.size()) {
+                            System.out.println("Invalid selection.");
+                        }
+                        else{
+                            Project projToDelete = myProjectsForDelete.get(delIndex - 1);
+                            controller.deleteProject(projToDelete);
+                            System.out.println("Project successfully deleted!");
+                        }
                     }
-                    System.out.println("Your Projects:");
-                    for (int i = 0; i < myProjectsForDelete.size(); i++) {
-                        System.out.println((i + 1) + ") " + myProjectsForDelete.get(i).getName());
-                    }
-                    System.out.print("Select a project to delete (number): ");
-                    int delIndex = Integer.parseInt(scanner.nextLine());
-                    if (delIndex < 1 || delIndex > myProjectsForDelete.size()) {
-                        System.out.println("Invalid selection.");
-                        return;
-                    }
-                    Project projToDelete = myProjectsForDelete.get(delIndex - 1);
-                    controller.deleteProject(projToDelete);
+                    
                     break;
                 case 4:
                     controller.viewOwnProjects();
@@ -193,17 +196,7 @@ public class ManagerDisplay implements UserDisplay {
                     break;
                 case 8:
                     // Displays all project enquiries.
-                    List<Enquiry> enquiries = controller.viewProjectEnquiries();
-                    if (controller.viewProjectEnquiries() == null) {
-                        System.out.println("Try Again.");
-                    } else if (enquiries.isEmpty()) {
-                        System.out.println("There is no enquiries currently!");
-                    } else {
-                        System.out.println("List of Enquiries:");
-                        for (Enquiry e : enquiries) {
-                            e.print();
-                        }
-                    }
+                    controller.viewProjectEnquiries();
                     break;
                 case 9:
                     controller.replyToEnquiry();
@@ -217,6 +210,9 @@ public class ManagerDisplay implements UserDisplay {
                 case 12:
                     controller.toggleVisibility();
                     break;
+                case 13:
+ 					changeUserPassword(scanner,manager);
+ 					break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
