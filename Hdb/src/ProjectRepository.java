@@ -24,10 +24,11 @@ public class ProjectRepository {
         projects.remove(project);
     }
 
-    public static void updateProject(String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, String openingDate, String closingDate, 
+    public static void updateProject(Project proj,String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, String openingDate, String closingDate, 
     int availOfficerSlots, Manager manager, int price2room, int price3room){
         for(Project p : projects){
-            if(p.getName().equals(name)){
+            if(p.getName().equals(proj.getName())){
+                p.setName(name);
                 p.setNeighborhood(neighbourhood);
                 p.setVisibility(visibility);
                 p.setNum2Rooms(num2Rooms);
