@@ -1,4 +1,3 @@
 id,ApplicantNRIC,ProjectName,Message,Response,Answered
-1,S1234567A,NTU,Test1,hi,true
-2,S1234567A,Acacia Breeze,Test2,Reply2,true
-3,S1234567A,Acacia Breeze,Test3,,false
+1,S1234567A,Sky Park,How much?,$10000,true
+2,S1234567A,Sky Park,How long?,,false

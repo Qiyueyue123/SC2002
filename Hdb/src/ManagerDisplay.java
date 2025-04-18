@@ -19,19 +19,20 @@ public class ManagerDisplay implements UserDisplay {
         boolean running = true;
         do {
             System.out.println("=========== Manager User Menu ===========");
-            System.out.println("| (1) Create a project                    |");
-            System.out.println("| (2) Edit a project                      |");
-            System.out.println("| (3) Delete a project                    |");
-            System.out.println("| (4) View all my projects                |");
-            System.out.println("| (5) Approve/Reject Officer Registration |");
-            System.out.println("| (6) Approve/Reject Applicant Application|");
-            System.out.println("| (7) View all Enquiries                  |");
-            System.out.println("| (8) View Project Enquiries              |");
-            System.out.println("| (9) Reply to an Enquiry                 |");
-            System.out.println("| (10) Approve/Reject Withdrawal of App   |");
-            System.out.println("| (11) Generate Report                    |");
-			System.out.println("| (12) Toggle Visibility                  |");
-            System.out.println("| (0) Exit                                |");
+            System.out.println("(1) Create a project                    ");
+            System.out.println("(2) Edit a project                      ");
+            System.out.println("(3) Delete a project                    ");
+            System.out.println("(4) View all my projects                ");
+            System.out.println("(5) Approve/Reject Officer Registration ");
+            System.out.println("(6) Approve/Reject Applicant Application");
+            System.out.println("(7) View all Enquiries                  ");
+            System.out.println("(8) View Project Enquiries              ");
+            System.out.println("(9) Reply to an Enquiry                 ");
+            System.out.println("(10) Approve/Reject Withdrawal of App   ");
+            System.out.println("(11) Generate Report                    ");
+			System.out.println("(12) Toggle Visibility                  ");
+			System.out.println("(13) Change Password");
+            System.out.println("(0) Exit                                ");
             System.out.println("==========================================");
             System.out.print("Please enter your choice: ");
             
@@ -177,6 +178,9 @@ public class ManagerDisplay implements UserDisplay {
                     break;
 				case 12:
 					controller.toggleVisibility();
+					break;
+				case 13:
+					changeUserPassword(scanner,manager);
 					break;
                 default:
                     System.out.println("Invalid option. Please try again.");

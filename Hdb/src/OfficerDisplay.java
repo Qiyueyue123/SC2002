@@ -28,10 +28,11 @@ public class OfficerDisplay implements UserDisplay{
             System.out.println("(1) Register as Officer-in-Charge");
             System.out.println("(2) View Assigned Project");
             System.out.println("(3) View Registration Status");
-            System.out.println("(4) Reply to Enquiry");
-            System.out.println("(5) Book flat for Applicant");
-            System.out.println("(6) Generate Receipt");
-            System.out.println("(7) Change Password");
+            System.out.println("(4) View Project Enquiries");
+            System.out.println("(5) Reply to Enquiry");
+            System.out.println("(6) Book flat for Applicant");
+            System.out.println("(7) Generate Receipt");
+            System.out.println("(8) Change Password");
             System.out.println("(0) Exit");
 
             choice = scanner.nextInt();
@@ -48,22 +49,33 @@ public class OfficerDisplay implements UserDisplay{
                     controller.viewRegistrationStatus();
                     break;
                 case 4:
-                    List<Enquiry> enquiries = EnquiryRepository.getAllEnquiries();
-                    for (int i = 0; i < enquiries.size(); i++) {
-                        System.out.println((i + 1) + ". ");
-                        enquiries.get(i).print();
-                    }
-                    System.out.print("Select enquiry to reply to: ");
-                    int idx = scanner.nextInt(); scanner.nextLine();
-                    if (idx >= 1 && idx <= enquiries.size()) {
-                        Enquiry e = enquiries.get(idx - 1);
-                        System.out.print("Enter your response: ");
-                        String response = scanner.nextLine();
-                        controller.replyToEnquiry(e, response);
-                        System.out.println("Response submitted.");
-                    }
+                    EnquiryController.showProjectEnquiries(officer.getAssignedProject());
                     break;
                 case 5:
+                    List<Enquiry> enquiries = EnquiryRepository.getProjectEnquiries(officer.getAssignedProject());
+                    if(enquiries.isEmpty()){
+                        System.out.println("There is no enquiries for this project");
+                    }
+                    else{
+                        for (int i = 0; i < enquiries.size(); i++) {
+                            System.out.println((i + 1) + ". ");
+                            enquiries.get(i).print();
+                        }
+                        System.out.print("Select enquiry to reply to: ");
+                        int idx = scanner.nextInt(); scanner.nextLine();
+                        if (idx >= 1 && idx <= enquiries.size()) {
+                            Enquiry e = enquiries.get(idx - 1);
+                            System.out.print("Enter your response: ");
+                            String response = scanner.nextLine();
+                            controller.replyToEnquiry(e, response);
+                            System.out.println("Response submitted.");
+                        }
+                        else{
+                            System.out.println("Invalid selection.");
+                        }
+                    }
+                    break;
+                case 6:
                     List<Application> approvedApps = controller.getApprovedApplications();
                     int i = 1;
                     if(approvedApps.isEmpty()){
@@ -82,10 +94,10 @@ public class OfficerDisplay implements UserDisplay{
                     controller.bookFlat();
                     }
                     break;
-                case 6:
+                case 7:
                     controller.generateReceipt();
                     break;
-                case 7:
+                case 8:
                     changeUserPassword(scanner,officer);
                     break;
                 case 0:
