@@ -90,6 +90,7 @@ public class OfficerDisplay implements UserDisplay{
                         System.out.println("Project Name: " + a.getProject().getName());
                         System.out.println("Applied flat type: " + a.getFlatType() + "-Room");
                         System.out.println("");
+                        i++;
                     }
                     controller.bookFlat();
                     }

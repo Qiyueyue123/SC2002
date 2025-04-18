@@ -1,4 +1,5 @@
 ApplicantNRIC,ProjectName,AppliedStatus,FlatType,WithdrawalRequested,WithdrawalStatus
 S1234567A,Acacia Breeze,Pending,2,false,Pending
-T7654321B,Tengah,Pending,2,false,Pending
-S9876543C,Sky Park,booked,1,false,Pending
+S9876543C,Sky Park,booked,2,false,Pending
+T2345678D,Sky Park,booked,2,false,Pending
+T7654321B,Sky Park,booked,2,false,Pending

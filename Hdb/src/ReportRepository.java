@@ -95,4 +95,13 @@ public class ReportRepository {
         ArrayList<Report> selectRoomList = is2Room ? twoRoomList : threeRoomList; 
          return selectRoomList;
     }
+
+    public boolean containsReport (Report rep){
+        for(Report r:reports){
+            if(rep.getApplicant().equals(r.getApplicant())){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -57,14 +57,15 @@ public class ManagerDisplay implements UserDisplay {
                     int num3Rooms = Integer.parseInt(scanner.nextLine());
 					System.out.println("Enter price of 3-Room units: ");
 					int price3room = Integer.parseInt(scanner.nextLine());
-                    System.out.print("Enter Application Opening Date (YYYY-MM-DD): ");
+                    System.out.print("Enter Application Opening Date (MM/DD/YYY): ");
                     String openingDate = scanner.nextLine();
-                    System.out.print("Enter Application Closing Date (YYYY-MM-DD): ");
+                    System.out.print("Enter Application Closing Date (MM/DD/YYYY): ");
                     String closingDate = scanner.nextLine();
                     System.out.print("Enter available HDB Officer Slots: ");
                     int availableOfficerSlots = Integer.parseInt(scanner.nextLine());
                     controller.createProject(projName,neighborhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availableOfficerSlots,
 					manager,price2room,price3room);
+					System.out.println("Project successfully created!");
                     break;
                 case 2:
 					ArrayList<Project> myProjects = ProjectController.getUserProjects(manager);
@@ -117,12 +118,12 @@ public class ManagerDisplay implements UserDisplay {
 					String price3Input = scanner.nextLine();
 					int newPrice3Rooms = price3Input.isEmpty() ? projToEdit.getPrice2Room() : Integer.parseInt(price2Input);
 
-					System.out.print("Enter new Application Opening Date (YYYY-MM-DD) (or press Enter to keep current (" + projToEdit.getOpeningDate() + ")): ");
+					System.out.print("Enter new Application Opening Date (MM/DD/YYYY) (or press Enter to keep current (" + projToEdit.getOpeningDate() + ")): ");
 					String newOpeningDate = scanner.nextLine();
 					if (newOpeningDate.isEmpty()) {
 						newOpeningDate = projToEdit.getOpeningDate();
 					}
-					System.out.print("Enter new Application Closing Date (YYYY-MM-DD) (or press Enter to keep current (" + projToEdit.getClosingDate() + ")): ");
+					System.out.print("Enter new Application Closing Date (MM/DD/YYYY) (or press Enter to keep current (" + projToEdit.getClosingDate() + ")): ");
 					String newClosingDate = scanner.nextLine();
 					if (newClosingDate.isEmpty()) {
 						newClosingDate = projToEdit.getClosingDate();
@@ -132,25 +133,28 @@ public class ManagerDisplay implements UserDisplay {
 					int newAvailableOfficerSlots = slotInput.isEmpty() ? projToEdit.getAvailOfficerSlots() : Integer.parseInt(slotInput);
 					controller.editProject(projToEdit,newName,newNeighborhood,newVisibility,newNum2Room,newNum3Rooms,newOpeningDate,newClosingDate,newAvailableOfficerSlots,
 					manager,newPrice2Rooms,newPrice3Rooms);
+					System.out.println("Project successfully edited!");
                     break;
                 case 3:
 					ArrayList<Project> myProjectsForDelete = ProjectController.getUserProjects(manager);
 					if (myProjectsForDelete.isEmpty()) {
 						System.out.println("No projects to delete.");
-						return;
+					}else{
+						System.out.println("Your Projects:");
+						for (int i = 0; i < myProjectsForDelete.size(); i++) {
+							System.out.println((i + 1) + ") " + myProjectsForDelete.get(i).getName());
+						}
+						System.out.print("Select a project to delete (number): ");
+						int delIndex = Integer.parseInt(scanner.nextLine());
+						if (delIndex < 1 || delIndex > myProjectsForDelete.size()) {
+							System.out.println("Invalid selection.");
+						}
+						else{
+							Project projToDelete = myProjectsForDelete.get(delIndex - 1);
+							controller.deleteProject(projToDelete);
+							System.out.println("Project successfully deleted!");
+						}
 					}
-					System.out.println("Your Projects:");
-					for (int i = 0; i < myProjectsForDelete.size(); i++) {
-						System.out.println((i + 1) + ") " + myProjectsForDelete.get(i).getName());
-					}
-					System.out.print("Select a project to delete (number): ");
-					int delIndex = Integer.parseInt(scanner.nextLine());
-					if (delIndex < 1 || delIndex > myProjectsForDelete.size()) {
-						System.out.println("Invalid selection.");
-						return;
-					}
-					Project projToDelete = myProjectsForDelete.get(delIndex - 1);
-                    controller.deleteProject(projToDelete);
                     break;
                 case 4:
                     controller.viewOwnProjects();

@@ -46,7 +46,7 @@ public class ManagerController {
    
     public void editProject(Project proj,String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, 
     String openingDate, String closingDate, int availOfficerSlots, Manager manager1, int price2room, int price3room) {
-        ProjectRepository.updateProject(name,neighbourhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availOfficerSlots,
+        ProjectRepository.updateProject(proj,name,neighbourhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availOfficerSlots,
         manager1,price2room,price3room);
     }
     
@@ -248,7 +248,9 @@ public class ManagerController {
         for(Application a : appList){
             if(a.getAppliedStatus().equals("booked")){
                 Report rep = new Report(a,a.getApplicant());
-                reportRepository.addReport(rep);
+                if(!reportRepository.containsReport(rep)){
+                    reportRepository.addReport(rep);
+                }
             }
         }
         viewApplicantReports();
@@ -256,8 +258,9 @@ public class ManagerController {
     
     
     public void viewApplicantReports() {
-        ArrayList<Report> reports = ReportRepository.getAllReports();
-        List<Report> filteredReports = new ArrayList<>(reports);
+        ArrayList<Report> reports = new ArrayList<>();
+        reports = ReportRepository.getAllReports();
+        ArrayList<Report> filteredReports = new ArrayList<>(reports);
 
         boolean filtering = true;
         while (filtering) {
@@ -286,16 +289,16 @@ public class ManagerController {
                 int ageChoice = Integer.parseInt(scanner.nextLine());
                 switch (ageChoice) {
                     case 1:
-                        filteredReports = ReportRepository.filterUnder25(reports);
+                        filteredReports = ReportRepository.filterUnder25(filteredReports);
                         break;
                     case 2:
-                        filteredReports = ReportRepository.filter25to35(reports);
+                        filteredReports = ReportRepository.filter25to35(filteredReports);
                         break;
                     case 3:
-                        filteredReports = ReportRepository.filter35to45(reports);
+                        filteredReports = ReportRepository.filter35to45(filteredReports);
                         break;
                     case 4:
-                        filteredReports = ReportRepository.filterOver45(reports);
+                        filteredReports = ReportRepository.filterOver45(filteredReports);
                         break;
                     default:
                         System.out.println("Invalid choice, no filter applied.");
@@ -305,18 +308,18 @@ public class ManagerController {
                 System.out.println("Select: (1) Married, (2) Single");
                 int maritalChoice = Integer.parseInt(scanner.nextLine());
                 boolean isMarried = (maritalChoice == 1);
-                filteredReports = ReportRepository.filterMarried(reports,isMarried);
+                filteredReports = ReportRepository.filterMarried(filteredReports,isMarried);
                 break;
             case 4:
                 System.out.print("Enter Project Name: ");
                 String projectName = scanner.nextLine();
-                filteredReports = ReportRepository.filterProjects(reports,projectName);
+                filteredReports = ReportRepository.filterProjects(filteredReports,projectName);
                 break;
             case 5:
                 System.out.println("Select Flat Type: (1) 2-Room, (2) 3-Room");
                 int roomChoice = Integer.parseInt(scanner.nextLine());
                 boolean is2Room = (roomChoice == 1);
-                filteredReports = ReportRepository.filterFlatType(reports,is2Room);
+                filteredReports = ReportRepository.filterFlatType(filteredReports,is2Room);
                 break;
             default:
                 System.out.println("Invalid choice. No filter applied.");

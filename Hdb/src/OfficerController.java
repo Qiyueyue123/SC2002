@@ -113,38 +113,26 @@ public class OfficerController {
             System.out.println("Applicant's status is not successful. Cannot proceed with booking.");
             return;
         }
-
-        System.out.println("Choose flat type to book: ");
-        System.out.println("1. 2-Room");
-        System.out.println("2. 3-Room");
-        String flatType;
-        int choice = sc.nextInt();
-        sc.nextLine();
-
-        if(choice == 1){
-            flatType = "2-Room";
+        int flatType = application.getFlatType();
+        if(flatType == 2){
             if (assignedProject.getNum2Rooms() > 0){
                 assignedProject.minusNum2Rooms();
             }
             else{
-                System.out.println("No more " + flatType + " flats available");
+                System.out.println("No more " + flatType  + "-Room flats available");
                 return;
             }
         }
-        else{
-            flatType = "3-room";
+        else if(flatType == 3){
             if (assignedProject.getNum3Rooms() > 0){
                 assignedProject.minusNum3Rooms();
             }
             else{
-                System.out.println("No more " + flatType + " flats available");
+                System.out.println("No more " + flatType + "-Room flats available");
                 return;
             }
         }
-
         application.setAppliedStatus("booked");
-        application.setFlatType(choice);
-
         System.out.println("Flat booked successfully for applicant: " + application.getApplicant().getName());
     }
 
@@ -171,12 +159,13 @@ public class OfficerController {
         System.out.println("Select Applicant to generate reciept for: ");
         for (Application a : bookedApplications){
             System.out.println(i + ". " +  a.getApplicant().getName() + ", " + a.getApplicant().getNRIC() + ", " + a.getFlatType());
+            i++;
         }  System.out.println("0. Return to homepage");
+        choice = scanner.nextInt();
+        scanner.nextLine();
         if (choice == 0) {
             return;
         }
-        choice = scanner.nextInt();
-        scanner.nextLine();
         Application a = bookedApplications.get(choice-1);
         
         String marriedStatus = a.getApplicant().isMarried() ? "Married" : "Single";
@@ -191,6 +180,12 @@ public class OfficerController {
         System.out.println("Name: " + a.getProject().getName());
         System.out.println("Neighborhood: " + a.getProject().getNeighborhood());
         System.out.println("Flat Type: " + a.getFlatType() + " room");
+        if(a.getFlatType()==2){
+            System.out.println("Price: $" + a.getProject().getPrice2Room());
+        }
+        else{
+            System.out.println("Price: $" + a.getProject().getPrice3Room());
+        }
         System.out.println();
     }
     }
