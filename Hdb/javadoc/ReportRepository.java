@@ -151,6 +151,7 @@ public class ReportRepository {
         ArrayList<Report> threeRoomList = list.stream()
                                               .filter(r -> r.getApplication().getProject().getNum3Rooms() > 0)
                                               .collect(Collectors.toCollection(ArrayList::new));
-        return is2Room ? twoRoomList : threeRoomList;
+        ArrayList<Report> selectRoomList = is2Room ? twoRoomList : threeRoomList;
+        return selectRoomList;
     }
 }

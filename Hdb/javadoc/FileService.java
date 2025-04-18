@@ -261,7 +261,6 @@ public class FileService {
                     if (project == null) {
                         continue;
                     }
-                    officer.setAssignedProject(project);
                     Registration reg = new Registration(officer, project);
                     reg.setStatus(status);
                     registrations.add(reg);

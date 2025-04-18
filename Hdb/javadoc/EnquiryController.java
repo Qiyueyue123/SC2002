@@ -34,7 +34,9 @@ public class EnquiryController {
             return;
         }
         System.out.println("List of Your Enquiries:");
-        userEnquiries.forEach(Enquiry::print);
+        for (Enquiry e : userEnquiries) {
+            e.print();
+        }
     }
 
     /**
