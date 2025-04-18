@@ -1,4 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicantController extends UserController {
     private final Applicant applicant;
@@ -31,19 +35,25 @@ public class ApplicantController extends UserController {
             return null;
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate today = LocalDate.now();
         ArrayList<Project> all = ProjectRepository.getAllProjects();
         ArrayList<Project> visible = new ArrayList<>();
         String officerList = "";
         int i = 0;
         for (Project p : all) {
+            LocalDate projectOpening = LocalDate.parse(p.getOpeningDate(), formatter);
+            LocalDate projectClosing = LocalDate.parse(p.getClosingDate(),formatter);
             officerList = p.getOfficerName();
             if (p.getVisibility() && (p.getNum2Rooms() > 0 || p.getNum3Rooms() > 0) && !(officerList.contains(applicant.getName()))) {
                 if (applicant.isMarried() || (!applicant.isMarried() && p.getNum2Rooms() > 0)) {
-                    visible.add(p);
-                    i++;
-                    System.out.println("Project " + i + ":");
-                    ProjectDisplay.printProj(p);
-                    System.out.println("");
+                    if(today.isAfter(projectOpening) && today.isBefore(projectClosing)){
+                        visible.add(p);
+                        i++;
+                        System.out.println("Project " + i + ":");
+                        ProjectDisplay.printProj(p);
+                        System.out.println("");
+                    }
                 }
             }
         }
@@ -63,6 +73,7 @@ public class ApplicantController extends UserController {
                 return;
             }
         }
+
 
         Application app = new Application(applicant, project);
         app.setFlatType(flatTypeChoice);
