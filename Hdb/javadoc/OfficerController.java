@@ -177,6 +177,24 @@ public class OfficerController {
     }
 
     /**
+     * Retrieves a list of applications that have been approved (i.e., have a status of "Successful")
+     * for the project assigned to the current officer.
+     * <p>
+     * This method filters all applications in the repository to include only those that:
+     * <ul>
+     *   <li>Belong to the same project as the officer's assigned project</li>
+     *   <li>Have an application status equal to "Successful" (case-insensitive)</li>
+     * </ul>
+     *
+     * @return an {@link ArrayList} of approved {@link Application} objects; returns an empty list if none match
+     */
+    public ArrayList<Application> getApprovedApplications() {
+        return new ArrayList<>(ApplicationRepository.getAllApplications().stream()
+                .filter(a -> a.getProject() == officer.getAssignedProject() && "Successful".equalsIgnoreCase(a.getAppliedStatus())).toList());
+    }
+
+
+    /**
      * Generates and displays a receipt for a booked flat from the officer’s assigned project.
      * Allows selection from booked applications.
      */

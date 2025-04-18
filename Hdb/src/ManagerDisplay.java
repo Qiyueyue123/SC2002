@@ -165,16 +165,6 @@ public class ManagerDisplay implements UserDisplay {
                     break;
                 case 8:
 					controller.viewProjectEnquiries();
-                    /*if(enquiries==null){
-						System.out.println("Try Again.");
-					}else if(enquiries.isEmpty()){
-						System.out.println("There is no enquiries currently!");
-					}else{
-						System.out.println("List of Enquiries:");
-						for (Enquiry e : enquiries) {
-							e.print();
-						}		
-					}*/
                     break;
                 case 9:
                     controller.replyToEnquiry();
