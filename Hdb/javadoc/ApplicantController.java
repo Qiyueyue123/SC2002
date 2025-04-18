@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * viewing available projects, applying to projects, viewing applied projects,
  * and requesting application withdrawal.
  */
-public class ApplicantController {
+public class ApplicantController extends UserController{
     /**
      * The applicant associated with this controller.
      */
@@ -85,6 +85,7 @@ public class ApplicantController {
                     i++;
                     System.out.println("Project " + i + ":");
                     ProjectDisplay.printProj(p);
+                    System.out.println("");
                 }
             }
         }

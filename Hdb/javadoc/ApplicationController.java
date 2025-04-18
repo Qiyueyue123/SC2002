@@ -42,27 +42,7 @@ public class ApplicationController {
             }
         }
     }
-
-    /**
-     * Displays all pending applications for projects managed by a specific manager.
-     * If there are no such applications, prints a message indicating so.
-     *
-     * @param manager the {@link Manager} whose pending applications to display
-     */
-    public static void showPendingApplicationsForManager(Manager manager) {
-        List<Application> pending = ApplicationRepository.getPendingApplicationsForManager(manager);
-
-        if (pending.isEmpty()) {
-            System.out.println("No pending applications for your projects.");
-        } else {
-            System.out.println("Pending Applications:");
-            for (Application app : pending) {
-                System.out.println("Applicant: " + app.getApplicant().getName() + ", Project: " + app.getProject().getName());
-            }
-        }
-    }
-
-    /**
+  /**
      * Returns an application by the applicant's NRIC.
      *
      * @param nric the NRIC of the applicant
