@@ -9,7 +9,6 @@ public class ProjectRepository {
 
     public static ArrayList<Project> getAllProjects() {
         return projects;
-        //or return new ArrayList<>(projects) to retain encapsulation?
     }
 
     public static void setProjects(ArrayList<Project> loadedProjects) {

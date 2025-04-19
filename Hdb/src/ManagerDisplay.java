@@ -22,7 +22,7 @@ public class ManagerDisplay implements UserDisplay {
             System.out.println("(1) Create a project                    ");
             System.out.println("(2) Edit a project                      ");
             System.out.println("(3) Delete a project                    ");
-            System.out.println("(4) View all my projects                ");
+            System.out.println("(4) View all/own projects               ");
             System.out.println("(5) Approve/Reject Officer Registration ");
             System.out.println("(6) Approve/Reject Applicant Application");
             System.out.println("(7) View all Enquiries                  ");
@@ -156,8 +156,17 @@ public class ManagerDisplay implements UserDisplay {
 						}
 					}
                     break;
-                case 4:
-                    controller.viewOwnProjects();
+				case 4:
+				 	System.out.println("View settings:");
+					System.out.println("1: All projects");
+					System.out.println("2: Own projects");
+					int viewChoice = scanner.nextInt(); scanner.nextLine();
+					if(viewChoice == 1){
+						controller.viewAllProjects();
+					}
+					else{
+						controller.viewOwnProjects();
+					}
                     break;
                 case 5:
                     controller.approveOrRejectOfficerRegistration();

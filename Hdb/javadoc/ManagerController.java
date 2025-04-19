@@ -102,6 +102,13 @@ public class ManagerController {
     public void deleteProject(Project projToDelete) {
         ProjectRepository.deleteProject(projToDelete);
     }
+
+    /**
+     * Displays all projects managed by any manager.
+     */
+    public void viewAllProjects(){
+        ProjectController.getAllProjects();
+    }
     
     /**
      * Displays all projects managed by the current manager.

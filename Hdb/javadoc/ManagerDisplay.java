@@ -184,7 +184,16 @@ public class ManagerDisplay implements UserDisplay {
                     
                     break;
                 case 4:
-                    controller.viewOwnProjects();
+                    System.out.println("View settings:");
+                    System.out.println("1: All projects");
+                    System.out.println("2: Own projects");
+                    int viewChoice = scanner.nextInt(); scanner.nextLine();
+                    if(viewChoice == 1){
+                        controller.viewAllProjects();
+                    }
+                    else{
+                        controller.viewOwnProjects();
+                    }   
                     break;
                 case 5:
                     controller.approveOrRejectOfficerRegistration();

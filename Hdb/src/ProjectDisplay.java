@@ -31,7 +31,7 @@ public class ProjectDisplay {
         System.out.println("List of Projects:");
         int i = 1;
         for (Project p : userProjects) {
-            System.out.println("Project" + i + ":");
+            System.out.println("Project " + i + ":");
             printProj(p);
             System.out.println();
             i++;

@@ -32,6 +32,13 @@ public class ProjectController {
     }
 
     /**
+     * Displays all projects using ProjectDisplay method.
+     */
+    public static void getAllProjects(){
+        ProjectDisplay.showAllProjects();
+    }
+
+    /**
      * Filters the given list of projects to include only those in the specified neighbourhood.
      *
      * @param list The list of projects to filter.
