@@ -45,14 +45,14 @@ public class ApplicationRepository {
         applications.clear();
     }
 
-    public static Application getApplicationByNRICAndProject(String nric, Project project) {
-        List<Application> applications = getAllApplications();
-        for (Application app : applications) {
-            if (app.getApplicant().getNRIC().equalsIgnoreCase(nric) &&
-                app.getProject().equals(project)) {
-                return app;
-            }
-        }
-        return null;
-    }
+    // public static Application getApplicationByNRICAndProject(String nric, Project project) {
+    //     List<Application> applications = getAllApplications();
+    //     for (Application app : applications) {
+    //         if (app.getApplicant().getNRIC().equalsIgnoreCase(nric) &&
+    //             app.getProject().equals(project)) {
+    //             return app;
+    //         }
+    //     }
+    //     return null;
+    // }
 }

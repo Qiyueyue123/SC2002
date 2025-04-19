@@ -34,7 +34,7 @@ public class ProjectController {
     /**
      * Displays all projects using ProjectDisplay method.
      */
-    public static void getAllProjects(){
+    public static void showAllProjects(){
         ProjectDisplay.showAllProjects();
     }
 

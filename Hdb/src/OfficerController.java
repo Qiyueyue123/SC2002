@@ -14,9 +14,7 @@ public class OfficerController {
     }
 
     public void registerAsOIC() {
-        List<Project> availableProjects = ProjectRepository.getAllProjects().stream()
-                .filter(p -> p.getAvailOfficerSlots() > 0)
-                .toList();
+        List<Project> availableProjects = ProjectController.getAvailProjects();
 
         if (availableProjects.isEmpty()) {
             System.out.println("No available projects for officer registration.");
@@ -39,16 +37,16 @@ public class OfficerController {
 
         Project selected = availableProjects.get(choice - 1);
 
-        if(RegistrationRepository.hasRegistration(officer,selected)){
+        if(RegistrationController.isOfficerAlreadyPending(selected, officer)){
             System.out.println("You have already registered for this project");
             return;
         } 
-        if (ApplicationRepository.getApplicationByNRICAndProject(officer.getNRIC(), selected) != null) {
+        if (ApplicationController.getApplicationByNRICAndProject(officer.getNRIC(), selected) != null) {
             System.out.println("You cannot register for a project you have applied for");
             return;
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-        List<Registration> approvedRegistrations = RegistrationRepository.getApprovedRegistrationsByOfficer(officer);
+        List<Registration> approvedRegistrations = RegistrationController.getOfficerApprovedRegistration(officer);
         LocalDate selectedOpening = LocalDate.parse(selected.getOpeningDate(),formatter);
         LocalDate selectedClosing = LocalDate.parse(selected.getClosingDate(),formatter);
         for (Registration reg : approvedRegistrations) {
@@ -62,8 +60,9 @@ public class OfficerController {
                 return;
             }
         }
-        Registration reg = new Registration(officer, selected);
-        RegistrationRepository.addRegistration(reg);
+        // Registration reg = new Registration(officer, selected);
+        // RegistrationRepository.addRegistration(reg);
+        RegistrationController.addRegistration(officer, selected);
         System.out.println("Registration submitted and pending manager approval.");
     }
 
@@ -77,7 +76,7 @@ public class OfficerController {
     }
 
     public void viewRegistrationStatus() {
-        List<Registration> all = RegistrationRepository.getAllRegistrations();
+        List<Registration> all = RegistrationController.getAllRegistrations();
         boolean found = false;
         for (Registration r : all) {
             if (r.getOfficer().equals(officer)) {
@@ -102,7 +101,7 @@ public class OfficerController {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter Applicant NRIC: ");
         String applicantNRIC = sc.nextLine().trim();
-        Application application = ApplicationRepository.getApplicationByNRICAndProject(applicantNRIC, assignedProject);
+        Application application = ApplicationController.getApplicationByNRICAndProject(applicantNRIC, assignedProject);
 
         if (application == null) {
             System.out.println("No application found for this applicant in your project.");
@@ -137,14 +136,15 @@ public class OfficerController {
     }
 
     public ArrayList<Application> getApprovedApplications(){
-        return new ArrayList<>(ApplicationRepository.getAllApplications().stream()
-                .filter(a -> a.getProject() == officer.getAssignedProject() && "Successful".equalsIgnoreCase(a.getAppliedStatus())).toList());
+        // return new ArrayList<>(ApplicationRepository.getAllApplications().stream()
+        //         .filter(a -> a.getProject() == officer.getAssignedProject() && "Successful".equalsIgnoreCase(a.getAppliedStatus())).toList());
+        return ApplicationController.getApprovedApplications(officer);
     }
 
     public void generateReceipt(){
         Project assignedProject = officer.getAssignedProject();
         ArrayList<Application> bookedApplications = new ArrayList<>();
-        for (Application a : ApplicationRepository.getAllApplications()){
+        for (Application a : ApplicationController.getAllApplications()){
             if((a.getProject() == assignedProject) && (a.getAppliedStatus().equals("booked"))) {
                 bookedApplications.add(a);
             }

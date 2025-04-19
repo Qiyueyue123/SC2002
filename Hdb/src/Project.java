@@ -174,10 +174,6 @@ public class Project {
 		String officerValues = "\"" + officerList + "\"";
 		return officerValues;
 	}
-	// add applicant to list
-	public void addPerson(Applicant a) {
-		peopleApplied.add(a);
-	}
 
 	public void print() {
     System.out.println("Project Name: " + name);

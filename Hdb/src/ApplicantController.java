@@ -18,7 +18,7 @@ public class ApplicantController extends UserController {
     public void createEnquiry(Project project, String msg) {
         Enquiry e = new Enquiry(applicant, project);
         e.setMessage(msg);
-        EnquiryRepository.addEnquiry(e);
+        EnquiryController.addEnquiry(e);
     }
 
     public void editEnquiry(Enquiry enquiry, String msg) {
@@ -26,7 +26,7 @@ public class ApplicantController extends UserController {
     }
 
     public void deleteEnquiry(Enquiry enquiry) {
-        EnquiryRepository.getAllEnquiries().remove(enquiry);
+        EnquiryController.deleteEnquiry(enquiry);
     }
 
     public ArrayList<Project> viewProjects() {
@@ -37,11 +37,10 @@ public class ApplicantController extends UserController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         LocalDate today = LocalDate.now();
-        ArrayList<Project> all = ProjectRepository.getAllProjects();
         ArrayList<Project> visible = new ArrayList<>();
         String officerList = "";
         int i = 0;
-        for (Project p : all) {
+        for (Project p : ProjectController.getAllProjects()) {
             LocalDate projectOpening = LocalDate.parse(p.getOpeningDate(), formatter);
             LocalDate projectClosing = LocalDate.parse(p.getClosingDate(),formatter);
             officerList = p.getOfficerName();
@@ -68,19 +67,13 @@ public class ApplicantController extends UserController {
         //if officer, check if registered for the project
         if (applicant instanceof Officer) {
             Officer o = (Officer) applicant;
-            if (RegistrationRepository.hasRegistration(o, project)){
+            if (RegistrationController.isOfficerAlreadyPending(project,o)){
                 System.out.println("You cannot apply for a project you are registered for.");
                 return;
             }
         }
 
-
-        Application app = new Application(applicant, project);
-        app.setFlatType(flatTypeChoice);
-        applicant.setApplication(app);
-        ApplicationRepository.addApplication(app);
-        project.addPerson(applicant);
-
+        Application app = ApplicationController.addApplication(applicant, project, flatTypeChoice);
         System.out.println("Successfully applied for " + project.getName());
         app.print();
     }

@@ -46,13 +46,13 @@ public class ManagerController {
    
     public void editProject(Project proj,String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, 
     String openingDate, String closingDate, int availOfficerSlots, Manager manager1, int price2room, int price3room) {
-        ProjectRepository.updateProject(proj,name,neighbourhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availOfficerSlots,
+        ProjectController.updateProject(proj,name,neighbourhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availOfficerSlots,
         manager1,price2room,price3room);
     }
     
     
     public void deleteProject(Project projToDelete) {
-        ProjectRepository.deleteProject(projToDelete);
+        ProjectController.deleteProject(projToDelete);
     }
     
     public void viewAllProjects(){
@@ -83,7 +83,7 @@ public class ManagerController {
             return;
         }
         Project selectedProject = myProjectsForOfficer.get(projIndexOfficer - 1);
-        ArrayList<Registration> pendingReg = RegistrationRepository.getPendingRegistrations(selectedProject);
+        ArrayList<Registration> pendingReg = RegistrationController.getPendingRegistrations(selectedProject);
         if (pendingReg.isEmpty()) {
             System.out.println("No pending officer registrations for this project.");
             return;
@@ -111,7 +111,7 @@ public class ManagerController {
     }
     
     public void approveOrRejectApplicantApplication() {
-        List<Application> pendingApps = ApplicationRepository.getPendingApplicationsForManager(manager);
+        List<Application> pendingApps = ApplicationController.getManagerPendingApplications(manager);
         if (pendingApps.isEmpty()) {
             System.out.println("No pending applicant applications.");
             return;
@@ -183,7 +183,7 @@ public class ManagerController {
         EnquiryController.showUnansweredProjectEnquiries(chosenProj);
         System.out.print("Enter the Enquiry ID to reply: ");
         int enquiryId = Integer.parseInt(scanner.nextLine());
-        Enquiry selectedEnquiry = EnquiryRepository.getEnquiryById(enquiryId);
+        Enquiry selectedEnquiry = EnquiryController.getEnquiryById(enquiryId);
         if (selectedEnquiry == null || selectedEnquiry.getProject() != chosenProj) {
             System.out.println("Invalid enquiry ID.");
             return;
@@ -196,11 +196,6 @@ public class ManagerController {
     
     
     public void approveOrRejectWithdrawal() {
-        List<Application> withdrawalRequested = ApplicationRepository.getWithdrawalRequested(manager);
-        if (withdrawalRequested.isEmpty()) {
-            System.out.println("There are no withdrawal requests.");
-            return;
-        }
         boolean processing = true;
         while (processing) {
             ApplicationController.showWithdrawalRequested(manager);
@@ -210,7 +205,7 @@ public class ManagerController {
                 processing = false;
                 break;
             }
-            Application selectedApp = ApplicationRepository.selectApplication(nric);
+            Application selectedApp = ApplicationController.getApplicationByNRIC(nric);
             if (selectedApp == null) {
                 continue;
             }
@@ -246,7 +241,7 @@ public class ManagerController {
     
     
     public void generateReport() {
-        List<Application> appList = ApplicationRepository.getAllApplications();
+        List<Application> appList = ApplicationController.getAllApplications();
         for(Application a : appList){
             if(a.getAppliedStatus().equals("booked")){
                 Report rep = new Report(a,a.getApplicant());
