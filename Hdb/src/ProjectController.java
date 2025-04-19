@@ -16,7 +16,7 @@ public class ProjectController {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public static void getAllProjects(){
+    public static void showAllProjects(){
         ProjectDisplay.showAllProjects();
     }
 

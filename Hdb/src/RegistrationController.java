@@ -14,6 +14,8 @@ public class RegistrationController {
         }
     }
 
+    public static void
+
     public static boolean isOfficerAlreadyPending(Project project, Officer officer) {
         return RegistrationRepository.hasPendingRegistration(officer, project);
     }

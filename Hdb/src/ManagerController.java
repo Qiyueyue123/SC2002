@@ -56,7 +56,7 @@ public class ManagerController {
     }
     
     public void viewAllProjects(){
-        ProjectController.getAllProjects();
+        ProjectController.showAllProjects();
     }
     public void viewOwnProjects() {
         List<Project> projects = ProjectController.getUserProjects(manager);

@@ -25,7 +25,6 @@ public class ProjectRepository {
      */
     public static ArrayList<Project> getAllProjects() {
         return projects;
-        // Optionally: return new ArrayList<>(projects) for encapsulation
     }
 
     /**
