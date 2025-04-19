@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 /**
  * Boundary. <p>
- * This {@code UserDisplay}is a interface representing a user display for different user roles in the system.
+ * This {@code UserDisplay}is a <b>interface</b> representing a user display for different user roles in the system.
  * Provides methods for showing user-specific menus and changing passwords.
  */
 public interface UserDisplay {
@@ -26,7 +26,7 @@ public interface UserDisplay {
         String currentPassword = scanner.nextLine().trim();
         System.out.print("Enter new password: ");
         String newPassword = scanner.nextLine().trim();
-        if (Utils.changePassword(user, currentPassword, newPassword)) {
+        if (UserController.changePassword(user, currentPassword, newPassword)) {
             System.out.println("Password changed successfully.");
         } else {
             System.out.println("Password change failed. Please check your current password and try again.");

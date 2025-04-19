@@ -90,10 +90,10 @@ public class ManagerController {
      * @param price2room the new price for 2-room units
      * @param price3room the new price for 3-room units
      */
-    public void editProject(Project proj, String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, 
+    public void editProject(Project proj,String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, 
     String openingDate, String closingDate, int availOfficerSlots, Manager manager1, int price2room, int price3room) {
-        ProjectRepository.updateProject(name, neighbourhood, visibility, num2Rooms, num3Rooms, openingDate, closingDate, availOfficerSlots,
-        manager1, price2room, price3room);
+        ProjectRepository.updateProject(proj,name,neighbourhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availOfficerSlots,
+        manager1,price2room,price3room);
     }
     
     /**
@@ -178,7 +178,7 @@ public class ManagerController {
             Application app = pendingApps.get(i);
             System.out.println((i + 1) + ") Applicant: " + app.getApplicant().getName() +
                                ", Project: " + app.getProject().getName() +
-                               ", Flat Type: " + app.getFlatType());
+                               ", Flat Type: " + app.getFlatType() + "-Room");
         }
         System.out.print("Select application to process (number): ");
         int appIndex = Integer.parseInt(scanner.nextLine());
@@ -190,9 +190,11 @@ public class ManagerController {
         System.out.print("Enter 1 to Approve, 2 to Reject: ");
         int appDecision = Integer.parseInt(scanner.nextLine());
         if (appDecision == 1) {
-            selectedApp.setAppliedStatus("Successful");
+            selectedApp.setAppliedStatus("successful");
+            System.out.println(selectedApp.getApplicant().getName() + "'s application for " + selectedApp.getProject().getName() + " is approved.");
         } else if (appDecision == 2) {
-            selectedApp.setAppliedStatus("Unsucessful");
+            selectedApp.setAppliedStatus("unsucessful");
+            System.out.println(selectedApp.getApplicant().getName() + "'s application for " + selectedApp.getProject().getName() + " is rejected.");
         } else {
             System.out.println("Invalid decision.");
         }
@@ -210,22 +212,21 @@ public class ManagerController {
      *
      * @return a list of enquiries for the selected project, or null if no valid project is selected
      */
-    public List<Enquiry> viewProjectEnquiries() {
+    public void viewProjectEnquiries() {
         ArrayList<Project> myProjects = ProjectController.getUserProjects(manager);
         if (myProjects.isEmpty()) {
             System.out.println("There are no projects available.");
-            return null;
+            return;
         }
         ProjectDisplay.showUserProjects(manager);
         System.out.println("Which project's enquiries would you like to view?");
         int projNo = Integer.parseInt(scanner.nextLine());
         if (projNo < 1 || projNo > myProjects.size()) {
-            System.out.println("Invalid project number.");
-            return null;
+            System.out.println("Invalid project selection.");
+            return;
         }
         Project chosenProj = myProjects.get(projNo - 1);
-        List<Enquiry> enq = EnquiryRepository.getProjectEnquiries(chosenProj);
-        return enq;
+        EnquiryController.showUnansweredProjectEnquiries(chosenProj);
     }
     
     /**
@@ -237,7 +238,7 @@ public class ManagerController {
             System.out.println("There are no projects available.");
             return;
         }
-        ProjectList.showUserProjects(manager);
+        ProjectDisplay.showUserProjects(manager);
         System.out.println("Which project's enquiries would you like to view?");
         int projNo = Integer.parseInt(scanner.nextLine());
         if (projNo < 1 || projNo > userProjs.size()) {
@@ -245,20 +246,11 @@ public class ManagerController {
             return;
         }
         Project chosenProj = userProjs.get(projNo - 1);
-        List<Enquiry> enquiries = EnquiryRepository.getProjectEnquiries(chosenProj);
-        if (enquiries.isEmpty()) {
-            System.out.println("There are no enquiries for this project.");
-            return;
-        }
-        System.out.println("List of Enquiries:");
-        for (int i = 0; i < enquiries.size(); i++) {
-            System.out.println((i + 1) + ". ");
-            enquiries.get(i).print();
-        }
+        EnquiryController.showUnansweredProjectEnquiries(chosenProj);
         System.out.print("Enter the Enquiry ID to reply: ");
         int enquiryId = Integer.parseInt(scanner.nextLine());
         Enquiry selectedEnquiry = EnquiryRepository.getEnquiryById(enquiryId);
-        if (selectedEnquiry == null) {
+        if (selectedEnquiry == null  || selectedEnquiry.getProject() != chosenProj) {
             System.out.println("Invalid enquiry ID.");
             return;
         }
@@ -296,8 +288,25 @@ public class ManagerController {
             int appChoice = Integer.parseInt(scanner.nextLine());
             if (appChoice == 1) {
                 selectedApp.approveWithdrawal();
+                System.out.println(selectedApp.getApplicant().getName() + "'s withdrawal of application for " + selectedApp.getProject().getName() + " is approved.");
+                if(selectedApp.getAppliedStatus().equals("booked")){
+                    int flatType = selectedApp.getFlatType();
+                    System.out.println("THIS IS :" + flatType);
+                    if(flatType == 2){
+                        int num2Room = selectedApp.getProject().getNum2Rooms();
+                        num2Room++;
+                        selectedApp.getProject().setNum2Rooms(num2Room);
+                        System.out.println("this is also: " + num2Room);
+                    }
+                    else if(flatType == 3){
+                        int num3Room = selectedApp.getProject().getNum3Rooms();
+                        num3Room++;
+                        selectedApp.getProject().setNum3Rooms(num3Room);
+                    }
+                }
             } else if (appChoice == 2) {
                 selectedApp.rejectWithdrawal();
+                System.out.println(selectedApp.getApplicant().getName() + "'s withdrawal of application for " + selectedApp.getProject().getName() + " is rejected.");
             } else if (appChoice == 0) {
                 continue;
             }
@@ -310,8 +319,12 @@ public class ManagerController {
     public void generateReport() {
         List<Application> appList = ApplicationRepository.getAllApplications();
         for(Application a : appList){
-            Report rep = new Report(a, a.getApplicant());
+            Report rep = new Report(a,a.getApplicant());
             reportRepository.addReport(rep);
+            if(a.getAppliedStatus().equals("booked")){
+                Report rep = new Report(a,a.getApplicant());
+                reportRepository.addReport(rep);
+            }
         }
         viewApplicantReports();
     }

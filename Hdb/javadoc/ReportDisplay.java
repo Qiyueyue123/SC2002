@@ -51,18 +51,4 @@ public class ReportDisplay {
         System.out.println();
     }
 
-    /**
-     * Prints a numbered list of reports using {@code printReport()} for each.
-     *
-     * @param list the list of reports to print
-     */
-    public static void printReportList(ArrayList<Report> list) {
-        int i = 1;
-        for (Report r : list) {
-            System.out.println("Report " + i + ".");
-            printReport(r); // fixed from r.printReport()
-            System.out.println();
-            i++;
-        }
-    }
-}
+

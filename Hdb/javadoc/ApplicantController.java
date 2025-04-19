@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +9,7 @@ import java.util.ArrayList;
  * viewing available projects, applying to projects, viewing applied projects,
  * and requesting application withdrawal.
  */
-public class ApplicantController {
+public class ApplicantController extends UserController{
     /**
      * The applicant associated with this controller.
      */
@@ -72,19 +74,25 @@ public class ApplicantController {
             System.out.println("No projects available");
             return null;
         }
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        LocalDate today = LocalDate.now();
         ArrayList<Project> all = ProjectRepository.getAllProjects();
         ArrayList<Project> visible = new ArrayList<>();
-        String officerList;
+        String officerList = "";
         int i = 0;
         for (Project p : all) {
+            LocalDate projectOpening = LocalDate.parse(p.getOpeningDate(), formatter);
+            LocalDate projectClosing = LocalDate.parse(p.getClosingDate(),formatter);
             officerList = p.getOfficerName();
             if (p.getVisibility() && (p.getNum2Rooms() > 0 || p.getNum3Rooms() > 0) && !(officerList.contains(applicant.getName()))) {
                 if (applicant.isMarried() || (!applicant.isMarried() && p.getNum2Rooms() > 0)) {
-                    visible.add(p);
-                    i++;
-                    System.out.println("Project " + i + ":");
-                    ProjectDisplay.printProj(p);
+                    if(today.isAfter(projectOpening) && today.isBefore(projectClosing)){
+                        visible.add(p);
+                        i++;
+                        System.out.println("Project " + i + ":");
+                        ProjectDisplay.printProj(p);
+                        System.out.println("");
+                    }
                 }
             }
         }
