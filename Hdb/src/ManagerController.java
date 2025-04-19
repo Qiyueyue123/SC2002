@@ -55,7 +55,9 @@ public class ManagerController {
         ProjectRepository.deleteProject(projToDelete);
     }
     
-    
+    public void viewAllProjects(){
+        ProjectController.getAllProjects();
+    }
     public void viewOwnProjects() {
         List<Project> projects = ProjectController.getUserProjects(manager);
         if (projects.isEmpty()) {

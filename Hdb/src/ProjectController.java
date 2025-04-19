@@ -16,6 +16,10 @@ public class ProjectController {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public static void getAllProjects(){
+        ProjectDisplay.showAllProjects();
+    }
+
     public static ArrayList<Project> filterNeighbourhood(ArrayList<Project> list, String neighbourhood) {
         return list.stream()
                 .filter(p -> p.getNeighborhood().equalsIgnoreCase(neighbourhood))
