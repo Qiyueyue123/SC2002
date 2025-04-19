@@ -13,7 +13,7 @@ public class ManagerRepository {
     private static List<Manager> managers = new ArrayList<>();
 
     /**
-     * Retrieves the list of all managers.
+     * Returns the list of all managers.
      *
      * @return the list of {@link Manager} objects.
      */

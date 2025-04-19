@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Boundary. <p>
  * This {@code ReportDisplay} class displays reports and receipts related to BTO applications.
@@ -50,5 +48,5 @@ public class ReportDisplay {
         System.out.println("Flat Type: " + report.getApplication().getFlatType() + " room");
         System.out.println();
     }
-
+}
 

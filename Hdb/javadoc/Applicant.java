@@ -1,5 +1,3 @@
-//reply enquiry will be moved when officer and manager class is settled
-
 /**
  * Entity. <p>
  * This {@code Applicant} class represents an applicant in the system who can apply for projects.
@@ -46,6 +44,7 @@ public class Applicant extends User {
 	 * Launches the applicant's interface display
 	 * Delegates to {@link ApplicantDisplay#showDisplay()}
 	 */
+    @Override
 	public void display() {
 		ApplicantDisplay display = new ApplicantDisplay(this);
 		display.showDisplay();

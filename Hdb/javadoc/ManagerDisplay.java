@@ -6,6 +6,7 @@ import java.util.Scanner;
  * This {@code ManagerDisplay} class provides a console-based user interface for managers to interact with the system.
  * Allows managers to create, edit, and delete projects, handle officer and applicant registrations,
  * view and reply to enquiries, generate reports, and manage project visibility.
+ * Implements {@link UserDisplay}
  */
 public class ManagerDisplay implements UserDisplay {
     /**

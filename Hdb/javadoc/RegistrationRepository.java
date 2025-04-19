@@ -23,12 +23,6 @@ public class RegistrationRepository {
     }
 
     /**
-     * Returns all registrations.
-     *
-     * @return list of all registrations
-     */
-  
-    /**
      * Returns the list of all registrations.
      *
      * @return list of Registration objects

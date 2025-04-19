@@ -1,7 +1,7 @@
 /**
  * Entity. <p>
- * This {@code User} is a interface of a User in the system.
- * This interface provides basic attributes and methods shared by all user types
+ * This {@code User} is a <b>abstract</b> class of a User in the system.
+ * This abstract class provides basic attributes and methods shared by all user types
  * such as Applicants, Officers, and Managers.
  */
 public abstract class User {
