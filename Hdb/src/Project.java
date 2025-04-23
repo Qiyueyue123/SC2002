@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.apple.eawt.Application;
-
 public class Project {
     private String name;
 	private String neighbourhood;

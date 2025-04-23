@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ManagerDisplay implements UserDisplay {
@@ -83,57 +82,58 @@ public class ManagerDisplay implements UserDisplay {
 					int projIndex = Integer.parseInt(scanner.nextLine());
 					if (projIndex < 1 || projIndex > myProjects.size()) {
 						System.out.println("Invalid selection.");
-						return;
 					}
-					Project projToEdit = myProjects.get(projIndex - 1);
-					System.out.println("Editing Project: " + projToEdit.getName());
-					
-					System.out.print("Enter new Project Name (or press Enter to keep \"" + projToEdit.getName() + "\"): ");
-					String newName = scanner.nextLine();
-					if (newName.isEmpty()) {
-						newName = projToEdit.getName();
+					else{
+						Project projToEdit = myProjects.get(projIndex - 1);
+						System.out.println("Editing Project: " + projToEdit.getName());
+						
+						System.out.print("Enter new Project Name (or press Enter to keep \"" + projToEdit.getName() + "\"): ");
+						String newName = scanner.nextLine();
+						if (newName.isEmpty()) {
+							newName = projToEdit.getName();
+						}
+						System.out.print("Enter new Neighborhood (or press Enter to keep \"" + projToEdit.getNeighborhood() + "\"): ");
+						String newNeighborhood = scanner.nextLine();
+						if (newNeighborhood.isEmpty()) {
+							newNeighborhood = projToEdit.getNeighborhood();
+						}
+						System.out.print("Enter new Visibility (true/false) (or press Enter to keep current (" + projToEdit.getVisibility() + ")): ");
+						String visInput = scanner.nextLine();
+						boolean newVisibility = visInput.isEmpty() ? projToEdit.getVisibility() : Boolean.parseBoolean(visInput);
+
+						System.out.print("Enter new number of 2-Room units (or press Enter to keep current (" + projToEdit.getNum2Rooms() + ")): ");
+						String num2Input = scanner.nextLine();
+						int newNum2Room = num2Input.isEmpty() ? projToEdit.getNum2Rooms() : Integer.parseInt(num2Input);
+
+						System.out.print("Enter new price of 2-Room units (or press Enter to keep current (" + projToEdit.getPrice2Room() + ")): ");
+						String price2Input = scanner.nextLine();
+						int newPrice2Rooms = price2Input.isEmpty() ? projToEdit.getPrice2Room() : Integer.parseInt(price2Input);
+
+						System.out.print("Enter new number of 3-Room units (or press Enter to keep current (" + projToEdit.getNum3Rooms() + ")): ");
+						String num3Input = scanner.nextLine();
+						int newNum3Rooms = num3Input.isEmpty() ? projToEdit.getNum3Rooms() : Integer.parseInt(num3Input);
+
+						System.out.print("Enter new price of 3-Room units (or press Enter to keep current (" + projToEdit.getPrice3Room() + ")): ");
+						String price3Input = scanner.nextLine();
+						int newPrice3Rooms = price3Input.isEmpty() ? projToEdit.getPrice2Room() : Integer.parseInt(price2Input);
+
+						System.out.print("Enter new Application Opening Date (MM/DD/YYYY) (or press Enter to keep current (" + projToEdit.getOpeningDate() + ")): ");
+						String newOpeningDate = scanner.nextLine();
+						if (newOpeningDate.isEmpty()) {
+							newOpeningDate = projToEdit.getOpeningDate();
+						}
+						System.out.print("Enter new Application Closing Date (MM/DD/YYYY) (or press Enter to keep current (" + projToEdit.getClosingDate() + ")): ");
+						String newClosingDate = scanner.nextLine();
+						if (newClosingDate.isEmpty()) {
+							newClosingDate = projToEdit.getClosingDate();
+						}
+						System.out.print("Enter new Available HDB Officer Slots (or press Enter to keep current (" + projToEdit.getAvailOfficerSlots() + ")): ");
+						String slotInput = scanner.nextLine();
+						int newAvailableOfficerSlots = slotInput.isEmpty() ? projToEdit.getAvailOfficerSlots() : Integer.parseInt(slotInput);
+						controller.editProject(projToEdit,newName,newNeighborhood,newVisibility,newNum2Room,newNum3Rooms,newOpeningDate,newClosingDate,newAvailableOfficerSlots,
+						manager,newPrice2Rooms,newPrice3Rooms);
+						System.out.println("Project successfully edited!");
 					}
-					System.out.print("Enter new Neighborhood (or press Enter to keep \"" + projToEdit.getNeighborhood() + "\"): ");
-					String newNeighborhood = scanner.nextLine();
-					if (newNeighborhood.isEmpty()) {
-						newNeighborhood = projToEdit.getNeighborhood();
-					}
-					System.out.print("Enter new Visibility (true/false) (or press Enter to keep current (" + projToEdit.getVisibility() + ")): ");
-					String visInput = scanner.nextLine();
-					boolean newVisibility = visInput.isEmpty() ? projToEdit.getVisibility() : Boolean.parseBoolean(visInput);
-
-					System.out.print("Enter new number of 2-Room units (or press Enter to keep current (" + projToEdit.getNum2Rooms() + ")): ");
-					String num2Input = scanner.nextLine();
-					int newNum2Room = num2Input.isEmpty() ? projToEdit.getNum2Rooms() : Integer.parseInt(num2Input);
-
-					System.out.print("Enter new price of 2-Room units (or press Enter to keep current (" + projToEdit.getPrice2Room() + ")): ");
-					String price2Input = scanner.nextLine();
-					int newPrice2Rooms = price2Input.isEmpty() ? projToEdit.getPrice2Room() : Integer.parseInt(price2Input);
-
-					System.out.print("Enter new number of 3-Room units (or press Enter to keep current (" + projToEdit.getNum3Rooms() + ")): ");
-					String num3Input = scanner.nextLine();
-					int newNum3Rooms = num3Input.isEmpty() ? projToEdit.getNum3Rooms() : Integer.parseInt(num3Input);
-
-					System.out.print("Enter new price of 3-Room units (or press Enter to keep current (" + projToEdit.getPrice3Room() + ")): ");
-					String price3Input = scanner.nextLine();
-					int newPrice3Rooms = price3Input.isEmpty() ? projToEdit.getPrice2Room() : Integer.parseInt(price2Input);
-
-					System.out.print("Enter new Application Opening Date (MM/DD/YYYY) (or press Enter to keep current (" + projToEdit.getOpeningDate() + ")): ");
-					String newOpeningDate = scanner.nextLine();
-					if (newOpeningDate.isEmpty()) {
-						newOpeningDate = projToEdit.getOpeningDate();
-					}
-					System.out.print("Enter new Application Closing Date (MM/DD/YYYY) (or press Enter to keep current (" + projToEdit.getClosingDate() + ")): ");
-					String newClosingDate = scanner.nextLine();
-					if (newClosingDate.isEmpty()) {
-						newClosingDate = projToEdit.getClosingDate();
-					}
-					System.out.print("Enter new Available HDB Officer Slots (or press Enter to keep current (" + projToEdit.getAvailOfficerSlots() + ")): ");
-					String slotInput = scanner.nextLine();
-					int newAvailableOfficerSlots = slotInput.isEmpty() ? projToEdit.getAvailOfficerSlots() : Integer.parseInt(slotInput);
-					controller.editProject(projToEdit,newName,newNeighborhood,newVisibility,newNum2Room,newNum3Rooms,newOpeningDate,newClosingDate,newAvailableOfficerSlots,
-					manager,newPrice2Rooms,newPrice3Rooms);
-					System.out.println("Project successfully edited!");
                     break;
                 case 3:
 					ArrayList<Project> myProjectsForDelete = ProjectController.getUserProjects(manager);

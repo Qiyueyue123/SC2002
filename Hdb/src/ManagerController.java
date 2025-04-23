@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.plaf.TreeUI;
-
 public class ManagerController {
     private final Manager manager;
     private final Scanner scanner;

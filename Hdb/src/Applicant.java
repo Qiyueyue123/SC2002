@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 //applicant can do evrything needed with enquiries
 //reply enquiry will be moved when officer and manager class is settled

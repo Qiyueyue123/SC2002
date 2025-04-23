@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 
-//import com.apple.eawt.Application;
 
 public class Manager extends User{
 	public Manager(String nric, String name, String password, int age, boolean married) {
