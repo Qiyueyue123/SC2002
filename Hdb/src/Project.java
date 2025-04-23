@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.apple.eawt.Application;
-
 public class Project {
     private String name;
 	private String neighbourhood;
@@ -173,10 +171,6 @@ public class Project {
 		String officerList = String.join(",",names);	
 		String officerValues = "\"" + officerList + "\"";
 		return officerValues;
-	}
-	// add applicant to list
-	public void addPerson(Applicant a) {
-		peopleApplied.add(a);
 	}
 
 	public void print() {

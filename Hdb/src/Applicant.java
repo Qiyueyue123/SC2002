@@ -1,3 +1,4 @@
+//applicant can do evrything needed with enquiries
 //reply enquiry will be moved when officer and manager class is settled
 public class Applicant extends User{
 	private Application application;

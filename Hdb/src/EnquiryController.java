@@ -47,4 +47,12 @@ public class EnquiryController {
     public static Enquiry getEnquiryById(int id) {
         return EnquiryRepository.getEnquiryById(id);
     }
+
+    public static void addEnquiry(Enquiry e){
+        EnquiryRepository.addEnquiry(e);
+    }
+
+    public static void deleteEnquiry(Enquiry e){
+        EnquiryRepository.getAllEnquiries().remove(e);
+    }
 }

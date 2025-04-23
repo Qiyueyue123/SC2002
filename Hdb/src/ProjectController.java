@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -37,5 +38,38 @@ public class ProjectController {
                 .filter(p -> p.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static ArrayList<Project> getAllProjects(){
+        return ProjectRepository.getAllProjects();
+    }
+
+    public static void updateProject(Project proj,String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, String openingDate, String closingDate, 
+    int availOfficerSlots, Manager manager, int price2room, int price3room){
+        ArrayList<Project> projects = ProjectRepository.getAllProjects();
+        for(Project p : projects){
+            if(p.getName().equals(proj.getName())){
+                p.setName(name);
+                p.setNeighborhood(neighbourhood);
+                p.setVisibility(visibility);
+                p.setNum2Rooms(num2Rooms);
+                p.setNum3Rooms(num3Rooms);
+                p.setOpeningDate(openingDate);
+                p.setClosingDate(closingDate);
+                p.setAvailOfficerSlots(availOfficerSlots);
+                p.setPrice2Room(price2room);
+                p.setPrice3Room(price3room);
+            }
+        }
+    }
+
+    public static void deleteProject(Project proj){
+        ProjectRepository.deleteProject(proj);
+    }
+
+    public static List<Project> getAvailProjects(){
+        return ProjectRepository.getAllProjects().stream()
+        .filter(p -> p.getAvailOfficerSlots() > 0)
+        .toList();
     }
 }

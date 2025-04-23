@@ -107,7 +107,7 @@ public class ManagerController {
      * Displays all projects managed by any manager.
      */
     public void viewAllProjects(){
-        ProjectController.getAllProjects();
+        ProjectController.showAllProjects();
     }
     
     /**
