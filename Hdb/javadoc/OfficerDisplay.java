@@ -9,7 +9,7 @@ import java.util.Scanner;
  * booking flats, and generating receipts.
  * <p>
  * It also allows officers to continue as an Applicant if applicable.
- * Implements the UserDisplay interface.
+ * Implements {@link UserDisplay}.
  */
 public class OfficerDisplay implements UserDisplay {
     /**

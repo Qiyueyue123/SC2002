@@ -169,7 +169,7 @@ public class OfficerController {
     }
 
     /**
-     * Retrieves a list of applications that have been approved (i.e., have a status of "Successful")
+     * Returns a list of applications that have been approved (i.e., have a status of "Successful")
      * for the project assigned to the current officer.
      * <p>
      * This method filters all applications in the repository to include only those that:

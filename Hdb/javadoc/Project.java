@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//Simport com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 
 /**
  * Entity. <p>

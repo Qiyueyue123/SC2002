@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.plaf.TreeUI;
-
 
 /**
  * Controller.<p>
@@ -326,11 +324,11 @@ public class ManagerController {
     public void generateReport() {
         List<Application> appList = ApplicationRepository.getAllApplications();
         for(Application a : appList){
-            Report rep = new Report(a,a.getApplicant());
-            reportRepository.addReport(rep);
             if(a.getAppliedStatus().equals("booked")){
                 Report rep = new Report(a,a.getApplicant());
-                reportRepository.addReport(rep);
+                if(!reportRepository.containsReport(rep)){
+                    reportRepository.addReport(rep);
+                }
             }
         }
         viewApplicantReports();
@@ -426,9 +424,28 @@ public class ManagerController {
      * Toggles the visibility of projects managed by this manager.
      * This method appears to be incomplete in the implementation.
      */
-    public void toggleVisibility() {
+    public void toggleVisibility(){
         List<Project> projects = ProjectController.getUserProjects(manager);
-        System.out.println();
-        // Note: This method appears to be incomplete in the implementation
+        if (projects.isEmpty()) {
+            System.out.println("You are currently in charge of no projects.");
+            return;
+        }
+        System.out.println("Projects you're in charge of:");
+        for (int i = 0; i < projects.size(); i++) {
+            System.out.println((i + 1) + ". " + projects.get(i).getName());
+        }
+        System.out.print("Choose project to toggle visibility of: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice < 1 || choice > projects.size()) {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        Project selectedProject = projects.get(choice - 1);
+
+        selectedProject.setVisibility(!selectedProject.getVisibility());
+        System.out.println("Project '" + selectedProject.getName() + "' visibility is set to " + selectedProject.getVisibility());
     }
 }

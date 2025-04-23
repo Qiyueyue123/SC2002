@@ -24,7 +24,7 @@ public class EnquiryRepository {
     }
 
     /**
-     * Retrieves all enquiries stored in the repository.
+     * Returns all enquiries stored in the repository.
      *
      * @return a list of all {@link Enquiry} objects
      */
@@ -42,7 +42,7 @@ public class EnquiryRepository {
     }
 
     /**
-     * Retrieves all enquiries made by a specific applicant, sorted by the project name.
+     * Returns all enquiries made by a specific applicant, sorted by the project name.
      *
      * @param user the {@link Applicant} whose enquiries are to be retrieved
      * @return a list of enquiries made by the specified applicant, sorted by project name
@@ -55,7 +55,7 @@ public class EnquiryRepository {
     }
 
     /**
-     * Retrieves all enquiries related to a specific project, sorted by the project name.
+     * Returns all enquiries related to a specific project, sorted by the project name.
      *
      * @param project the {@link Project} whose enquiries are to be retrieved
      * @return a list of enquiries for the specified project, sorted by project name
@@ -68,7 +68,7 @@ public class EnquiryRepository {
     }
 
     /**
-     * Retrieves all unanswered enquiries for a specific project.
+     * Returns all unanswered enquiries for a specific project.
      *
      * @param project the {@link Project} whose unanswered enquiries are to be retrieved
      * @return a list of unanswered enquiries for the specified project

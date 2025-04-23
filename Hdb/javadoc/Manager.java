@@ -24,6 +24,7 @@ public class Manager extends User {
 	 * Launches the manager's interface display
 	 * Delegates to {@link ManagerDisplay#showDisplay()}
 	 */
+    @Override
 	public void display(){
 		ManagerDisplay display = new ManagerDisplay(this);
 		display.showDisplay();
