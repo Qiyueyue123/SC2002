@@ -5,6 +5,7 @@ This repository contains our implementation of a HDB BTO app
 ---
 ## 📂 Project Documentation
 
+
 ### 📄 Sequence Diagram  
 [Download Sequence Diagram (DOCX)](SEQUENCE%20DIAGRAMS.docx)
 
@@ -16,6 +17,10 @@ This repository contains our implementation of a HDB BTO app
 
 ### 📚 Javadoc Documentation  
 [View Javadoc HTML](Hdb/javadoc/doc/index.html)
+
+### Report
+
+[View Report](FCS1_grp6.pdf)
 
 
 ### Full Report
