@@ -14,8 +14,9 @@ This repository contains our implementation of a HDB BTO app
 ### 🖼️ Class Diagram (SC2002)  
 ![Class Diagram](2002%20Class%20Diagram(2).jpg)
 
-### External files( javadoc html, sequence diagram, class diagram, test case table)
-https://drive.google.com/drive/folders/1rnC87U32G_cHnHNHbKK3Jw4UlZUndpY4
+### 📚 Javadoc Documentation  
+[View Javadoc HTML](Hdb/javadoc/doc/index.html)
+
 
 ### Full Report
 **Link:** [Google Doc](https://docs.google.com/document/d/1B-u7ymmW_2W3GDOe6BVRbl9ay3D-ffNAdB1X4eFO40M/edit?usp=sharing)
