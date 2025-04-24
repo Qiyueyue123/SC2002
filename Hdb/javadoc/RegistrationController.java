@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,10 @@ public class RegistrationController {
             }
         }
     }
+    
+    public static ArrayList<Registration> getPendingRegistrations(Project proj){
+        return RegistrationRepository.getPendingRegistrations(proj);
+    }
 
     /**
      * Checks if a given officer already has a pending registration for the specified project.
@@ -37,6 +42,10 @@ public class RegistrationController {
      */
     public static boolean isOfficerAlreadyPending(Project project, Officer officer) {
         return RegistrationRepository.hasPendingRegistration(officer, project);
+    }
+
+    public static ArrayList<Registration> getOfficerApprovedRegistration(Officer o){
+        return RegistrationRepository.getApprovedRegistrationsByOfficer(o);
     }
 
     /**
@@ -50,6 +59,15 @@ public class RegistrationController {
         System.out.println("Registration approved for Officer: " + reg.getOfficer().getName());
     }
 
+    public static void addRegistration(Officer officer, Project proj){
+        Registration reg = new Registration(officer, proj);
+        RegistrationRepository.addRegistration(reg);
+    }
+
+    public static List<Registration> getAllRegistrations(){
+        return RegistrationRepository.getAllRegistrations();
+    }
+    
     /**
      * Rejects the given registration by setting its status to "Rejected".
      *

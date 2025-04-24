@@ -161,14 +161,6 @@ public class Project {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    /**
-     * Adds a person to the list of applicants.
-     *
-     * @param a the applicant to add
-     */
-    public void addPerson(Applicant a) {
-        peopleApplied.add(a);
-    }
 
     /**
      * Prints the project details to the console.

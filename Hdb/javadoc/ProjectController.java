@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -76,4 +77,66 @@ public class ProjectController {
                 .findFirst()
                 .orElse(null);
     }
+    /**
+     * Returns a list of all projects in the repository.
+     *
+     * @return An {@link ArrayList} of all projects.
+     */
+    public static ArrayList<Project> getAllProjects(){
+         return ProjectRepository.getAllProjects();
+     }
+     
+    /**
+     * Updates the attributes of an existing project with new values.
+     *
+     * @param proj             The existing {@link Project} to update.
+     * @param name             The new project name.
+     * @param neighbourhood    The new neighbourhood.
+     * @param visibility       The new visibility status.
+     * @param num2Rooms        The new number of 2-room flats.
+     * @param num3Rooms        The new number of 3-room flats.
+     * @param openingDate      The new opening date.
+     * @param closingDate      The new closing date.
+     * @param availOfficerSlots The new number of available officer slots.
+     * @param manager          The manager of the project.
+     * @param price2room       The price for 2-room flats.
+     * @param price3room       The price for 3-room flats.
+     */
+     public static void updateProject(Project proj,String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, String openingDate, String closingDate, 
+     int availOfficerSlots, Manager manager, int price2room, int price3room){
+         ArrayList<Project> projects = ProjectRepository.getAllProjects();
+         for(Project p : projects){
+             if(p.getName().equals(proj.getName())){
+                 p.setName(name);
+                 p.setNeighborhood(neighbourhood);
+                 p.setVisibility(visibility);
+                 p.setNum2Rooms(num2Rooms);
+                 p.setNum3Rooms(num3Rooms);
+                 p.setOpeningDate(openingDate);
+                 p.setClosingDate(closingDate);
+                 p.setAvailOfficerSlots(availOfficerSlots);
+                 p.setPrice2Room(price2room);
+                 p.setPrice3Room(price3room);
+             }
+         }
+     }
+      /**
+     * Deletes the specified project from the repository.
+     *
+     * @param proj The {@link Project} to delete.
+     */
+     public static void deleteProject(Project proj){
+         ProjectRepository.deleteProject(proj);
+     }
+     
+     /**
+     * Returns a list of all projects that have available officer slots.
+     *
+     * @return A list of {@link Project} instances with available officer slots.
+     */
+     public static List<Project> getAvailProjects(){
+         return ProjectRepository.getAllProjects().stream()
+         .filter(p -> p.getAvailOfficerSlots() > 0)
+         .toList();
+     }
 }

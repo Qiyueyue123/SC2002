@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,5 +51,69 @@ public class ApplicationController {
      */
     public static Application getApplicationByNRIC(String nric) {
         return ApplicationRepository.selectApplication(nric);
+    }
+
+    /**
+     * Creates and adds a new application for the specified applicant and project.
+     *
+     * @param applicant the {@link Applicant} submitting the application
+     * @param proj the {@link Project} being applied for
+     * @param flatTypeChoice the type of flat chosen
+     * @return the newly created {@link Application}
+     */
+    public static Application addApplication(Applicant applicant, Project proj,int flatTypeChoice){
+         Application app = new Application(applicant, proj);
+         app.setFlatType(flatTypeChoice);
+         applicant.setApplication(app);
+         ApplicationRepository.addApplication(app);
+         return app;
+     }
+
+    /**
+     * Returns all pending applications for a specific manager.
+     *
+     * @param manager the {@link Manager} to filter applications by
+     * @return list of pending {@link Application} objects
+     */
+    public static List<Application> getManagerPendingApplications(Manager manager){
+        return ApplicationRepository.getPendingApplicationsForManager(manager);
+    }
+
+    /**
+     * Returns all applications in the system.
+     *
+     * @return list of all {@link Application} objects
+     */
+    public static List<Application> getAllApplications(){
+        return ApplicationRepository.getAllApplications();
+    }
+    
+     /**
+     * Returns an application by applicant NRIC and project.
+     *
+     * @param nric the NRIC of the applicant
+     * @param project the {@link Project} applied to
+     * @return the matching {@link Application}, or {@code null} if not found
+     */
+    public static Application getApplicationByNRICAndProject(String nric, Project project) {
+        List<Application> applications = getAllApplications();
+        for (Application app : applications) {
+            if (app.getApplicant().getNRIC().equalsIgnoreCase(nric) &&
+                app.getProject().equals(project)) {
+                return app;
+            }
+        }
+        return null;
+    }
+    
+     /**
+     * Returns all approved applications for an officer's assigned project.
+     *
+     * @param officer the {@link Officer} whose project to check
+     * @return list of approved {@link Application} objects
+     */
+    public static ArrayList<Application> getApprovedApplications(Officer officer){
+        return new ArrayList<>(ApplicationRepository.getAllApplications().stream()
+                .filter(a -> a.getProject() == officer.getAssignedProject() && "Successful".equalsIgnoreCase(a.getAppliedStatus())).toList());
     }
 }

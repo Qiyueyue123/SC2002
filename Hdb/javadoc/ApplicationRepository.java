@@ -101,14 +101,14 @@ public class ApplicationRepository {
      * @param project the {@link Project} to find the application for
      * @return the {@link Application} with the matching NRIC and project, or {@code null} if not found
      */
-    public static Application getApplicationByNRICAndProject(String nric, Project project) {
-        List<Application> applications = getAllApplications();
-        for (Application app : applications) {
-            if (app.getApplicant().getNRIC().equalsIgnoreCase(nric) &&
-                app.getProject().equals(project)) {
-                return app;
-            }
-        }
-        return null;
-    }
+     // public static Application getApplicationByNRICAndProject(String nric, Project project) {
+     //     List<Application> applications = getAllApplications();
+     //     for (Application app : applications) {
+     //         if (app.getApplicant().getNRIC().equalsIgnoreCase(nric) &&
+     //             app.getProject().equals(project)) {
+     //             return app;
+     //         }
+     //     }
+     //     return null;
+     // }
 }

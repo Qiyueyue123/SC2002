@@ -80,4 +80,20 @@ public class EnquiryController {
     public static Enquiry getEnquiryById(int id) {
         return EnquiryRepository.getEnquiryById(id);
     }
+     /**
+     * Adds a new enquiry to the repository.
+     *
+     * @param e the {@link Enquiry} to add
+     */
+    public static void addEnquiry(Enquiry e){
+        EnquiryRepository.addEnquiry(e);
+    }
+     /**
+     * Deletes an enquiry from the repository.
+     *
+     * @param e the {@link Enquiry} to delete
+     */
+    public static void deleteEnquiry(Enquiry e){
+        EnquiryRepository.getAllEnquiries().remove(e);
+    }
 }
