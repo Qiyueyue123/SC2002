@@ -94,13 +94,6 @@ public class ApplicationRepository {
         applications.clear();
     }
 
-    /**
-     * Finds an application by the applicant's NRIC and project.
-     *
-     * @param nric the NRIC of the applicant
-     * @param project the {@link Project} to find the application for
-     * @return the {@link Application} with the matching NRIC and project, or {@code null} if not found
-     */
      // public static Application getApplicationByNRICAndProject(String nric, Project project) {
      //     List<Application> applications = getAllApplications();
      //     for (Application app : applications) {

@@ -73,7 +73,7 @@ public class ManagerController {
     }
     
     /**
-     * Updates an existing project with new parameters.
+     * Edit an existing project by updating it with new parameters.
      *
      * @param proj the project to be updated
      * @param name the new name of the project
@@ -174,7 +174,7 @@ public class ManagerController {
      * Allows the manager to approve or reject application requests.
      */
     public void approveOrRejectApplicantApplication() {
-        List<Application> pendingApps = ApplicationController.getPendingApplicationsForManager(manager);
+        List<Application> pendingApps = ApplicationController.getManagerPendingApplications(manager);
         if (pendingApps.isEmpty()) {
             System.out.println("No pending applicant applications.");
             return;
@@ -213,9 +213,8 @@ public class ManagerController {
     }
     
     /**
-     * Returns all enquiries for a specific project managed by this manager.
+     * Display all enquiries for a specific project managed by this manager.
      *
-     * @return a list of enquiries for the selected project, or null if no valid project is selected
      */
     public void viewProjectEnquiries() {
         ArrayList<Project> myProjects = ProjectController.getUserProjects(manager);
@@ -279,7 +278,7 @@ public class ManagerController {
                 processing = false;
                 break;
             }
-            Application selectedApp = ApplicationController.selectApplication(nric);
+            Application selectedApp = ApplicationController.getApplicationByNRIC(nric);
             if (selectedApp == null) {
                 continue;
             }

@@ -74,6 +74,7 @@ public class ApplicantController extends UserController{
             System.out.println("No projects available");
             return null;
         }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         LocalDate today = LocalDate.now();
         ArrayList<Project> visible = new ArrayList<>();

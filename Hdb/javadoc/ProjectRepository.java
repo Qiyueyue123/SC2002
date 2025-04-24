@@ -54,21 +54,6 @@ public class ProjectRepository {
         projects.remove(project);
     }
 
-    /**
-     * Updates the details of an existing project identified by its name.
-     *
-     * @param name             The name of the project to update.
-     * @param neighbourhood    The new neighbourhood name.
-     * @param visibility       The new visibility status.
-     * @param num2Rooms        The number of 2-room flats.
-     * @param num3Rooms        The number of 3-room flats.
-     * @param openingDate      The new opening date.
-     * @param closingDate      The new closing date.
-     * @param availOfficerSlots Number of available officer slots.
-     * @param manager          The manager assigned to the project.
-     * @param price2room       Price of 2-room flats.
-     * @param price3room       Price of 3-room flats.
-     */
     // public static void updateProject(Project proj,String name, String neighbourhood, boolean visibility, int num2Rooms, int num3Rooms, String openingDate, String closingDate, 
      // int availOfficerSlots, Manager manager, int price2room, int price3room){
      //     for(Project p : projects){

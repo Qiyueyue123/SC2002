@@ -28,7 +28,12 @@ public class RegistrationController {
             }
         }
     }
-    
+    /**
+     * Returns all pending registrations for a specific project.
+     *
+     * @param proj The project to retrieve pending registrations for.
+     * @return A list of pending {@link Registration} objects.
+     */
     public static ArrayList<Registration> getPendingRegistrations(Project proj){
         return RegistrationRepository.getPendingRegistrations(proj);
     }
@@ -63,11 +68,15 @@ public class RegistrationController {
         Registration reg = new Registration(officer, proj);
         RegistrationRepository.addRegistration(reg);
     }
-
+    /**
+     * Returns all registrations in the system.
+     *
+     * @return A list of all {@link Registration} objects.
+     */
     public static List<Registration> getAllRegistrations(){
         return RegistrationRepository.getAllRegistrations();
     }
-    
+
     /**
      * Rejects the given registration by setting its status to "Rejected".
      *

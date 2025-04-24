@@ -186,35 +186,42 @@ public class Application {
      */
 
     public void print() {
-        int numUnits = 0;
-        int price = 0;
-        String marriedStatus = "NIL";
-
-        if (flatType == 2) {
-            numUnits = project.getNum2Rooms();
-            price = project.getPrice2Room();
-        } else if (flatType == 3) {
-            numUnits = project.getNum3Rooms();
-            price = project.getPrice3Room();
-        }
-
-        marriedStatus = applicant.isMarried() ? "Married" : "Single";
-
-        System.out.println();
-        System.out.println("========== BTO Application ==========");
-        System.out.println("Application Status: " + appliedStatus);
-        System.out.println("-------------------------------------");
-        System.out.println("Applicant: " + applicant.getName());
-        System.out.println("NRIC: " + applicant.getNRIC());
-        System.out.println("Age: " + applicant.getAge());
-        System.out.println("Marital Status: " + marriedStatus);
-        System.out.println();
-        System.out.println("Project: " + project.getName());
-        System.out.println("Flat-type: " + flatType + "-Room");
-        System.out.println("Price: $" + price);
-        System.out.println("Number of units available: " + numUnits);
-        System.out.println("-------------------------------------");
-        System.out.println("Withdrawal Requested: " + withdrawalRequest);
-        System.out.println("Withdrawal Status: " + withdrawalStatus);
-    }
+		int numUnits = 0;
+		int price = 0;
+		String marriedStatus = "NIL";
+		
+		if (flatType == 2) {
+			numUnits = project.getNum2Rooms();
+			price = project.getPrice2Room();
+		}
+		else if (flatType == 3) {
+			numUnits = project.getNum3Rooms();
+			price = project.getPrice3Room();
+		}
+		
+		if (applicant.isMarried()) {
+			marriedStatus = "Married";
+		}
+		else {
+			marriedStatus = "Single";
+		}
+		
+		System.out.println();
+		System.out.println("========== BTO Application ==========");
+		System.out.println("Application Status: " + appliedStatus);
+		System.out.println("-------------------------------------");
+		System.out.println("Applicant: " + applicant.getName());
+		System.out.println("NRIC: " + applicant.getNRIC());
+		System.out.println("Age: " + applicant.getAge());
+		System.out.println("Marital Status: " + marriedStatus);
+		System.out.println();
+		System.out.println("Project: " + project.getName());
+		System.out.println("Flat-type: " + flatType + "-Room");
+		System.out.println("Price: $" + price);
+		System.out.println("Number of units available: " + numUnits);
+		System.out.println("-------------------------------------");
+		System.out.println("Withdrawal Requested: " + withdrawalRequest);
+		System.out.println("Withdrawal Status: " + withdrawalStatus);
+		
+	}
 }
