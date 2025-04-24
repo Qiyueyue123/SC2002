@@ -18,13 +18,10 @@ This repository contains our implementation of a HDB BTO app
 ### 📚 Javadoc Documentation  
 [View Javadoc HTML](Hdb/javadoc/doc/index.html)
 
-### Report
+### FULL Report
 
 [View Report](FCS1_grp6.pdf)
 
-
-### Full Report
-**Link:** [Google Doc](https://docs.google.com/document/d/1B-u7ymmW_2W3GDOe6BVRbl9ay3D-ffNAdB1X4eFO40M/edit?usp=sharing)
 
 
 
