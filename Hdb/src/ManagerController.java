@@ -35,10 +35,12 @@ public class ManagerController {
                 }
             }
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format: " + e.getMessage());
+            System.out.println("Invalid date format: " + e.getMessage());
+            return;
         }
         Project newProject = new Project(name,neighbourhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availOfficerSlots,manager,price2room,price3room);
         ProjectRepository.addProject(newProject);
+        System.out.println("Project successfully created!");
     }
     
    

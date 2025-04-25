@@ -64,13 +64,12 @@ public class ManagerDisplay implements UserDisplay {
                     int availableOfficerSlots = Integer.parseInt(scanner.nextLine());
                     controller.createProject(projName,neighborhood,visibility,num2Rooms,num3Rooms,openingDate,closingDate,availableOfficerSlots,
 					manager,price2room,price3room);
-					System.out.println("Project successfully created!");
-                    break;
+					break;
                 case 2:
 					ArrayList<Project> myProjects = ProjectController.getUserProjects(manager);
 					if (myProjects.isEmpty()) {
 						System.out.println("You have no projects to edit.");
-						return;
+						break;
 					}
 					System.out.println("Your Projects:");
 					for (int i = 0; i < myProjects.size(); i++) {
