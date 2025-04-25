@@ -1,4 +1,4 @@
 Project Name,Neighborhood,Type 1,Num2Rooms,Price,Type 2,Num3Rooms,Price,OpeningDate,ClosingDate,Manager,AvailOfficerSlots,Visibility,Officer
 Acacia Breeze,Yishun,2-Room,2,350000,3-Room,3,350000,2/15/2025,3/20/2025,Jessica,3,1,"Daniel"
 Sky Park,Sembawang,2-Room,2,250000,3-Room,5,250000,4/12/2025,5/26/2025,Sam,8,1,"David,Emily"
-Tengah,Bishan,2-Room,4,10000,3-Room,5,10000,4/12/2025,5/26/2025,Michael,10,0,""
+Tengah,Bishan,2-Room,4,10000,3-Room,5,10000,4/12/2025,5/26/2025,Michael,10,1,""
